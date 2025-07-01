@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            svncls = new Button();
+            saveAndCloseButton = new Button();
             label1 = new Label();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
@@ -37,15 +37,15 @@
             label3 = new Label();
             SuspendLayout();
             // 
-            // svncls
+            // saveAndCloseButton
             // 
-            svncls.Location = new Point(277, 246);
-            svncls.Name = "svncls";
-            svncls.Size = new Size(84, 23);
-            svncls.TabIndex = 0;
-            svncls.Text = "Save & Close";
-            svncls.UseVisualStyleBackColor = true;
-            svncls.Click += svncls_Click;
+            saveAndCloseButton.Location = new Point(277, 246);
+            saveAndCloseButton.Name = "saveAndCloseButton";
+            saveAndCloseButton.Size = new Size(84, 23);
+            saveAndCloseButton.TabIndex = 0;
+            saveAndCloseButton.Text = "Save & Close";
+            saveAndCloseButton.UseVisualStyleBackColor = true;
+            saveAndCloseButton.Click += SaveAndCloseButton_Click;
             // 
             // label1
             // 
@@ -109,7 +109,7 @@
             Controls.Add(label2);
             Controls.Add(textBox1);
             Controls.Add(label1);
-            Controls.Add(svncls);
+            Controls.Add(saveAndCloseButton);
             Name = "Other";
             Text = "Other";
             Load += Other_Load;
@@ -119,7 +119,7 @@
 
         #endregion
 
-        private Button svncls;
+        private Button saveAndCloseButton;
         private Label label1;
         private TextBox textBox1;
         private TextBox textBox2;

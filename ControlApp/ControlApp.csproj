@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -6,53 +7,87 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-  <ItemGroup>
-    <COMReference Include="AxWMPLib">
-      <WrapperTool>aximp</WrapperTool>
-      <VersionMinor>0</VersionMinor>
-      <VersionMajor>1</VersionMajor>
-      <Guid>6bf52a50-394a-11d3-b153-00c04f79faa6</Guid>
-      <Lcid>0</Lcid>
-      <Isolated>false</Isolated>
-    </COMReference>
-    <COMReference Include="WMPLib">
-      <WrapperTool>tlbimp</WrapperTool>
-      <VersionMinor>0</VersionMinor>
-      <VersionMajor>1</VersionMajor>
-      <Guid>6bf52a50-394a-11d3-b153-00c04f79faa6</Guid>
-      <Lcid>0</Lcid>
-      <Isolated>false</Isolated>
-      <EmbedInteropTypes>true</EmbedInteropTypes>
-    </COMReference>
-  </ItemGroup>
+
   <ItemGroup>
     <None Include="bin\Debug\net8.0-windows\App.ico" />
     <None Include="bin\Release\net8.0-windows\App.ico" />
   </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Emgu.CV" Version="4.10.0.5680" />
     <PackageReference Include="Emgu.CV.Bitmap" Version="4.10.0.5680" />
     <PackageReference Include="Emgu.CV.runtime.windows" Version="4.10.0.5680" />
     <PackageReference Include="Emgu.CV.UI" Version="4.10.0.5680" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.72" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3065.39" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
-    <PackageReference Include="System.Speech" Version="9.0.0" />
+    <PackageReference Include="FluentFTP" Version="52.1.0" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.12.1" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3296.44" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.5" />
+    <PackageReference Include="System.Speech" Version="9.0.5" />
+    <PackageReference Include="WMPLib" Version="1.0.0" />
   </ItemGroup>
+
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Subroutines\Blank.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Subroutines\CustomMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Subroutines\Popup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Subroutines\SendOrDelete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Subroutines\Subliminal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Subroutines\Spinner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Subroutines\SubLoop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Subroutines\WatchForMe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Subroutines\WriteForMe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CommandBuilderTab.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Subroutines\CustomMessage.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Subroutines\Popup.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Subroutines\Subliminal.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Subroutines\WatchForMe.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Subroutines\WriteForMe.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
+
   <ItemGroup>
     <Folder Include="spinwheels\" />
   </ItemGroup>
+
 </Project>

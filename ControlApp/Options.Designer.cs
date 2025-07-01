@@ -1,735 +1,777 @@
-﻿namespace ControlApp
+﻿namespace ControlApp;
+
+partial class Options
 {
-    partial class Options
-    {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+	/// <summary>
+	/// Required designer variable.
+	/// </summary>
+	private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+	/// <summary>
+	/// Clean up any resources being used.
+	/// </summary>
+	/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+	protected override void Dispose(bool disposing)
+	{
+		if (disposing && (components != null))
+		{
+			components.Dispose();
+		}
+		base.Dispose(disposing);
+	}
 
-        #region Windows Form Designer generated code
+	#region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            SvExit = new Button();
-            tabPage1 = new TabPage();
-            panel10 = new Panel();
-            fullscchk = new CheckBox();
-            panel6 = new Panel();
-            ymove = new RadioButton();
-            nmove = new RadioButton();
-            panel5 = new Panel();
-            seethr = new RadioButton();
-            nseethr = new RadioButton();
-            panel11 = new Panel();
-            clkbl = new RadioButton();
-            clickthr = new RadioButton();
-            normlbtn = new RadioButton();
-            label11 = new Label();
-            panel4 = new Panel();
-            dmode_chk = new CheckBox();
-            webcnt = new CheckBox();
-            label5 = new Label();
-            showblocked = new CheckBox();
-            panel3 = new Panel();
-            parallelrd = new RadioButton();
-            serialrd = new RadioButton();
-            label4 = new Label();
-            panel2 = new Panel();
-            fitsc = new RadioButton();
-            stret = new RadioButton();
-            label3 = new Label();
-            panel1 = new Panel();
-            dismch = new CheckBox();
-            ttsch = new CheckBox();
-            webcamch = new CheckBox();
-            outstandch = new CheckBox();
-            senddelch = new CheckBox();
-            watch4mech = new CheckBox();
-            twitch = new CheckBox();
-            screenshch = new CheckBox();
-            wrich = new CheckBox();
-            audioch = new CheckBox();
-            sublimch = new CheckBox();
-            messch = new CheckBox();
-            popch = new CheckBox();
-            label2 = new Label();
-            opwebch = new CheckBox();
-            runch = new CheckBox();
-            wallpch = new CheckBox();
-            dlch = new CheckBox();
-            Popups = new Panel();
-            longpop = new RadioButton();
-            shortpop = new RadioButton();
-            label1 = new Label();
-            tabControl1 = new TabControl();
-            tabPage1.SuspendLayout();
-            panel10.SuspendLayout();
-            panel6.SuspendLayout();
-            panel5.SuspendLayout();
-            panel11.SuspendLayout();
-            panel4.SuspendLayout();
-            panel3.SuspendLayout();
-            panel2.SuspendLayout();
-            panel1.SuspendLayout();
-            Popups.SuspendLayout();
-            tabControl1.SuspendLayout();
-            SuspendLayout();
-            // 
-            // SvExit
-            // 
-            SvExit.Location = new Point(319, 477);
-            SvExit.Name = "SvExit";
-            SvExit.Size = new Size(81, 23);
-            SvExit.TabIndex = 1;
-            SvExit.Text = "Save & Exit ";
-            SvExit.UseVisualStyleBackColor = true;
-            SvExit.Click += SvExit_Click;
-            // 
-            // tabPage1
-            // 
-            tabPage1.Controls.Add(panel10);
-            tabPage1.Controls.Add(panel4);
-            tabPage1.Controls.Add(panel3);
-            tabPage1.Controls.Add(panel2);
-            tabPage1.Controls.Add(panel1);
-            tabPage1.Controls.Add(Popups);
-            tabPage1.Location = new Point(4, 24);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(685, 431);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "General";
-            tabPage1.UseVisualStyleBackColor = true;
-            tabPage1.Click += tabPage1_Click;
-            // 
-            // panel10
-            // 
-            panel10.Controls.Add(fullscchk);
-            panel10.Controls.Add(panel6);
-            panel10.Controls.Add(panel5);
-            panel10.Controls.Add(panel11);
-            panel10.Controls.Add(label11);
-            panel10.Location = new Point(346, 91);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(334, 208);
-            panel10.TabIndex = 30;
-            // 
-            // fullscchk
-            // 
-            fullscchk.AutoSize = true;
-            fullscchk.Location = new Point(159, 108);
-            fullscchk.Name = "fullscchk";
-            fullscchk.Size = new Size(83, 19);
-            fullscchk.TabIndex = 10;
-            fullscchk.Text = "Full Screen";
-            fullscchk.UseVisualStyleBackColor = true;
-            fullscchk.CheckedChanged += fullscchk_CheckedChanged;
-            // 
-            // panel6
-            // 
-            panel6.Controls.Add(ymove);
-            panel6.Controls.Add(nmove);
-            panel6.Location = new Point(146, 26);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(119, 62);
-            panel6.TabIndex = 9;
-            // 
-            // ymove
-            // 
-            ymove.AutoSize = true;
-            ymove.Location = new Point(13, 32);
-            ymove.Name = "ymove";
-            ymove.Size = new Size(66, 19);
-            ymove.TabIndex = 1;
-            ymove.TabStop = true;
-            ymove.Text = "Moving";
-            ymove.UseVisualStyleBackColor = true;
-            // 
-            // nmove
-            // 
-            nmove.AutoSize = true;
-            nmove.Location = new Point(13, 7);
-            nmove.Name = "nmove";
-            nmove.Size = new Size(72, 19);
-            nmove.TabIndex = 6;
-            nmove.TabStop = true;
-            nmove.Text = "Standard";
-            nmove.UseVisualStyleBackColor = true;
-            // 
-            // panel5
-            // 
-            panel5.Controls.Add(seethr);
-            panel5.Controls.Add(nseethr);
-            panel5.Location = new Point(21, 115);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(119, 62);
-            panel5.TabIndex = 8;
-            // 
-            // seethr
-            // 
-            seethr.AutoSize = true;
-            seethr.Location = new Point(13, 32);
-            seethr.Name = "seethr";
-            seethr.Size = new Size(89, 19);
-            seethr.TabIndex = 1;
-            seethr.TabStop = true;
-            seethr.Text = "See through";
-            seethr.UseVisualStyleBackColor = true;
-            // 
-            // nseethr
-            // 
-            nseethr.AutoSize = true;
-            nseethr.Location = new Point(13, 7);
-            nseethr.Name = "nseethr";
-            nseethr.Size = new Size(72, 19);
-            nseethr.TabIndex = 6;
-            nseethr.TabStop = true;
-            nseethr.Text = "Standard";
-            nseethr.UseVisualStyleBackColor = true;
-            // 
-            // panel11
-            // 
-            panel11.Controls.Add(clkbl);
-            panel11.Controls.Add(clickthr);
-            panel11.Controls.Add(normlbtn);
-            panel11.Location = new Point(21, 26);
-            panel11.Name = "panel11";
-            panel11.Size = new Size(119, 87);
-            panel11.TabIndex = 7;
-            // 
-            // clkbl
-            // 
-            clkbl.AutoSize = true;
-            clkbl.Location = new Point(13, 56);
-            clkbl.Name = "clkbl";
-            clkbl.Size = new Size(73, 19);
-            clkbl.TabIndex = 7;
-            clkbl.TabStop = true;
-            clkbl.Text = "Clickable";
-            clkbl.UseVisualStyleBackColor = true;
-            // 
-            // clickthr
-            // 
-            clickthr.AutoSize = true;
-            clickthr.Location = new Point(13, 32);
-            clickthr.Name = "clickthr";
-            clickthr.Size = new Size(97, 19);
-            clickthr.TabIndex = 1;
-            clickthr.TabStop = true;
-            clickthr.Text = "Click through";
-            clickthr.UseVisualStyleBackColor = true;
-            // 
-            // normlbtn
-            // 
-            normlbtn.AutoSize = true;
-            normlbtn.Location = new Point(13, 7);
-            normlbtn.Name = "normlbtn";
-            normlbtn.Size = new Size(72, 19);
-            normlbtn.TabIndex = 6;
-            normlbtn.TabStop = true;
-            normlbtn.Text = "Standard";
-            normlbtn.UseVisualStyleBackColor = true;
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Location = new Point(3, 0);
-            label11.Name = "label11";
-            label11.Size = new Size(74, 15);
-            label11.TabIndex = 0;
-            label11.Text = "Popups Type";
-            // 
-            // panel4
-            // 
-            panel4.Controls.Add(dmode_chk);
-            panel4.Controls.Add(webcnt);
-            panel4.Controls.Add(label5);
-            panel4.Controls.Add(showblocked);
-            panel4.Location = new Point(346, 305);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(334, 114);
-            panel4.TabIndex = 29;
-            // 
-            // dmode_chk
-            // 
-            dmode_chk.AutoSize = true;
-            dmode_chk.Location = new Point(21, 68);
-            dmode_chk.Name = "dmode_chk";
-            dmode_chk.Size = new Size(84, 19);
-            dmode_chk.TabIndex = 23;
-            dmode_chk.Text = "Dark mode";
-            dmode_chk.UseVisualStyleBackColor = true;
-            // 
-            // webcnt
-            // 
-            webcnt.AutoSize = true;
-            webcnt.Location = new Point(21, 18);
-            webcnt.Name = "webcnt";
-            webcnt.Size = new Size(137, 19);
-            webcnt.TabIndex = 22;
-            webcnt.Text = "Webcam countdown";
-            webcnt.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(7, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(49, 15);
-            label5.TabIndex = 21;
-            label5.Text = "Options";
-            // 
-            // showblocked
-            // 
-            showblocked.AutoSize = true;
-            showblocked.Location = new Point(21, 43);
-            showblocked.Name = "showblocked";
-            showblocked.Size = new Size(126, 19);
-            showblocked.TabIndex = 20;
-            showblocked.Text = "Show blocked msg";
-            showblocked.UseVisualStyleBackColor = true;
-            // 
-            // panel3
-            // 
-            panel3.Controls.Add(parallelrd);
-            panel3.Controls.Add(serialrd);
-            panel3.Controls.Add(label4);
-            panel3.Location = new Point(346, 6);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(334, 77);
-            panel3.TabIndex = 27;
-            // 
-            // parallelrd
-            // 
-            parallelrd.AutoSize = true;
-            parallelrd.Location = new Point(21, 43);
-            parallelrd.Name = "parallelrd";
-            parallelrd.Size = new Size(198, 19);
-            parallelrd.TabIndex = 2;
-            parallelrd.TabStop = true;
-            parallelrd.Text = "All at once (may cause pc issues)";
-            parallelrd.UseVisualStyleBackColor = true;
-            parallelrd.CheckedChanged += parallelrd_CheckedChanged;
-            // 
-            // serialrd
-            // 
-            serialrd.AutoSize = true;
-            serialrd.Location = new Point(21, 18);
-            serialrd.Name = "serialrd";
-            serialrd.Size = new Size(96, 19);
-            serialrd.TabIndex = 1;
-            serialrd.TabStop = true;
-            serialrd.Text = "One at a time";
-            serialrd.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(3, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(47, 15);
-            label4.TabIndex = 0;
-            label4.Text = "Popups";
-            // 
-            // panel2
-            // 
-            panel2.Controls.Add(fitsc);
-            panel2.Controls.Add(stret);
-            panel2.Controls.Add(label3);
-            panel2.Location = new Point(6, 371);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(334, 48);
-            panel2.TabIndex = 28;
-            // 
-            // fitsc
-            // 
-            fitsc.AutoSize = true;
-            fitsc.Location = new Point(111, 18);
-            fitsc.Name = "fitsc";
-            fitsc.Size = new Size(75, 19);
-            fitsc.TabIndex = 2;
-            fitsc.TabStop = true;
-            fitsc.Text = "Fit screen";
-            fitsc.UseVisualStyleBackColor = true;
-            // 
-            // stret
-            // 
-            stret.AutoSize = true;
-            stret.Location = new Point(12, 18);
-            stret.Name = "stret";
-            stret.Size = new Size(62, 19);
-            stret.TabIndex = 1;
-            stret.TabStop = true;
-            stret.Text = "Stretch";
-            stret.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(3, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(60, 15);
-            label3.TabIndex = 0;
-            label3.Text = "Wallpaper";
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(dismch);
-            panel1.Controls.Add(ttsch);
-            panel1.Controls.Add(webcamch);
-            panel1.Controls.Add(outstandch);
-            panel1.Controls.Add(senddelch);
-            panel1.Controls.Add(watch4mech);
-            panel1.Controls.Add(twitch);
-            panel1.Controls.Add(screenshch);
-            panel1.Controls.Add(wrich);
-            panel1.Controls.Add(audioch);
-            panel1.Controls.Add(sublimch);
-            panel1.Controls.Add(messch);
-            panel1.Controls.Add(popch);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(opwebch);
-            panel1.Controls.Add(runch);
-            panel1.Controls.Add(wallpch);
-            panel1.Controls.Add(dlch);
-            panel1.Location = new Point(6, 89);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(334, 276);
-            panel1.TabIndex = 26;
-            // 
-            // dismch
-            // 
-            dismch.AutoSize = true;
-            dismch.Location = new Point(122, 185);
-            dismch.Name = "dismch";
-            dismch.Size = new Size(103, 19);
-            dismch.TabIndex = 17;
-            dismch.Text = "Disable Mouse";
-            dismch.UseVisualStyleBackColor = true;
-            // 
-            // ttsch
-            // 
-            ttsch.AutoSize = true;
-            ttsch.Location = new Point(122, 160);
-            ttsch.Name = "ttsch";
-            ttsch.Size = new Size(44, 19);
-            ttsch.TabIndex = 16;
-            ttsch.Text = "TTS";
-            ttsch.UseVisualStyleBackColor = true;
-            // 
-            // webcamch
-            // 
-            webcamch.AutoSize = true;
-            webcamch.Location = new Point(122, 135);
-            webcamch.Name = "webcamch";
-            webcamch.Size = new Size(73, 19);
-            webcamch.TabIndex = 15;
-            webcamch.Text = "Webcam";
-            webcamch.UseVisualStyleBackColor = true;
-            webcamch.CheckedChanged += webcamch_CheckedChanged;
-            // 
-            // outstandch
-            // 
-            outstandch.AutoSize = true;
-            outstandch.Location = new Point(122, 234);
-            outstandch.Name = "outstandch";
-            outstandch.Size = new Size(143, 19);
-            outstandch.TabIndex = 14;
-            outstandch.Text = "Outstanding reminder";
-            outstandch.UseVisualStyleBackColor = true;
-            // 
-            // senddelch
-            // 
-            senddelch.AutoSize = true;
-            senddelch.Location = new Point(122, 110);
-            senddelch.Name = "senddelch";
-            senddelch.Size = new Size(102, 19);
-            senddelch.TabIndex = 13;
-            senddelch.Text = "Send or Delete";
-            senddelch.UseVisualStyleBackColor = true;
-            // 
-            // watch4mech
-            // 
-            watch4mech.AutoSize = true;
-            watch4mech.Location = new Point(122, 85);
-            watch4mech.Name = "watch4mech";
-            watch4mech.Size = new Size(98, 19);
-            watch4mech.TabIndex = 12;
-            watch4mech.Text = "Watch for me";
-            watch4mech.UseVisualStyleBackColor = true;
-            // 
-            // twitch
-            // 
-            twitch.AutoSize = true;
-            twitch.Location = new Point(122, 60);
-            twitch.Name = "twitch";
-            twitch.Size = new Size(87, 19);
-            twitch.TabIndex = 11;
-            twitch.Text = "Twitter post";
-            twitch.UseVisualStyleBackColor = true;
-            // 
-            // screenshch
-            // 
-            screenshch.AutoSize = true;
-            screenshch.Location = new Point(122, 35);
-            screenshch.Name = "screenshch";
-            screenshch.Size = new Size(92, 19);
-            screenshch.TabIndex = 10;
-            screenshch.Text = "Screen shots";
-            screenshch.UseVisualStyleBackColor = true;
-            // 
-            // wrich
-            // 
-            wrich.AutoSize = true;
-            wrich.Location = new Point(12, 234);
-            wrich.Name = "wrich";
-            wrich.Size = new Size(92, 19);
-            wrich.TabIndex = 9;
-            wrich.Text = "Write for me";
-            wrich.UseVisualStyleBackColor = true;
-            // 
-            // audioch
-            // 
-            audioch.AutoSize = true;
-            audioch.Location = new Point(12, 209);
-            audioch.Name = "audioch";
-            audioch.Size = new Size(58, 19);
-            audioch.TabIndex = 8;
-            audioch.Text = "Audio";
-            audioch.UseVisualStyleBackColor = true;
-            // 
-            // sublimch
-            // 
-            sublimch.AutoSize = true;
-            sublimch.Location = new Point(12, 185);
-            sublimch.Name = "sublimch";
-            sublimch.Size = new Size(82, 19);
-            sublimch.TabIndex = 7;
-            sublimch.Text = "Subliminal";
-            sublimch.UseVisualStyleBackColor = true;
-            // 
-            // messch
-            // 
-            messch.AutoSize = true;
-            messch.Location = new Point(12, 160);
-            messch.Name = "messch";
-            messch.Size = new Size(77, 19);
-            messch.TabIndex = 6;
-            messch.Text = "Messages";
-            messch.UseVisualStyleBackColor = true;
-            // 
-            // popch
-            // 
-            popch.AutoSize = true;
-            popch.Location = new Point(12, 135);
-            popch.Name = "popch";
-            popch.Size = new Size(70, 19);
-            popch.TabIndex = 5;
-            popch.Text = "Pop Ups";
-            popch.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(12, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(56, 15);
-            label2.TabIndex = 4;
-            label2.Text = "Dis-allow";
-            // 
-            // opwebch
-            // 
-            opwebch.AutoSize = true;
-            opwebch.Location = new Point(12, 110);
-            opwebch.Name = "opwebch";
-            opwebch.Size = new Size(100, 19);
-            opwebch.TabIndex = 3;
-            opwebch.Text = "Open Website";
-            opwebch.UseVisualStyleBackColor = true;
-            // 
-            // runch
-            // 
-            runch.AutoSize = true;
-            runch.Location = new Point(12, 85);
-            runch.Name = "runch";
-            runch.Size = new Size(93, 19);
-            runch.TabIndex = 2;
-            runch.Text = "Runable files";
-            runch.UseVisualStyleBackColor = true;
-            // 
-            // wallpch
-            // 
-            wallpch.AutoSize = true;
-            wallpch.Location = new Point(12, 60);
-            wallpch.Name = "wallpch";
-            wallpch.Size = new Size(79, 19);
-            wallpch.TabIndex = 1;
-            wallpch.Text = "Wallpaper";
-            wallpch.UseVisualStyleBackColor = true;
-            // 
-            // dlch
-            // 
-            dlch.AutoSize = true;
-            dlch.Location = new Point(12, 35);
-            dlch.Name = "dlch";
-            dlch.Size = new Size(80, 19);
-            dlch.TabIndex = 0;
-            dlch.Text = "Download";
-            dlch.UseVisualStyleBackColor = true;
-            // 
-            // Popups
-            // 
-            Popups.Controls.Add(longpop);
-            Popups.Controls.Add(shortpop);
-            Popups.Controls.Add(label1);
-            Popups.Location = new Point(6, 6);
-            Popups.Name = "Popups";
-            Popups.Size = new Size(334, 77);
-            Popups.TabIndex = 25;
-            // 
-            // longpop
-            // 
-            longpop.AutoSize = true;
-            longpop.Location = new Point(12, 43);
-            longpop.Name = "longpop";
-            longpop.Size = new Size(185, 19);
-            longpop.TabIndex = 2;
-            longpop.TabStop = true;
-            longpop.Text = "Long popups (1min - 10 mins)";
-            longpop.UseVisualStyleBackColor = true;
-            // 
-            // shortpop
-            // 
-            shortpop.AutoSize = true;
-            shortpop.Location = new Point(12, 18);
-            shortpop.Name = "shortpop";
-            shortpop.Size = new Size(174, 19);
-            shortpop.TabIndex = 1;
-            shortpop.TabStop = true;
-            shortpop.Text = "Short popups (10sec - 1min)";
-            shortpop.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(3, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(47, 15);
-            label1.TabIndex = 0;
-            label1.Text = "Popups";
-            // 
-            // tabControl1
-            // 
-            tabControl1.Controls.Add(tabPage1);
-            tabControl1.Location = new Point(12, 12);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(693, 459);
-            tabControl1.TabIndex = 20;
-            // 
-            // Options
-            // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(709, 509);
-            Controls.Add(tabControl1);
-            Controls.Add(SvExit);
-            Name = "Options";
-            Text = "Options";
-            Load += Options_Load;
-            tabPage1.ResumeLayout(false);
-            panel10.ResumeLayout(false);
-            panel10.PerformLayout();
-            panel6.ResumeLayout(false);
-            panel6.PerformLayout();
-            panel5.ResumeLayout(false);
-            panel5.PerformLayout();
-            panel11.ResumeLayout(false);
-            panel11.PerformLayout();
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            Popups.ResumeLayout(false);
-            Popups.PerformLayout();
-            tabControl1.ResumeLayout(false);
-            ResumeLayout(false);
-        }
+	/// <summary>
+	/// Required method for Designer support - do not modify
+	/// the contents of this method with the code editor.
+	/// </summary>
+	private void InitializeComponent() {
+		saveAndExitButton = new System.Windows.Forms.Button();
+		tabPage1 = new System.Windows.Forms.TabPage();
+		popupTypePanel = new System.Windows.Forms.Panel();
+		fullscreenCheckbox = new System.Windows.Forms.CheckBox();
+		panel6 = new System.Windows.Forms.Panel();
+		movingRadioButton = new System.Windows.Forms.RadioButton();
+		stillRadioButton = new System.Windows.Forms.RadioButton();
+		panel5 = new System.Windows.Forms.Panel();
+		seethroughRadioButton = new System.Windows.Forms.RadioButton();
+		opaqueRadioButton = new System.Windows.Forms.RadioButton();
+		panel11 = new System.Windows.Forms.Panel();
+		clickableRadioButton = new System.Windows.Forms.RadioButton();
+		clickthroughRadioButton = new System.Windows.Forms.RadioButton();
+		normalRadioButton = new System.Windows.Forms.RadioButton();
+		label11 = new System.Windows.Forms.Label();
+		miscOptionsPanel = new System.Windows.Forms.Panel();
+		darkModeCheckbox = new System.Windows.Forms.CheckBox();
+		webcamCountCheckbox = new System.Windows.Forms.CheckBox();
+		label5 = new System.Windows.Forms.Label();
+		showBlockedCheckbox = new System.Windows.Forms.CheckBox();
+		popupModePanel = new System.Windows.Forms.Panel();
+		parallelRadioButton = new System.Windows.Forms.RadioButton();
+		serialRadioButton = new System.Windows.Forms.RadioButton();
+		label4 = new System.Windows.Forms.Label();
+		wallpaperPanel = new System.Windows.Forms.Panel();
+		scaleToFitRadioButton = new System.Windows.Forms.RadioButton();
+		scaleStretchRadioButton = new System.Windows.Forms.RadioButton();
+		label3 = new System.Windows.Forms.Label();
+		disallowPanel = new System.Windows.Forms.Panel();
+		disableMouseCheckbox = new System.Windows.Forms.CheckBox();
+		disableInputCheckbox = new System.Windows.Forms.CheckBox();
+		ttsCheckbox = new System.Windows.Forms.CheckBox();
+		webcamCheckbox = new System.Windows.Forms.CheckBox();
+		reminderCheckbox = new System.Windows.Forms.CheckBox();
+		sendDeleteCheckbox = new System.Windows.Forms.CheckBox();
+		watchForMeCheckbox = new System.Windows.Forms.CheckBox();
+		twitterCheckbox = new System.Windows.Forms.CheckBox();
+		screenshotCheckbox = new System.Windows.Forms.CheckBox();
+		writeForMeCheckbox = new System.Windows.Forms.CheckBox();
+		audioCheckbox = new System.Windows.Forms.CheckBox();
+		subliminalCheckbox = new System.Windows.Forms.CheckBox();
+		messageCheckbox = new System.Windows.Forms.CheckBox();
+		popupCheckbox = new System.Windows.Forms.CheckBox();
+		label2 = new System.Windows.Forms.Label();
+		websiteCheckbox = new System.Windows.Forms.CheckBox();
+		runnableCheckbox = new System.Windows.Forms.CheckBox();
+		wallpaperCheckbox = new System.Windows.Forms.CheckBox();
+		downloadCheckbox = new System.Windows.Forms.CheckBox();
+		popupLengthPanel = new System.Windows.Forms.Panel();
+		longPopupRadioButton = new System.Windows.Forms.RadioButton();
+		shortPopupRadioButton = new System.Windows.Forms.RadioButton();
+		label1 = new System.Windows.Forms.Label();
+		tabControl1 = new System.Windows.Forms.TabControl();
+		tabPage1.SuspendLayout();
+		popupTypePanel.SuspendLayout();
+		panel6.SuspendLayout();
+		panel5.SuspendLayout();
+		panel11.SuspendLayout();
+		miscOptionsPanel.SuspendLayout();
+		popupModePanel.SuspendLayout();
+		wallpaperPanel.SuspendLayout();
+		disallowPanel.SuspendLayout();
+		popupLengthPanel.SuspendLayout();
+		tabControl1.SuspendLayout();
+		SuspendLayout();
+		// 
+		// saveAndExitButton
+		// 
+		saveAndExitButton.Location = new System.Drawing.Point(319, 477);
+		saveAndExitButton.Name = "saveAndExitButton";
+		saveAndExitButton.Size = new System.Drawing.Size(81, 23);
+		saveAndExitButton.TabIndex = 1;
+		saveAndExitButton.Text = "Save & Exit ";
+		saveAndExitButton.UseVisualStyleBackColor = true;
+		saveAndExitButton.Click += saveAndExitButton_Click;
+		// 
+		// tabPage1
+		// 
+		tabPage1.Controls.Add(popupTypePanel);
+		tabPage1.Controls.Add(miscOptionsPanel);
+		tabPage1.Controls.Add(popupModePanel);
+		tabPage1.Controls.Add(wallpaperPanel);
+		tabPage1.Controls.Add(disallowPanel);
+		tabPage1.Controls.Add(popupLengthPanel);
+		tabPage1.Location = new System.Drawing.Point(4, 24);
+		tabPage1.Name = "tabPage1";
+		tabPage1.Padding = new System.Windows.Forms.Padding(3);
+		tabPage1.Size = new System.Drawing.Size(685, 431);
+		tabPage1.TabIndex = 0;
+		tabPage1.Text = "General";
+		tabPage1.UseVisualStyleBackColor = true;
+		// 
+		// popupTypePanel
+		// 
+		popupTypePanel.Controls.Add(fullscreenCheckbox);
+		popupTypePanel.Controls.Add(panel6);
+		popupTypePanel.Controls.Add(panel5);
+		popupTypePanel.Controls.Add(panel11);
+		popupTypePanel.Controls.Add(label11);
+		popupTypePanel.Location = new System.Drawing.Point(346, 99);
+		popupTypePanel.Name = "popupTypePanel";
+		popupTypePanel.Size = new System.Drawing.Size(334, 200);
+		popupTypePanel.TabIndex = 30;
+		// 
+		// fullscreenCheckbox
+		// 
+		fullscreenCheckbox.AutoSize = true;
+		fullscreenCheckbox.Location = new System.Drawing.Point(159, 132);
+		fullscreenCheckbox.Name = "fullscreenCheckbox";
+		fullscreenCheckbox.Size = new System.Drawing.Size(83, 19);
+		fullscreenCheckbox.TabIndex = 10;
+		fullscreenCheckbox.Text = "Full Screen";
+		fullscreenCheckbox.UseVisualStyleBackColor = true;
+		fullscreenCheckbox.CheckedChanged += fullscreenCheckbox_changed;
+		// 
+		// panel6
+		// 
+		panel6.Controls.Add(movingRadioButton);
+		panel6.Controls.Add(stillRadioButton);
+		panel6.Location = new System.Drawing.Point(146, 40);
+		panel6.Name = "panel6";
+		panel6.Size = new System.Drawing.Size(119, 62);
+		panel6.TabIndex = 9;
+		// 
+		// movingRadioButton
+		// 
+		movingRadioButton.AutoSize = true;
+		movingRadioButton.Location = new System.Drawing.Point(13, 32);
+		movingRadioButton.Name = "movingRadioButton";
+		movingRadioButton.Size = new System.Drawing.Size(66, 19);
+		movingRadioButton.TabIndex = 1;
+		movingRadioButton.TabStop = true;
+		movingRadioButton.Text = "Moving";
+		movingRadioButton.UseVisualStyleBackColor = true;
+		// 
+		// stillRadioButton
+		// 
+		stillRadioButton.AutoSize = true;
+		stillRadioButton.Location = new System.Drawing.Point(13, 7);
+		stillRadioButton.Name = "stillRadioButton";
+		stillRadioButton.Size = new System.Drawing.Size(72, 19);
+		stillRadioButton.TabIndex = 6;
+		stillRadioButton.TabStop = true;
+		stillRadioButton.Text = "Standard";
+		stillRadioButton.UseVisualStyleBackColor = true;
+		// 
+		// panel5
+		// 
+		panel5.Controls.Add(seethroughRadioButton);
+		panel5.Controls.Add(opaqueRadioButton);
+		panel5.Location = new System.Drawing.Point(21, 125);
+		panel5.Name = "panel5";
+		panel5.Size = new System.Drawing.Size(119, 62);
+		panel5.TabIndex = 8;
+		// 
+		// seethroughRadioButton
+		// 
+		seethroughRadioButton.AutoSize = true;
+		seethroughRadioButton.Location = new System.Drawing.Point(13, 32);
+		seethroughRadioButton.Name = "seethroughRadioButton";
+		seethroughRadioButton.Size = new System.Drawing.Size(89, 19);
+		seethroughRadioButton.TabIndex = 1;
+		seethroughRadioButton.TabStop = true;
+		seethroughRadioButton.Text = "See through";
+		seethroughRadioButton.UseVisualStyleBackColor = true;
+		// 
+		// opaqueRadioButton
+		// 
+		opaqueRadioButton.AutoSize = true;
+		opaqueRadioButton.Location = new System.Drawing.Point(13, 7);
+		opaqueRadioButton.Name = "opaqueRadioButton";
+		opaqueRadioButton.Size = new System.Drawing.Size(72, 19);
+		opaqueRadioButton.TabIndex = 6;
+		opaqueRadioButton.TabStop = true;
+		opaqueRadioButton.Text = "Standard";
+		opaqueRadioButton.UseVisualStyleBackColor = true;
+		// 
+		// panel11
+		// 
+		panel11.Controls.Add(clickableRadioButton);
+		panel11.Controls.Add(clickthroughRadioButton);
+		panel11.Controls.Add(normalRadioButton);
+		panel11.Location = new System.Drawing.Point(21, 40);
+		panel11.Name = "panel11";
+		panel11.Size = new System.Drawing.Size(119, 87);
+		panel11.TabIndex = 7;
+		// 
+		// clickableRadioButton
+		// 
+		clickableRadioButton.AutoSize = true;
+		clickableRadioButton.Location = new System.Drawing.Point(13, 56);
+		clickableRadioButton.Name = "clickableRadioButton";
+		clickableRadioButton.Size = new System.Drawing.Size(73, 19);
+		clickableRadioButton.TabIndex = 7;
+		clickableRadioButton.TabStop = true;
+		clickableRadioButton.Text = "Clickable";
+		clickableRadioButton.UseVisualStyleBackColor = true;
+		// 
+		// clickthroughRadioButton
+		// 
+		clickthroughRadioButton.AutoSize = true;
+		clickthroughRadioButton.Location = new System.Drawing.Point(13, 32);
+		clickthroughRadioButton.Name = "clickthroughRadioButton";
+		clickthroughRadioButton.Size = new System.Drawing.Size(97, 19);
+		clickthroughRadioButton.TabIndex = 1;
+		clickthroughRadioButton.TabStop = true;
+		clickthroughRadioButton.Text = "Click through";
+		clickthroughRadioButton.UseVisualStyleBackColor = true;
+		// 
+		// normalRadioButton
+		// 
+		normalRadioButton.AutoSize = true;
+		normalRadioButton.Location = new System.Drawing.Point(13, 7);
+		normalRadioButton.Name = "normalRadioButton";
+		normalRadioButton.Size = new System.Drawing.Size(72, 19);
+		normalRadioButton.TabIndex = 6;
+		normalRadioButton.TabStop = true;
+		normalRadioButton.Text = "Standard";
+		normalRadioButton.UseVisualStyleBackColor = true;
+		// 
+		// label11
+		// 
+		label11.AutoSize = true;
+		label11.Location = new System.Drawing.Point(3, 0);
+		label11.Name = "label11";
+		label11.Size = new System.Drawing.Size(63, 15);
+		label11.TabIndex = 0;
+		label11.Text = "Panel Type";
+		// 
+		// miscOptionsPanel
+		// 
+		miscOptionsPanel.Controls.Add(darkModeCheckbox);
+		miscOptionsPanel.Controls.Add(webcamCountCheckbox);
+		miscOptionsPanel.Controls.Add(label5);
+		miscOptionsPanel.Controls.Add(showBlockedCheckbox);
+		miscOptionsPanel.Location = new System.Drawing.Point(346, 305);
+		miscOptionsPanel.Name = "miscOptionsPanel";
+		miscOptionsPanel.Size = new System.Drawing.Size(334, 114);
+		miscOptionsPanel.TabIndex = 29;
+		// 
+		// darkModeCheckbox
+		// 
+		darkModeCheckbox.AutoSize = true;
+		darkModeCheckbox.Location = new System.Drawing.Point(21, 68);
+		darkModeCheckbox.Name = "darkModeCheckbox";
+		darkModeCheckbox.Size = new System.Drawing.Size(84, 19);
+		darkModeCheckbox.TabIndex = 23;
+		darkModeCheckbox.Text = "Dark mode";
+		darkModeCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// webcamCountCheckbox
+		// 
+		webcamCountCheckbox.AutoSize = true;
+		webcamCountCheckbox.Location = new System.Drawing.Point(21, 18);
+		webcamCountCheckbox.Name = "webcamCountCheckbox";
+		webcamCountCheckbox.Size = new System.Drawing.Size(137, 19);
+		webcamCountCheckbox.TabIndex = 22;
+		webcamCountCheckbox.Text = "Webcam countdown";
+		webcamCountCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// label5
+		// 
+		label5.AutoSize = true;
+		label5.Location = new System.Drawing.Point(7, 0);
+		label5.Name = "label5";
+		label5.Size = new System.Drawing.Size(49, 15);
+		label5.TabIndex = 21;
+		label5.Text = "Options";
+		// 
+		// showBlockedCheckbox
+		// 
+		showBlockedCheckbox.AutoSize = true;
+		showBlockedCheckbox.Location = new System.Drawing.Point(21, 43);
+		showBlockedCheckbox.Name = "showBlockedCheckbox";
+		showBlockedCheckbox.Size = new System.Drawing.Size(163, 19);
+		showBlockedCheckbox.TabIndex = 20;
+		showBlockedCheckbox.Text = "Show blocked commands";
+		showBlockedCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// popupModePanel
+		// 
+		popupModePanel.Controls.Add(parallelRadioButton);
+		popupModePanel.Controls.Add(serialRadioButton);
+		popupModePanel.Controls.Add(label4);
+		popupModePanel.Location = new System.Drawing.Point(346, 6);
+		popupModePanel.Name = "popupModePanel";
+		popupModePanel.Size = new System.Drawing.Size(334, 87);
+		popupModePanel.TabIndex = 27;
+		// 
+		// parallelRadioButton
+		// 
+		parallelRadioButton.AutoSize = true;
+		parallelRadioButton.Location = new System.Drawing.Point(21, 43);
+		parallelRadioButton.Name = "parallelRadioButton";
+		parallelRadioButton.Size = new System.Drawing.Size(198, 19);
+		parallelRadioButton.TabIndex = 2;
+		parallelRadioButton.TabStop = true;
+		parallelRadioButton.Text = "All at once (may cause pc issues)";
+		parallelRadioButton.UseVisualStyleBackColor = true;
+		parallelRadioButton.CheckedChanged += parallelRadioButton_Changed;
+		// 
+		// serialRadioButton
+		// 
+		serialRadioButton.AutoSize = true;
+		serialRadioButton.Location = new System.Drawing.Point(21, 18);
+		serialRadioButton.Name = "serialRadioButton";
+		serialRadioButton.Size = new System.Drawing.Size(96, 19);
+		serialRadioButton.TabIndex = 1;
+		serialRadioButton.TabStop = true;
+		serialRadioButton.Text = "One at a time";
+		serialRadioButton.UseVisualStyleBackColor = true;
+		// 
+		// label4
+		// 
+		label4.AutoSize = true;
+		label4.Location = new System.Drawing.Point(3, 0);
+		label4.Name = "label4";
+		label4.Size = new System.Drawing.Size(47, 15);
+		label4.TabIndex = 0;
+		label4.Text = "Popups";
+		// 
+		// wallpaperPanel
+		// 
+		wallpaperPanel.Controls.Add(scaleToFitRadioButton);
+		wallpaperPanel.Controls.Add(scaleStretchRadioButton);
+		wallpaperPanel.Controls.Add(label3);
+		wallpaperPanel.Location = new System.Drawing.Point(6, 371);
+		wallpaperPanel.Name = "wallpaperPanel";
+		wallpaperPanel.Size = new System.Drawing.Size(334, 48);
+		wallpaperPanel.TabIndex = 28;
+		// 
+		// scaleToFitRadioButton
+		// 
+		scaleToFitRadioButton.AutoSize = true;
+		scaleToFitRadioButton.Location = new System.Drawing.Point(122, 18);
+		scaleToFitRadioButton.Name = "scaleToFitRadioButton";
+		scaleToFitRadioButton.Size = new System.Drawing.Size(75, 19);
+		scaleToFitRadioButton.TabIndex = 2;
+		scaleToFitRadioButton.TabStop = true;
+		scaleToFitRadioButton.Text = "Fit screen";
+		scaleToFitRadioButton.UseVisualStyleBackColor = true;
+		// 
+		// scaleStretchRadioButton
+		// 
+		scaleStretchRadioButton.AutoSize = true;
+		scaleStretchRadioButton.Location = new System.Drawing.Point(20, 18);
+		scaleStretchRadioButton.Name = "scaleStretchRadioButton";
+		scaleStretchRadioButton.Size = new System.Drawing.Size(62, 19);
+		scaleStretchRadioButton.TabIndex = 1;
+		scaleStretchRadioButton.TabStop = true;
+		scaleStretchRadioButton.Text = "Stretch";
+		scaleStretchRadioButton.UseVisualStyleBackColor = true;
+		// 
+		// label3
+		// 
+		label3.AutoSize = true;
+		label3.Location = new System.Drawing.Point(12, -3);
+		label3.Name = "label3";
+		label3.Size = new System.Drawing.Size(60, 15);
+		label3.TabIndex = 0;
+		label3.Text = "Wallpaper";
+		// 
+		// disallowPanel
+		// 
+		disallowPanel.Controls.Add(disableMouseCheckbox);
+		disallowPanel.Controls.Add(disableInputCheckbox);
+		disallowPanel.Controls.Add(ttsCheckbox);
+		disallowPanel.Controls.Add(webcamCheckbox);
+		disallowPanel.Controls.Add(reminderCheckbox);
+		disallowPanel.Controls.Add(sendDeleteCheckbox);
+		disallowPanel.Controls.Add(watchForMeCheckbox);
+		disallowPanel.Controls.Add(twitterCheckbox);
+		disallowPanel.Controls.Add(screenshotCheckbox);
+		disallowPanel.Controls.Add(writeForMeCheckbox);
+		disallowPanel.Controls.Add(audioCheckbox);
+		disallowPanel.Controls.Add(subliminalCheckbox);
+		disallowPanel.Controls.Add(messageCheckbox);
+		disallowPanel.Controls.Add(popupCheckbox);
+		disallowPanel.Controls.Add(label2);
+		disallowPanel.Controls.Add(websiteCheckbox);
+		disallowPanel.Controls.Add(runnableCheckbox);
+		disallowPanel.Controls.Add(wallpaperCheckbox);
+		disallowPanel.Controls.Add(downloadCheckbox);
+		disallowPanel.Location = new System.Drawing.Point(6, 99);
+		disallowPanel.Name = "disallowPanel";
+		disallowPanel.Size = new System.Drawing.Size(334, 266);
+		disallowPanel.TabIndex = 26;
+		// 
+		// disableMouseCheckbox
+		// 
+		disableMouseCheckbox.AutoSize = true;
+		disableMouseCheckbox.Location = new System.Drawing.Point(122, 185);
+		disableMouseCheckbox.Name = "disableMouseCheckbox";
+		disableMouseCheckbox.Size = new System.Drawing.Size(103, 19);
+		disableMouseCheckbox.TabIndex = 17;
+		disableMouseCheckbox.Text = "Disable Mouse";
+		disableMouseCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// disableInputCheckbox
+		// 
+		disableInputCheckbox.AutoSize = true;
+		disableInputCheckbox.Location = new System.Drawing.Point(122, 209);
+		disableInputCheckbox.Name = "disableInputCheckbox";
+		disableInputCheckbox.Size = new System.Drawing.Size(95, 19);
+		disableInputCheckbox.TabIndex = 17;
+		disableInputCheckbox.Text = "Disable Input";
+		disableInputCheckbox.UseVisualStyleBackColor = true;
+		disableInputCheckbox.CheckedChanged += disableInputCheckbox_Changed;
+		// 
+		// ttsCheckbox
+		// 
+		ttsCheckbox.AutoSize = true;
+		ttsCheckbox.Location = new System.Drawing.Point(122, 160);
+		ttsCheckbox.Name = "ttsCheckbox";
+		ttsCheckbox.Size = new System.Drawing.Size(44, 19);
+		ttsCheckbox.TabIndex = 16;
+		ttsCheckbox.Text = "TTS";
+		ttsCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// webcamCheckbox
+		// 
+		webcamCheckbox.AutoSize = true;
+		webcamCheckbox.Location = new System.Drawing.Point(122, 135);
+		webcamCheckbox.Name = "webcamCheckbox";
+		webcamCheckbox.Size = new System.Drawing.Size(73, 19);
+		webcamCheckbox.TabIndex = 15;
+		webcamCheckbox.Text = "Webcam";
+		webcamCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// reminderCheckbox
+		// 
+		reminderCheckbox.AutoSize = true;
+		reminderCheckbox.Location = new System.Drawing.Point(122, 234);
+		reminderCheckbox.Name = "reminderCheckbox";
+		reminderCheckbox.Size = new System.Drawing.Size(143, 19);
+		reminderCheckbox.TabIndex = 14;
+		reminderCheckbox.Text = "Outstanding reminder";
+		reminderCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// sendDeleteCheckbox
+		// 
+		sendDeleteCheckbox.AutoSize = true;
+		sendDeleteCheckbox.Location = new System.Drawing.Point(122, 110);
+		sendDeleteCheckbox.Name = "sendDeleteCheckbox";
+		sendDeleteCheckbox.Size = new System.Drawing.Size(102, 19);
+		sendDeleteCheckbox.TabIndex = 13;
+		sendDeleteCheckbox.Text = "Send or Delete";
+		sendDeleteCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// watchForMeCheckbox
+		// 
+		watchForMeCheckbox.AutoSize = true;
+		watchForMeCheckbox.Location = new System.Drawing.Point(122, 85);
+		watchForMeCheckbox.Name = "watchForMeCheckbox";
+		watchForMeCheckbox.Size = new System.Drawing.Size(98, 19);
+		watchForMeCheckbox.TabIndex = 12;
+		watchForMeCheckbox.Text = "Watch for me";
+		watchForMeCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// twitterCheckbox
+		// 
+		twitterCheckbox.AutoSize = true;
+		twitterCheckbox.Location = new System.Drawing.Point(122, 60);
+		twitterCheckbox.Name = "twitterCheckbox";
+		twitterCheckbox.Size = new System.Drawing.Size(87, 19);
+		twitterCheckbox.TabIndex = 11;
+		twitterCheckbox.Text = "Twitter post";
+		twitterCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// screenshotCheckbox
+		// 
+		screenshotCheckbox.AutoSize = true;
+		screenshotCheckbox.Location = new System.Drawing.Point(122, 35);
+		screenshotCheckbox.Name = "screenshotCheckbox";
+		screenshotCheckbox.Size = new System.Drawing.Size(92, 19);
+		screenshotCheckbox.TabIndex = 10;
+		screenshotCheckbox.Text = "Screen shots";
+		screenshotCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// writeForMeCheckbox
+		// 
+		writeForMeCheckbox.AutoSize = true;
+		writeForMeCheckbox.Location = new System.Drawing.Point(12, 234);
+		writeForMeCheckbox.Name = "writeForMeCheckbox";
+		writeForMeCheckbox.Size = new System.Drawing.Size(92, 19);
+		writeForMeCheckbox.TabIndex = 9;
+		writeForMeCheckbox.Text = "Write for me";
+		writeForMeCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// audioCheckbox
+		// 
+		audioCheckbox.AutoSize = true;
+		audioCheckbox.Location = new System.Drawing.Point(12, 209);
+		audioCheckbox.Name = "audioCheckbox";
+		audioCheckbox.Size = new System.Drawing.Size(58, 19);
+		audioCheckbox.TabIndex = 8;
+		audioCheckbox.Text = "Audio";
+		audioCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// subliminalCheckbox
+		// 
+		subliminalCheckbox.AutoSize = true;
+		subliminalCheckbox.Location = new System.Drawing.Point(12, 185);
+		subliminalCheckbox.Name = "subliminalCheckbox";
+		subliminalCheckbox.Size = new System.Drawing.Size(82, 19);
+		subliminalCheckbox.TabIndex = 7;
+		subliminalCheckbox.Text = "Subliminal";
+		subliminalCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// messageCheckbox
+		// 
+		messageCheckbox.AutoSize = true;
+		messageCheckbox.Location = new System.Drawing.Point(12, 160);
+		messageCheckbox.Name = "messageCheckbox";
+		messageCheckbox.Size = new System.Drawing.Size(77, 19);
+		messageCheckbox.TabIndex = 6;
+		messageCheckbox.Text = "Messages";
+		messageCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// popupCheckbox
+		// 
+		popupCheckbox.AutoSize = true;
+		popupCheckbox.Location = new System.Drawing.Point(12, 135);
+		popupCheckbox.Name = "popupCheckbox";
+		popupCheckbox.Size = new System.Drawing.Size(70, 19);
+		popupCheckbox.TabIndex = 5;
+		popupCheckbox.Text = "Pop Ups";
+		popupCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// label2
+		// 
+		label2.AutoSize = true;
+		label2.Location = new System.Drawing.Point(12, 0);
+		label2.Name = "label2";
+		label2.Size = new System.Drawing.Size(56, 15);
+		label2.TabIndex = 4;
+		label2.Text = "Dis-allow";
+		// 
+		// websiteCheckbox
+		// 
+		websiteCheckbox.AutoSize = true;
+		websiteCheckbox.Location = new System.Drawing.Point(12, 110);
+		websiteCheckbox.Name = "websiteCheckbox";
+		websiteCheckbox.Size = new System.Drawing.Size(100, 19);
+		websiteCheckbox.TabIndex = 3;
+		websiteCheckbox.Text = "Open Website";
+		websiteCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// runnableCheckbox
+		// 
+		runnableCheckbox.AutoSize = true;
+		runnableCheckbox.Location = new System.Drawing.Point(12, 85);
+		runnableCheckbox.Name = "runnableCheckbox";
+		runnableCheckbox.Size = new System.Drawing.Size(93, 19);
+		runnableCheckbox.TabIndex = 2;
+		runnableCheckbox.Text = "Runable files";
+		runnableCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// wallpaperCheckbox
+		// 
+		wallpaperCheckbox.AutoSize = true;
+		wallpaperCheckbox.Location = new System.Drawing.Point(12, 60);
+		wallpaperCheckbox.Name = "wallpaperCheckbox";
+		wallpaperCheckbox.Size = new System.Drawing.Size(79, 19);
+		wallpaperCheckbox.TabIndex = 1;
+		wallpaperCheckbox.Text = "Wallpaper";
+		wallpaperCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// downloadCheckbox
+		// 
+		downloadCheckbox.AutoSize = true;
+		downloadCheckbox.Location = new System.Drawing.Point(12, 35);
+		downloadCheckbox.Name = "downloadCheckbox";
+		downloadCheckbox.Size = new System.Drawing.Size(80, 19);
+		downloadCheckbox.TabIndex = 0;
+		downloadCheckbox.Text = "Download";
+		downloadCheckbox.UseVisualStyleBackColor = true;
+		// 
+		// popupLengthPanel
+		// 
+		popupLengthPanel.Controls.Add(longPopupRadioButton);
+		popupLengthPanel.Controls.Add(shortPopupRadioButton);
+		popupLengthPanel.Controls.Add(label1);
+		popupLengthPanel.Location = new System.Drawing.Point(6, 6);
+		popupLengthPanel.Name = "popupLengthPanel";
+		popupLengthPanel.Size = new System.Drawing.Size(334, 87);
+		popupLengthPanel.TabIndex = 25;
+		// 
+		// longPopupRadioButton
+		// 
+		longPopupRadioButton.AutoSize = true;
+		longPopupRadioButton.Location = new System.Drawing.Point(12, 43);
+		longPopupRadioButton.Name = "longPopupRadioButton";
+		longPopupRadioButton.Size = new System.Drawing.Size(145, 19);
+		longPopupRadioButton.TabIndex = 2;
+		longPopupRadioButton.TabStop = true;
+		longPopupRadioButton.Text = "Long (1 min - 10 mins)";
+		longPopupRadioButton.UseVisualStyleBackColor = true;
+		longPopupRadioButton.CheckedChanged += longPopupRadioButton_CheckedChanged;
+		// 
+		// shortPopupRadioButton
+		// 
+		shortPopupRadioButton.AutoSize = true;
+		shortPopupRadioButton.Location = new System.Drawing.Point(12, 18);
+		shortPopupRadioButton.Name = "shortPopupRadioButton";
+		shortPopupRadioButton.Size = new System.Drawing.Size(137, 19);
+		shortPopupRadioButton.TabIndex = 1;
+		shortPopupRadioButton.TabStop = true;
+		shortPopupRadioButton.Text = "Short (10 sec - 1 min)";
+		shortPopupRadioButton.UseVisualStyleBackColor = true;
+		shortPopupRadioButton.CheckedChanged += shortPopupRadioButton_CheckedChanged;
+		// 
+		// label1
+		// 
+		label1.AutoSize = true;
+		label1.Location = new System.Drawing.Point(12, 0);
+		label1.Name = "label1";
+		label1.Size = new System.Drawing.Size(82, 15);
+		label1.TabIndex = 0;
+		label1.Text = "Popup Length";
+		// 
+		// tabControl1
+		// 
+		tabControl1.Controls.Add(tabPage1);
+		tabControl1.Location = new System.Drawing.Point(12, 12);
+		tabControl1.Name = "tabControl1";
+		tabControl1.SelectedIndex = 0;
+		tabControl1.Size = new System.Drawing.Size(693, 459);
+		tabControl1.TabIndex = 20;
+		// 
+		// Options
+		// 
+		AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+		AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+		ClientSize = new System.Drawing.Size(709, 509);
+		Controls.Add(tabControl1);
+		Controls.Add(saveAndExitButton);
+		MaximumSize = new System.Drawing.Size(725, 548);
+		MinimumSize = new System.Drawing.Size(725, 548);
+		Text = "Options";
+		Load += Options_Load;
+		tabPage1.ResumeLayout(false);
+		popupTypePanel.ResumeLayout(false);
+		popupTypePanel.PerformLayout();
+		panel6.ResumeLayout(false);
+		panel6.PerformLayout();
+		panel5.ResumeLayout(false);
+		panel5.PerformLayout();
+		panel11.ResumeLayout(false);
+		panel11.PerformLayout();
+		miscOptionsPanel.ResumeLayout(false);
+		miscOptionsPanel.PerformLayout();
+		popupModePanel.ResumeLayout(false);
+		popupModePanel.PerformLayout();
+		wallpaperPanel.ResumeLayout(false);
+		wallpaperPanel.PerformLayout();
+		disallowPanel.ResumeLayout(false);
+		disallowPanel.PerformLayout();
+		popupLengthPanel.ResumeLayout(false);
+		popupLengthPanel.PerformLayout();
+		tabControl1.ResumeLayout(false);
+		ResumeLayout(false);
+	}
 
-        #endregion
-        private Button SvExit;
-        private TabPage tabPage1;
-        private Panel panel10;
-        private Panel panel6;
-        private RadioButton ymove;
-        private RadioButton nmove;
-        private Panel panel5;
-        private RadioButton seethr;
-        private RadioButton nseethr;
-        private Panel panel11;
-        private RadioButton clkbl;
-        private RadioButton clickthr;
-        private RadioButton normlbtn;
-        private Label label11;
-        private Panel panel4;
-        private CheckBox webcnt;
-        private Label label5;
-        private CheckBox showblocked;
-        private Panel panel3;
-        private RadioButton parallelrd;
-        private RadioButton serialrd;
-        private Label label4;
-        private Panel panel2;
-        private RadioButton fitsc;
-        private RadioButton stret;
-        private Label label3;
-        private Panel panel1;
-        private CheckBox dismch;
-        private CheckBox ttsch;
-        private CheckBox webcamch;
-        private CheckBox outstandch;
-        private CheckBox senddelch;
-        private CheckBox watch4mech;
-        private CheckBox twitch;
-        private CheckBox screenshch;
-        private CheckBox wrich;
-        private CheckBox audioch;
-        private CheckBox sublimch;
-        private CheckBox messch;
-        private CheckBox popch;
-        private Label label2;
-        private CheckBox opwebch;
-        private CheckBox runch;
-        private CheckBox wallpch;
-        private CheckBox dlch;
-        private Panel Popups;
-        private RadioButton longpop;
-        private RadioButton shortpop;
-        private Label label1;
-        private TabControl tabControl1;
-        private CheckBox fullscchk;
-        private CheckBox dmode_chk;
-    }
+	#endregion
+	private Button saveAndExitButton;
+	private TabPage tabPage1;
+	private System.Windows.Forms.Panel popupTypePanel;
+	private System.Windows.Forms.Panel panel6;
+	private RadioButton movingRadioButton;
+	private RadioButton stillRadioButton;
+	private System.Windows.Forms.Panel panel5;
+	private RadioButton seethroughRadioButton;
+	private RadioButton opaqueRadioButton;
+	private System.Windows.Forms.Panel panel11;
+	private RadioButton clickableRadioButton;
+	private RadioButton clickthroughRadioButton;
+	private RadioButton normalRadioButton;
+	private Label label11;
+	private Panel miscOptionsPanel;
+	private CheckBox webcamCountCheckbox;
+	private Label label5;
+	private CheckBox showBlockedCheckbox;
+	private System.Windows.Forms.Panel popupModePanel;
+	private RadioButton parallelRadioButton;
+	private RadioButton serialRadioButton;
+	private Label label4;
+	private Panel wallpaperPanel;
+	private System.Windows.Forms.RadioButton scaleToFitRadioButton;
+	private System.Windows.Forms.RadioButton scaleStretchRadioButton;
+	private System.Windows.Forms.Label label3;
+	private System.Windows.Forms.Panel disallowPanel;
+	private CheckBox disableMouseCheckbox;
+	private CheckBox ttsCheckbox;
+	private CheckBox webcamCheckbox;
+	private CheckBox reminderCheckbox;
+	private CheckBox sendDeleteCheckbox;
+	private CheckBox watchForMeCheckbox;
+	private CheckBox twitterCheckbox;
+	private CheckBox screenshotCheckbox;
+	private CheckBox writeForMeCheckbox;
+	private CheckBox audioCheckbox;
+	private CheckBox subliminalCheckbox;
+	private CheckBox messageCheckbox;
+	private CheckBox popupCheckbox;
+	private System.Windows.Forms.Label label2;
+	private CheckBox websiteCheckbox;
+	private CheckBox runnableCheckbox;
+	private CheckBox wallpaperCheckbox;
+	private CheckBox downloadCheckbox;
+	private System.Windows.Forms.Panel popupLengthPanel;
+	private System.Windows.Forms.RadioButton longPopupRadioButton;
+	private System.Windows.Forms.RadioButton shortPopupRadioButton;
+	private System.Windows.Forms.Label label1;
+	private TabControl tabControl1;
+	private System.Windows.Forms.CheckBox fullscreenCheckbox;
+	private CheckBox darkModeCheckbox;
+	private CheckBox disableInputCheckbox;
+
+	private void fullscreenCheckbox_changed(object sender, EventArgs e) {
+		if (fullscreenCheckbox.Checked) {
+			serialRadioButton.Checked = true;
+		}
+		parallelRadioButton.Enabled = !fullscreenCheckbox.Checked;
+	}
+
+	private void parallelRadioButton_Changed(object sender, EventArgs e) {
+		if (parallelRadioButton.Checked) {
+			fullscreenCheckbox.Checked = false;
+		}
+		fullscreenCheckbox.Enabled = !parallelRadioButton.Checked;
+	}
+
+	private void disableInputCheckbox_Changed(object sender, EventArgs e) {
+		if (disableInputCheckbox.Checked) {
+			disableMouseCheckbox.Checked = true;
+		}
+		disableMouseCheckbox.Enabled = !disableInputCheckbox.Checked;
+	}
+
+	void shortPopupRadioButton_CheckedChanged(object sender, EventArgs e) {
+		longPopupRadioButton.Checked = !shortPopupRadioButton.Checked;
+	}
+
+	void longPopupRadioButton_CheckedChanged(object sender, EventArgs e) {
+		shortPopupRadioButton.Checked = !longPopupRadioButton.Checked;
+	}
 }
