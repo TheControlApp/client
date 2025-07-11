@@ -7,10 +7,10 @@ public class SubliminalLoopCommandBuilder() : FileCommandBuilder("Subliminal Loo
         string content;
         if (((RadioButton)inputPanel.Controls["fileRadioButton"]).Checked) {
             TextBox fileNameTextBox = (TextBox)inputPanel.Controls["fileNameTextBox"];
-            if (fileNameTextBox.Text == String.Empty) {
+            if (fileNameTextBox.Text == string.Empty) {
                 MessageBox.Show("Please upload a file.");
                 return null;
-            } //TODO: Add filter to file selector
+            }
             content = "FTP" + fileNameTextBox.Text;
             fileNameTextBox.Clear();
         }
@@ -25,5 +25,10 @@ public class SubliminalLoopCommandBuilder() : FileCommandBuilder("Subliminal Loo
             upperTextBox.Clear();
         }
         return new SubliminalLoopCommand(content);
+    }
+
+    public override void ConfigureInputPanel(Panel inputPanel) {
+        base.ConfigureInputPanel(inputPanel);
+        ((OpenFileDialog) inputPanel.Container.Components["openFileDialog"]).Filter = "Image files (*.jpg;*.jpeg;*.png;*.webp;*.gif)|*.jpg;*.jpeg;*.png;*.webp;*.gif|Video files (*.mpg;*.mpeg;*.mov;*.mp4;*.avi;*.webm)";
     }
 }

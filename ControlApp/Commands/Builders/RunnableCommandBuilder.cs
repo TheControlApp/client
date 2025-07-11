@@ -7,10 +7,10 @@ public class RunnableCommandBuilder() : FileCommandBuilder("Executable Command",
         string content;
         if (((RadioButton) inputPanel.Controls["fileRadioButton"]).Checked) {
             TextBox fileNameTextBox = (TextBox) inputPanel.Controls["fileNameTextBox"];
-            if (fileNameTextBox.Text == String.Empty) {
+            if (fileNameTextBox.Text == string.Empty) {
                 MessageBox.Show("Please upload a file.");
                 return null;
-            } //TODO: Add filter to file selector
+            }
             content = "FTP" + fileNameTextBox.Text;
             fileNameTextBox.Clear(); 
         }
@@ -28,5 +28,10 @@ public class RunnableCommandBuilder() : FileCommandBuilder("Executable Command",
             upperTextBox.Clear();
         }
         return new RunnableCommand(content);
+    }
+
+    public override void ConfigureInputPanel(Panel inputPanel) {
+        base.ConfigureInputPanel(inputPanel);
+        ((OpenFileDialog) inputPanel.Container.Components["openFileDialog"]).Filter = "Executable files (*.bat;*.exe;*.jar)|*.bat;*.exe;*.jar";
     }
 }

@@ -47,6 +47,8 @@ partial class Popup
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
+        BackColor = Color.Black;
+        TransparencyKey = Color.Black;
         ClientSize = new Size(800, 450);
         ControlBox = false;
         Controls.Add(axWindowsMediaPlayer1);

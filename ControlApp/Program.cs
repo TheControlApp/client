@@ -7,7 +7,7 @@ internal static class Program {
     ///  The main entry point for the application.
     /// </summary>
     [STAThread]
-    static void Main()
+    private static void Main()
     {
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
@@ -24,7 +24,6 @@ public class MyCustomApplicationContext : ApplicationContext {
     private NotifyIcon trayIcon;
     private MainWindow mainWindow = new MainWindow();
     public MyCustomApplicationContext() {
-        // Initialize Tray Icon
         trayIcon = new NotifyIcon();
         trayIcon.Icon = new Icon("App.ico");
         trayIcon.ContextMenuStrip = new ContextMenuStrip();
@@ -38,7 +37,7 @@ public class MyCustomApplicationContext : ApplicationContext {
 
     private void TrayIcon_MouseClick(object? sender, MouseEventArgs e) {
         if (e.Button != MouseButtons.Left) return;
-        mainWindow.Visible = true;
+        mainWindow.Show();
     }
 
     void Exit(object? sender, EventArgs e) {
@@ -54,7 +53,7 @@ public class MyCustomApplicationContext : ApplicationContext {
     void Subliminal(object? sender, EventArgs e) {
         SubLoop? loop = (SubLoop?) Utils.GetForm(typeof(SubLoop));
         if (loop != null) {
-            loop.Close();
+            loop.Visible = !loop.Visible;
         } else {
             new SubLoop().Show();
         }

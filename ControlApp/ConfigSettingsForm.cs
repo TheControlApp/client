@@ -54,7 +54,7 @@ public partial class ConfigSettingsForm : Form {
 	private void ConfigSettingsForm_Load(object? sender, EventArgs e) {
 		textBox1.Text = ConfigurationManager.AppSettings["LocalDrive"];
 		textBox2.Text = ConfigurationManager.AppSettings["UserName"];
-		textBox3.Text = Utils.Decrypt(ConfigurationManager.AppSettings["Password"] ?? String.Empty);
+		textBox3.Text = Utils.Decrypt(ConfigurationManager.AppSettings["Password"] ?? string.Empty);
 		checkBox1.Checked = Convert.ToBoolean(ConfigurationManager.AppSettings["AutoRun"]);
 		checkBox2.Checked = Convert.ToBoolean(ConfigurationManager.AppSettings["RunAll"]);
 		delayCombo.SelectedIndex = ConfigurationManager.AppSettings["Delay"] switch {

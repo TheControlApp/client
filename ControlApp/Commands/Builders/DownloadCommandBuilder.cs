@@ -6,7 +6,7 @@ public class DownloadCommandBuilder() : FileCommandBuilder("Download Command", "
     public override Command? BuildCommand(Panel inputPanel) {
         if (((RadioButton)inputPanel.Controls["fileRadioButton"]).Checked) {
             TextBox fileNameTextBox = (TextBox)inputPanel.Controls["fileNameTextBox"];
-            if (fileNameTextBox.Text == String.Empty) {
+            if (fileNameTextBox.Text == string.Empty) {
                 MessageBox.Show("Please upload a file.");
                 return null;
             }
@@ -25,5 +25,10 @@ public class DownloadCommandBuilder() : FileCommandBuilder("Download Command", "
             upperTextBox.Clear();
             return new AudioCommand(content);
         }
+    }
+
+    public override void ConfigureInputPanel(Panel inputPanel) {
+        base.ConfigureInputPanel(inputPanel);
+        ((OpenFileDialog)inputPanel.Container.Components["openFileDialog"]).Filter = "All files(*.*)|*.*";
     }
 }

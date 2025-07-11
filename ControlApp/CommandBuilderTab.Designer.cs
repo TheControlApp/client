@@ -28,6 +28,7 @@ partial class CommandBuilderTab {
     /// the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent() {
+        inputContainer = new Container();
         displayPanel = new System.Windows.Forms.Panel();
         respondButton = new System.Windows.Forms.Button();
         sendCommandButton = new System.Windows.Forms.Button();
@@ -184,6 +185,17 @@ partial class CommandBuilderTab {
         inputPanel.Name = "inputPanel";
         inputPanel.Size = new System.Drawing.Size(478, 319);
         inputPanel.TabIndex = 2;
+        inputContainer.Add(inputPanel);
+        //
+        // openFileDialog
+        //
+        openFileDialog = new OpenFileDialog();
+        openFileDialog.Multiselect = false;
+        openFileDialog.Title = "Choose Media";
+        openFileDialog.RestoreDirectory = true;
+        openFileDialog.CheckFileExists = true;
+        openFileDialog.AutoUpgradeEnabled = true;
+        inputContainer.Add(openFileDialog, "openFileDialog");
         // 
         // urlRadioButton
         // 
@@ -317,6 +329,8 @@ partial class CommandBuilderTab {
         ResumeLayout(false);
         PerformLayout();
     }
+
+    private IContainer inputContainer;
 
     private System.Windows.Forms.Button clearCommandsButton;
 

@@ -49,7 +49,7 @@ public abstract class ServerCommunicator : HttpClient {
 			string justfilename = Path.GetFileName(fileName);
 			_ftpClient.UploadFile(fileName, justfilename);
 		} catch (Exception ex) {
-			new CustomMessage("Sending file to server failed", "", 4, false).ShowDialog();
+			MessageBox.Show("Sending file to server failed", "Send Failed");
 			Utils.LogWarning("Error during FTP: " + ex.Message);
 			return false;
 		}
@@ -141,17 +141,19 @@ public abstract class ServerCommunicator : HttpClient {
 			return null;
 		}
 		string filePath = Path.Join(ConfigurationManager.AppSettings["LocalDrive"], filename);
-		using CustomMessage cm = new CustomMessage("Downloading image, please wait", "", 0, false);
-		cm.Show();
+		using CustomMessage message = new CustomMessage("Downloading image, please wait", "", 0, false);
+		message.Show();
 		try {
-			using Task<Stream> s = _httpClient.GetStreamAsync(url);
+			using Task<Stream> streamTask = _httpClient.GetStreamAsync(url);
+			Stream stream = streamTask.Result;
 			using FileStream fs = new FileStream(filePath, FileMode.Create);
-			s.Result.CopyTo(fs);
-		} catch (Exception ex) {
+			stream.CopyTo(fs);
+		}
+		catch (Exception ex) {
 			Utils.LogWarning("Error getting file for \"" + url + "\":" + ex.Message);
 			return null;
 		}
-		cm.Hide();
+		message.Hide();
 		Utils.LogInfo("Successfully got file from " + url);
 		return filePath;
 	}

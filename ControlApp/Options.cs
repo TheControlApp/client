@@ -86,8 +86,8 @@ public partial class Options : Form { // TODO: Maybe merge "Config" with this as
 		} else if (normalRadioButton.Checked) {
 			popupTypeString += "n";
 		}
-		popupTypeString += (movingRadioButton.Checked ? 'y' : 'n');
-		popupTypeString += (fullscreenCheckbox.Checked ? 'f' : 'n');
+		popupTypeString += movingRadioButton.Checked ? 'y' : 'n';
+		popupTypeString += fullscreenCheckbox.Checked ? 'f' : 'n';
 		appSettings.Add("PopType", popupTypeString);
 		appSettings.Add("OutstandRemind", reminderCheckbox.Checked.ToString());
 		appSettings.Add("Popstyle", serialRadioButton.Checked ? "Serial" : "Parallel");

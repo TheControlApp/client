@@ -127,7 +127,11 @@ partial class MainWindow {
 		// 
 		// timer
 		// 
-		timer.Interval = 1500;
+		timer.Interval = ConfigurationManager.AppSettings["Delay"] switch {
+			"30" => 30000,
+			"60" => 60000,
+			_ => 120000,
+		};
 		timer.Tick += timer1_Tick;
 		// 
 		// tabControl

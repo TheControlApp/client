@@ -6,13 +6,15 @@ using FluentFTP.Helpers;
 
 namespace ControlApp;
 
-internal static class Utils
-{
+internal static class Utils {
 
     private static readonly string LOG_INFO_PREFIX = "[INFO]";
     private static readonly string LOG_WARN_PREFIX = "[WARNING]";
     private static readonly string LOG_ERR_PREFIX = "[ERROR]";
-    private static readonly Regex splitterRegex = new Regex(@",?\[([a-zA-Z0-9:/\\\.\-|: =]*)]", RegexOptions.None, TimeSpan.FromSeconds(1));
+
+    private static readonly Regex splitterRegex =
+        new Regex(@",?\[([a-zA-Z0-9:/\\\.\-|: =]*)]", RegexOptions.None, TimeSpan.FromSeconds(1));
+
     private static readonly string logFolderName = "logs";
     private static readonly string logPathFormat = @"yyyy-MM-dd-HH-mm-ss"".txt""";
 
@@ -33,14 +35,14 @@ internal static class Utils
 
     public static void LogInfo(string message) {
         logWriter ??= InitializeLog();
-        string logMessage = String.Join(' ', CreateTimePrefix(), LOG_INFO_PREFIX, message);
+        string logMessage = string.Join(' ', CreateTimePrefix(), LOG_INFO_PREFIX, message);
         Console.WriteLine(logMessage);
         logWriter.WriteLine(logMessage);
     }
 
     public static void LogWarning(string message) {
         logWriter ??= InitializeLog();
-        string logMessage = String.Join(' ', CreateTimePrefix(), LOG_WARN_PREFIX, message);
+        string logMessage = string.Join(' ', CreateTimePrefix(), LOG_WARN_PREFIX, message);
         Console.WriteLine(logMessage);
         logWriter.WriteLine(logMessage);
     }
@@ -48,7 +50,7 @@ internal static class Utils
 
     public static void LogError(string message) {
         logWriter ??= InitializeLog();
-        string logMessage = String.Join(' ', CreateTimePrefix(), LOG_ERR_PREFIX, message);
+        string logMessage = string.Join(' ', CreateTimePrefix(), LOG_ERR_PREFIX, message);
         Console.WriteLine(logMessage);
         logWriter.WriteLine(logMessage);
     }
@@ -94,14 +96,14 @@ internal static class Utils
     public static bool IsExecutableFile(string filePath) {
         if (!IsValidPath(filePath)) return false;
         return Path.GetExtension(filePath) switch {
-            ".exe" or ".bat" => true,
+            ".exe" or ".bat" or ".jar" => true,
             _ => false
         };
     }
         
     public static bool IsWebPage(string input)
     {
-        if (Uri.TryCreate(input, UriKind.Absolute, out Uri uriResult))
+        if (Uri.TryCreate(input, UriKind.Absolute, out Uri? uriResult))
         {
             return uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps;
         }
@@ -117,7 +119,7 @@ internal static class Utils
         }
         return output.ToArray();
     }
-    public static string Encrypt(string line)
+    public static string? Encrypt(string line)
     {
         string returnString = "";
         string publickey = "santhosh";
@@ -127,16 +129,16 @@ internal static class Utils
             byte[] secretkeyByte = Encoding.UTF8.GetBytes(secretkey);
             byte[] publickeybyte = Encoding.UTF8.GetBytes(publickey);
             byte[] inputbyteArray = Encoding.UTF8.GetBytes(line);
-            using (DESCryptoServiceProvider des = new DESCryptoServiceProvider()) 
-            {
-                MemoryStream memoryStream = new MemoryStream();
-                CryptoStream cryptoStream = new CryptoStream(memoryStream, des.CreateEncryptor(publickeybyte, secretkeyByte), CryptoStreamMode.Write);
-                cryptoStream.Write(inputbyteArray, 0, inputbyteArray.Length);
-                cryptoStream.FlushFinalBlock();
-                returnString = Convert.ToBase64String(memoryStream.ToArray());
-            }
+            using MemoryStream memoryStream = new MemoryStream();
+            using DES des = DES.Create();
+            using ICryptoTransform transform = des.CreateEncryptor(publickeybyte, secretkeyByte);
+            using CryptoStream cryptoStream = new CryptoStream(memoryStream, transform, CryptoStreamMode.Write);
+            cryptoStream.Write(inputbyteArray, 0, inputbyteArray.Length);
+            cryptoStream.FlushFinalBlock();
+            returnString = Convert.ToBase64String(memoryStream.ToArray());
         } catch (Exception ex) {
             LogWarning("Error while encrypting \"" + line + "\": " + ex.Message);
+            return null;
         }
         returnString = returnString.Replace("\\", "xxx");
         returnString = returnString.Replace("&", "yyy");
@@ -147,7 +149,7 @@ internal static class Utils
         return returnString;
     }
         
-    public static string Decrypt(string line)
+    public static string? Decrypt(string line)
     {
         string returnString = "";
         line = line.Replace("xxx", "\\");
@@ -164,9 +166,10 @@ internal static class Utils
             byte[] privatekeyByte = Encoding.UTF8.GetBytes(privateKey);
             byte[] publickeybyte = Encoding.UTF8.GetBytes(publicKey);
             byte[] inputbyteArray = Convert.FromBase64String(line);
-            using DESCryptoServiceProvider des = new DESCryptoServiceProvider();
-            MemoryStream memoryStream = new MemoryStream();
-            CryptoStream cryptoStream = new CryptoStream(memoryStream, des.CreateDecryptor(publickeybyte, privatekeyByte), CryptoStreamMode.Write);
+            using MemoryStream memoryStream = new MemoryStream();
+            using DES des = DES.Create();
+            using ICryptoTransform transform = des.CreateDecryptor(publickeybyte, privatekeyByte);
+            using CryptoStream cryptoStream = new CryptoStream(memoryStream, transform, CryptoStreamMode.Write);
             cryptoStream.Write(inputbyteArray, 0, inputbyteArray.Length);
             cryptoStream.FlushFinalBlock();
             returnString = Encoding.UTF8.GetString(memoryStream.ToArray());
@@ -174,6 +177,7 @@ internal static class Utils
         catch (Exception ex) 
         {
             LogWarning($"Error while decrypting \"{line}\": {ex.Message}");
+            return null;
         }
         return returnString;
     }

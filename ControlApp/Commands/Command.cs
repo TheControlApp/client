@@ -4,7 +4,7 @@ public abstract class Command(Command.Type type, string content) {
 	public static readonly string[] bannedSites = ["booru.allthefallen.moe", "mega.nz", "media.mstdn.jp", "thecontrolapp.co.uk/Pages/ControlPC", "paradroid-gamma.vercel", "imagekit.io/tools/asset-public-link", "paradroid-gamma.web.app"];
 	protected static readonly string[] bannedWords = ["money", "pay"];
 
-    public enum Type : UInt32 {
+    public enum Type : uint {
         Popup           = 0b1,
         Audio           = 0b10,
         SendDelete      = 0b100,
@@ -27,10 +27,14 @@ public abstract class Command(Command.Type type, string content) {
         Spinner         = 0b10000000000000000000
     }
 
+    public static uint DANGEROUS_COMMANDS =
+        (uint) (Type.Webcam | Type.Screenshot | Type.InputDisable | Type.MouseDisable | Type.Runnable);
+
     public Type type = type;
     public string content = content;
 
     public static Command ParseCommand(string parseString) {
+        ArgumentNullException.ThrowIfNull(parseString);
         char parsedTypeChar = parseString[0];
         string commandContent = parseString.Substring(2);
         if (commandContent.StartsWith("FTP")) commandContent = string.Concat("https://www.thecontrolapp.co.uk/storage/", commandContent.AsSpan(3));
@@ -61,6 +65,16 @@ public abstract class Command(Command.Type type, string content) {
 
     public override string ToString() {
         return GetCode(type) + "=" + content;
+    }
+
+    public static uint GetSmallestIllegalType() {
+        Type[] types = Enum.GetValues<Type>();
+        uint max = 0;
+        foreach (uint type in types)
+        {
+            if (max < type) max = type;
+        }
+        return max << 1;
     }
 
     protected static string GetLastItemFromUrl(string content) {

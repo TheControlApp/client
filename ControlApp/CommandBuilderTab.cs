@@ -69,12 +69,12 @@ public partial class CommandBuilderTab : TabPage {
     }
 
     private void destUsernameCombo_SelectedIndexChanged(object sender, EventArgs e) {
-        groupCombo.Text = String.Empty;
+        groupCombo.Text = string.Empty;
         groupCombo.SelectedIndex = 0;
     }
 
     private void groupCombo_SelectedIndexChanged(object sender, EventArgs e) {
-        destUsernameCombo.Text = String.Empty;
+        destUsernameCombo.Text = string.Empty;
     }
 
     private int GetGroup() {
@@ -112,11 +112,7 @@ public partial class CommandBuilderTab : TabPage {
     }
 
     private string BuildCommandString(List<Command> argCommandList, bool clear) {
-        string output = String.Empty;
-        foreach (Command command in argCommandList) {
-            output += $"{command.GetCode()}={command.content}" + COMMAND_SEPARATOR;
-        }
-        if (output.Length != 0) output.Remove(output.Length - COMMAND_SEPARATOR.Length);
+        string output = string.Join(COMMAND_SEPARATOR, argCommandList.Select(element => Utils.Encrypt(element.ToString())).ToArray());
         if (!clear) return output;
         argCommandList.Clear();
         commandDisplay.Clear();

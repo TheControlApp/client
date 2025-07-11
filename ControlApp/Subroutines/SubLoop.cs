@@ -42,6 +42,8 @@ public partial class SubLoop : Form {
 	private static string subliminalListPath = Path.Join(AppDomain.CurrentDomain.BaseDirectory, "ConstantSubList.txt");
 
 	private int position;
+	
+	private bool shown;
 
 	private static Timer timer = new Timer();
 
@@ -54,29 +56,34 @@ public partial class SubLoop : Form {
 	public SubLoop() {
 		InitializeComponent();
 		label.Text = "";
-		if (File.Exists(subliminalListPath)) {
-			string[] lines = File.ReadAllLines(subliminalListPath);
-			foreach (string line in lines) {
-				LoopItem? item = LoopItem.parseLoopItem(line);
-				if (item != null) loopList.Add(item);
-			}
-		}
-		Console.WriteLine($"Loop list contains {loopList.Count} items");
 		timer.Tick += LoopThrough;
 		timer.Interval = CHECK_INTERVAL;
-		uint initialStyle = GetWindowLong(Handle, -20);
+		uint initialStyle = GetWindowLong(Handle, GWL_STYLE);
 		SetWindowLong(Handle, GWL_STYLE, initialStyle | 0x80000 | 0x20);
 		BackColor = Color.Magenta;
 		TransparencyKey = Color.Magenta;
-		if (loopList.Count > 0) timer.Start();
-		running = true;
+	}
+
+	protected override void OnShown(EventArgs e) {
+		shown = true;
 	}
 
 	private void LoopThrough(object? sender, EventArgs e) {
 		if (!running || (axWindowsMediaPlayer.playState != WMPPlayState.wmppsStopped &&
 		                 axWindowsMediaPlayer.playState != 0)) return;
+		if (position >= loopList.Count) position = 0; // check if list got trimmed and now we're outside of the list
 		DoItem(loopList[position]);
 		position = (position + 1) % loopList.Count;
+	}
+
+	private void IndexLoopItems() {
+		if (!File.Exists(subliminalListPath)) return;
+		loopList.Clear();
+		string[] lines = File.ReadAllLines(subliminalListPath);
+		foreach (string line in lines) {
+			LoopItem? item = LoopItem.parseLoopItem(line);
+			if (item != null) loopList.Add(item);
+		}
 	}
 
 	public static void AddItem(string item) {
@@ -93,11 +100,11 @@ public partial class SubLoop : Form {
 		}
 		if (running) {
 			loopList.Add(loopItem);
-		} else {
-            using StreamWriter writer = File.AppendText(subliminalListPath); writer.WriteLine(loopItem.ToString());
-            if (loopList.Count != 1) return;
-            running = true;
+			if (loopList.Count != 1) return;
 			timer.Start();
+		} else {
+            using StreamWriter writer = File.AppendText(subliminalListPath); 
+            writer.WriteLine(loopItem.ToString());
 		}
 	}
 
@@ -118,14 +125,34 @@ public partial class SubLoop : Form {
 		}
 	}
 
-	protected override void OnClosing(CancelEventArgs e) {
-		running = false;
+	private void WriteSubliminalListToFile() {
 		File.Delete(subliminalListPath);
-		using (StreamWriter writer = File.AppendText(subliminalListPath)) {
-			foreach (LoopItem item in loopList) {
-				writer.WriteLine(item.ToString());
+		using StreamWriter writer = File.AppendText(subliminalListPath);
+		foreach (LoopItem item in loopList) {
+			writer.WriteLine(item.ToString());
+		}
+	}
+
+	protected override void OnVisibleChanged(EventArgs e) {
+		running = Visible;
+		if (Visible) {
+			IndexLoopItems();
+			Console.WriteLine($"Loop list contains {loopList.Count} items");
+			if (loopList.Count > 0) timer.Start();
+			if (shown) {
+				axWindowsMediaPlayer.Ctlcontrols.play();
 			}
 		}
+		else {
+			timer.Stop();
+			axWindowsMediaPlayer.Ctlcontrols.pause();
+			WriteSubliminalListToFile();
+		}
+	}
+
+	protected override void OnClosing(CancelEventArgs e) {
+		running = false;
 		timer.Stop();
+		WriteSubliminalListToFile();
 	}
 }

@@ -25,7 +25,7 @@ public class SpinnerCommandBuilder() : SingleInputCommandBuilder("Spinner Comman
             MessageBox.Show("Too many options for spinner");
             return null;
         }
-        string commandContent = String.Empty;
+        string commandContent = string.Empty;
         foreach (string line in optionList) {
             commandContent += $"[{line}],";
         }

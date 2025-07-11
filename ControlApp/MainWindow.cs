@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Diagnostics;
 using System.Media;
 using System.Runtime.InteropServices;
 using ControlApp.Commands;
@@ -11,7 +12,7 @@ public partial class MainWindow : Form {
     public static string? password = ConfigurationManager.AppSettings["Password"];
 	public static bool verified;
 
-	private static string[] userBlacklist;
+	private static string[]? userBlacklist;
 
 	private static string[]? lastSender;
 
@@ -19,15 +20,11 @@ public partial class MainWindow : Form {
 
 	public MainWindow() {
 		InitializeComponent();
-		string? blacklistString = ConfigurationManager.AppSettings["BlackList"];
-		if (blacklistString != null) {
-			userBlacklist = Utils.SeparateString(blacklistString);
-		}
 		verified = false;
 		Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 		KeyValueConfigurationCollection settings = configuration.AppSettings.Settings;
 		string? downloadPath = ConfigurationManager.AppSettings["LocalDrive"];
-		if (String.IsNullOrEmpty(downloadPath)) {
+		if (string.IsNullOrEmpty(downloadPath)) {
 			downloadPath = GetDownloadPath() + "\\";
 		} else if (!downloadPath.EndsWith('\\')) {
 			downloadPath += "\\";
@@ -74,19 +71,20 @@ public partial class MainWindow : Form {
 	}
 
 	[DllImport("shell32.dll", CharSet = CharSet.Auto)]
-	private static extern int SHGetKnownFolderPath(ref Guid id, int flags, nint token, out nint path);
+	private static extern uint SHGetKnownFolderPath(ref Guid id, int flags, nint token, out nint path);
 
 	private static string GetDownloadPath() {
 		if (Environment.OSVersion.Version.Major < 6) {
 			throw new NotSupportedException();
 		}
-		nint pathPtr = IntPtr.Zero;
-		try {
-			SHGetKnownFolderPath(ref FolderDownloads, 0, IntPtr.Zero, out pathPtr);
-			return Marshal.PtrToStringUni(pathPtr);
-		} finally {
-			Marshal.FreeCoTaskMem(pathPtr);
+		uint sysCallCode = SHGetKnownFolderPath(ref FolderDownloads, 0, IntPtr.Zero, out nint pathPtr);
+		if (sysCallCode != 0) throw new IOException("System call failed with error code " + sysCallCode); // if sys call returns something other than S_OK...
+		string? result = Marshal.PtrToStringUni(pathPtr);
+		Marshal.FreeCoTaskMem(pathPtr);
+		if (result == null) {
+			throw new IOException("System could not retrieve download destination");
 		}
+		return result;
 	}
 
 
@@ -124,7 +122,6 @@ public partial class MainWindow : Form {
 
 	private void RunCommands(string[] commandArray, string senderUsername) {
 		Command[] commands = HandleLines(commandArray);
-		Console.WriteLine($"Processed command array contains {commands.Length} elements");
 		if (commands.Length == 0) return;
 		SystemSounds.Beep.Play();
 		foreach (Command command in commands) {
@@ -135,25 +132,31 @@ public partial class MainWindow : Form {
 
 	private Command[] HandleLines(string[] lines) {
 		List<Command> returnList = new List<Command>();
-		Command.Type disallowedCommands = (Command.Type) Convert.ToUInt32(ConfigurationManager.AppSettings["DisAllowedCommands"]); // TODO: Add exception handling
+		uint disallowedCommands = Convert.ToUInt32(ConfigurationManager.AppSettings["DisAllowedCommands"]);
+		if (disallowedCommands >= Command.GetSmallestIllegalType()) disallowedCommands = Command.DANGEROUS_COMMANDS;
 		string? configBlacklistOutput = ConfigurationManager.AppSettings["BlackList"];
 		bool blacklistFound = false;
-		if (!String.IsNullOrWhiteSpace(configBlacklistOutput)) {
+		if (!string.IsNullOrWhiteSpace(configBlacklistOutput)) {
 			blacklistFound = true;
 			userBlacklist = Utils.SeparateString(configBlacklistOutput);
 		}
 		foreach (string line in lines) {
 			if (line == "") continue;
-			string DecryptedCommand = Utils.Decrypt(line);
+			string? decryptedCommand = Utils.Decrypt(line);
+			if (decryptedCommand == null) {
+				Utils.LogInfo($"Decryption failed, skipping...");
+				continue;
+			}
 			Command parsedCommand;
 			try {
-				parsedCommand = Command.ParseCommand(DecryptedCommand);
-			} catch (ArgumentException e) {
-				Utils.LogInfo("Exception in command parser: " + e.Message + ", skipping...");
+				parsedCommand = Command.ParseCommand(decryptedCommand);
+			}
+			catch (ArgumentException e) {
+				Utils.LogInfo($"Exception in command parser: {e.Message}, skipping...");
 				continue;
 			}
 
-			if ((disallowedCommands & parsedCommand.type) != 0 || string.IsNullOrEmpty(parsedCommand.content)) {
+			if ((disallowedCommands & (uint) parsedCommand.type) != 0 || string.IsNullOrEmpty(parsedCommand.content)) {
 				Utils.LogInfo($"Command {parsedCommand} skipped because it is not allowed");
 				continue;
 			}
@@ -166,6 +169,7 @@ public partial class MainWindow : Form {
 			}
 			if (containsBlacklisted) continue;
 			if (blacklistFound) {
+				Debug.Assert(userBlacklist != null, nameof(userBlacklist) + " != null");
 				foreach (string element in userBlacklist) {
 					if (parsedCommand.content.Contains(element)) {
 						new CustomMessage("Command contains blacklisted terms, skipping...", "", 3, false).ShowDialog();
@@ -199,6 +203,6 @@ public partial class MainWindow : Form {
 	}
 
 	public static string? GetLastSenderId() {
-		return lastSender == null ? null : lastSender[0];
+		return lastSender?[0];
 	}
 }

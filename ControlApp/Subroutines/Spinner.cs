@@ -2,12 +2,12 @@
 
 public partial class Spinner : Form
 {
+    private static Random random = new Random();
     private System.Windows.Forms.Timer timer;
     private int angle = 15;
     Bitmap bitmapImage;
     string bitmapPath = "";
     string[] spinArgs;
-    static Random random = new Random();
     private int duration;
     int position;
     public Spinner(params string[] spinArgs)
@@ -62,12 +62,10 @@ public partial class Spinner : Form
             ForeColor = Color.White;
             foreach (Control control in Controls)
             {
-                if (control is Panel)
-                {
+                if (control is Panel) {
                     control.BackColor = Color.Black;
                     control.ForeColor = Color.White;
-                }
-                if (control is Button)
+                } else if (control is Button)
                 {
                     control.BackColor = Color.DarkGray;
                     control.ForeColor = Color.White;

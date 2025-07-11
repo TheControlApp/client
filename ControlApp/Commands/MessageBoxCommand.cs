@@ -6,7 +6,7 @@ public class MessageBoxCommand(string content) : Command(Type.MessageBox, conten
     public override void Execute(string senderId) {
         foreach (string element in bannedWords) {
             if (!content.Contains(element)) continue;
-            new CustomMessage("Message contains blacklisted terms, skipping...", String.Empty, 4, false).Show();
+            new CustomMessage("Message contains blacklisted terms, skipping...", string.Empty, 4, false).Show();
             return;
         }
         string[] splitCommand = content.Split("&&&");

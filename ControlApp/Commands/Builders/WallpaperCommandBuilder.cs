@@ -7,10 +7,10 @@ public class WallpaperCommandBuilder() : FileCommandBuilder("Wallpaper Command",
         string content;
         if (((RadioButton)inputPanel.Controls["fileRadioButton"]).Checked) {
             TextBox fileNameTextBox = (TextBox)inputPanel.Controls["fileNameTextBox"];
-            if (fileNameTextBox.Text == String.Empty) {
+            if (fileNameTextBox.Text == string.Empty) {
                 MessageBox.Show("Please upload a file.");
                 return null;
-            } //TODO: Add filter to file selector
+            }
             content = "FTP" + fileNameTextBox.Text;
             fileNameTextBox.Clear();
         }

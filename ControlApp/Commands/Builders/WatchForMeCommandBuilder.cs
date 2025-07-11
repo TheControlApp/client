@@ -7,10 +7,10 @@ public class WatchForMeCommandBuilder() : FileCommandBuilder("Popup Command", "P
         string content;
         if (((RadioButton) inputPanel.Controls["fileRadioButton"]).Checked) {
             TextBox fileNameTextBox = (TextBox) inputPanel.Controls["fileNameTextBox"];
-            if (fileNameTextBox.Text == String.Empty) {
+            if (fileNameTextBox.Text == string.Empty) {
                 MessageBox.Show("Please upload a file.");
                 return null;
-            } //TODO: Add filter to file selector
+            }
             content = "FTP" + fileNameTextBox.Text;
             fileNameTextBox.Clear(); 
         }
@@ -28,5 +28,10 @@ public class WatchForMeCommandBuilder() : FileCommandBuilder("Popup Command", "P
             upperTextBox.Clear();
         }
         return new WatchForMeCommand(content);
+    }
+
+    public override void ConfigureInputPanel(Panel inputPanel) {
+        base.ConfigureInputPanel(inputPanel);
+        ((OpenFileDialog) inputPanel.Container.Components["openFileDialog"]).Filter = "Video files (*.mpg;*.mpeg;*.mov;*.mp4;*.avi;*.webm)";
     }
 }
