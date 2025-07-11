@@ -1,9 +1,8 @@
 ﻿using System.Runtime.InteropServices;
-using FluentFTP.Helpers;
 
 namespace ControlApp.Subroutines;
 
-public partial class WatchForMe : Form {
+public partial class WatchForMe : Form { //TODO: Implement censoring system, the method at the bottom doesn't seem to be getting key press events
 	private readonly string senderId;
 
 	private int timeWatched;
@@ -17,7 +16,7 @@ public partial class WatchForMe : Form {
 	private bool censored;
 
 	[DllImport("wininet.dll", CharSet = CharSet.Auto, SetLastError = true)]
-	public static extern bool InternetSetOption(nint hInternet, int dwOption, string lpBuffer, int lpdwBufferLength);
+	private static extern bool InternetSetOption(nint hInternet, int dwOption, string lpBuffer, int lpdwBufferLength);
 
 	private static void SetUserAgent(string userAgent) {
 		InternetSetOption(IntPtr.Zero, 41, userAgent, userAgent.Length);
@@ -71,9 +70,6 @@ public partial class WatchForMe : Form {
 			}
 			default: {
 				axWindowsMediaPlayer.Visible = false;
-				if (url.StartsWithCI("HTTP")) {
-					url = "https://" + url;
-				}
 				Uri uri = new Uri(url);
 				webView21.Source = uri;
 				break;
@@ -115,29 +111,15 @@ public partial class WatchForMe : Form {
 		}
 	}
 
-	private void WFM_KeyDown(object sender, KeyEventArgs e) {
+	protected override void OnKeyDown(KeyEventArgs e) {
 		if (e.KeyCode != Keys.C) return;
 		if (censored) {
 			Opacity = 1.0;
-			censored = false;
 			censorTimer.Stop();
 		} else {
 			Opacity = 0.0;
-			censored = true;
 			censorTimer.Start();
 		}
-	}
-
-	private void axWindowsMediaPlayer_KeyPress(object sender, KeyPressEventArgs e) {
-		if (e.KeyChar != 'c') return;
-		if (censored) {
-			Opacity = 1.0;
-			censored = false;
-			censorTimer.Stop();
-		} else {
-			Opacity = 0.0;
-			censored = true;
-			censorTimer.Start();
-		}
+		censored = !censored;
 	}
 }

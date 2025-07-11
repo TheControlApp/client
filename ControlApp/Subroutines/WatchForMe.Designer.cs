@@ -60,7 +60,6 @@ partial class WatchForMe
         axWindowsMediaPlayer.OcxState = ((System.Windows.Forms.AxHost.State)resources.GetObject("axWindowsMediaPlayer.OcxState"));
         axWindowsMediaPlayer.Size = new System.Drawing.Size(1044, 647);
         axWindowsMediaPlayer.TabIndex = 3;
-        axWindowsMediaPlayer.KeyPress += axWindowsMediaPlayer_KeyPress;
         // 
         // WatchForMe
         // 
@@ -70,7 +69,6 @@ partial class WatchForMe
         Controls.Add(axWindowsMediaPlayer);
         Controls.Add(webView21);
         Text = "WatchForMe";
-        KeyDown += WFM_KeyDown;
         ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
         ((System.ComponentModel.ISupportInitialize)axWindowsMediaPlayer).EndInit();
         ResumeLayout(false);
