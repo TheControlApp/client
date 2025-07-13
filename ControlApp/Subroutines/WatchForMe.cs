@@ -1,8 +1,9 @@
 ﻿using System.Runtime.InteropServices;
+using AxWMPLib;
 
 namespace ControlApp.Subroutines;
 
-public partial class WatchForMe : Form { //TODO: Implement censoring system, the method at the bottom doesn't seem to be getting key press events
+public partial class WatchForMe : Form {
 	private readonly string senderId;
 
 	private int timeWatched;
@@ -107,12 +108,21 @@ public partial class WatchForMe : Form { //TODO: Implement censoring system, the
 
 	private void Form1_FormClosing(object? sender, FormClosingEventArgs e) {
 		if (e.CloseReason == CloseReason.UserClosing) {
-			ServerCommunicator.SendCommand(senderId, Utils.Encrypt($"M=User :  {MainWindow.username} watched for : {timeWatched} seconds and censored for : {timeCensored} seconds. Form lost focus {lostFocus} times"), groupSend: false);
+			string? returnCommand = Utils.Encrypt(
+				$"M=User {MainWindow.username} " +
+				$"watched for: {timeWatched} seconds " +
+				$"and censored for : {timeCensored} seconds. " +
+				$"Form lost focus {lostFocus} times");
+			if (returnCommand == null) {
+				MessageBox.Show("Could not send response to sender!", "Response Failed");
+			} else {	
+				ServerCommunicator.SendCommand(senderId, returnCommand, groupSend: false);
+			}
 		}
 	}
 
-	protected override void OnKeyDown(KeyEventArgs e) {
-		if (e.KeyCode != Keys.C) return;
+	private void AxWMP_KeyDown(object? sender, _WMPOCXEvents_KeyDownEvent e) {
+		if (e.nKeyCode != 67) return; // 67 represents key C, with or without any modifiers
 		if (censored) {
 			Opacity = 1.0;
 			censorTimer.Stop();

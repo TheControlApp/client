@@ -1,15 +1,12 @@
-﻿using System.ComponentModel;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Diagnostics;
 using Microsoft.Win32;
 
 namespace ControlApp;
 
 public partial class ConfigSettingsForm : Form {
-	private MainWindow openingWindow;
 
-	public ConfigSettingsForm(MainWindow openingWindow) {
-		this.openingWindow = openingWindow;
+	public ConfigSettingsForm() {
 		InitializeComponent();
 	}
 
@@ -40,11 +37,6 @@ public partial class ConfigSettingsForm : Form {
 		}
 		configuration.Save(ConfigurationSaveMode.Full);
 		ConfigurationManager.RefreshSection(configuration.AppSettings.SectionInformation.Name);
-		MainWindow.RefreshCredentialCache();
-	}
-
-	protected override void OnClosing(CancelEventArgs e) {
-		openingWindow.UpdateTimerState();
 	}
 
 	private void confirmButton_Click(object? sender, EventArgs e) {

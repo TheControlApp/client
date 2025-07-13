@@ -14,7 +14,7 @@ internal static class Program {
         ApplicationConfiguration.Initialize();
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
-
+        
         Application.Run(new MyCustomApplicationContext());
     }
 }
@@ -40,17 +40,19 @@ public class MyCustomApplicationContext : ApplicationContext {
         mainWindow.Show();
     }
 
-    void Exit(object? sender, EventArgs e) {
+    private void Exit(object? sender, EventArgs e) {
         // Hide tray icon, otherwise it will remain shown until user mouses over it
         trayIcon.Visible = false;
         mainWindow.Dispose();
 
         Application.Exit();
     }
-    void Open(object? sender, EventArgs e) {
+
+    private void Open(object? sender, EventArgs e) {
         mainWindow.Show();
     }
-    void Subliminal(object? sender, EventArgs e) {
+
+    private void Subliminal(object? sender, EventArgs e) {
         SubLoop? loop = (SubLoop?) Utils.GetForm(typeof(SubLoop));
         if (loop != null) {
             loop.Visible = !loop.Visible;
@@ -58,7 +60,8 @@ public class MyCustomApplicationContext : ApplicationContext {
             new SubLoop().Show();
         }
     }
-    void Panic(object? sender, EventArgs e) {
+
+    private void Panic(object? sender, EventArgs e) {
         foreach (Form fm in Application.OpenForms) {
             fm.Close();
         }

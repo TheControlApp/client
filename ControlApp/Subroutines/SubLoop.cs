@@ -18,7 +18,7 @@ public partial class SubLoop : Form {
 		public readonly string content = content;
 
 		public static LoopItem? parseLoopItem(string inputString) {
-			string[] splitInput = Utils.SeparateString(inputString);
+			string[] splitInput = Utils.SeparateArrayString(inputString);
 			if (splitInput.Length == 2)
 				return new LoopItem(splitInput[0] switch {
 					"m" => Type.Media,

@@ -68,9 +68,9 @@ partial class CommandBuilderTab {
         displayPanel.Controls.Add(destUsernameLabel);
         displayPanel.Controls.Add(commandDisplay);
         displayPanel.Controls.Add(commandDisplayLabel);
-        displayPanel.Location = new System.Drawing.Point(499, 12);
+        displayPanel.Location = new System.Drawing.Point(499, 10);
         displayPanel.Name = "displayPanel";
-        displayPanel.Size = new System.Drawing.Size(289, 426);
+        displayPanel.Size = new System.Drawing.Size(309, 426);
         displayPanel.TabIndex = 0;
         // 
         // respondButton
@@ -136,7 +136,7 @@ partial class CommandBuilderTab {
         commandDisplay.Multiline = true;
         commandDisplay.Name = "commandDisplay";
         commandDisplay.ReadOnly = true;
-        commandDisplay.Size = new System.Drawing.Size(286, 311);
+        commandDisplay.Size = new System.Drawing.Size(303, 311);
         commandDisplay.TabIndex = 1;
         // 
         // commandDisplayLabel
@@ -154,14 +154,14 @@ partial class CommandBuilderTab {
         builderPanel.Controls.Add(inputPanel);
         builderPanel.Controls.Add(addCommandButton);
         builderPanel.Controls.Add(commandCombo);
-        builderPanel.Location = new System.Drawing.Point(12, 12);
+        builderPanel.Location = new System.Drawing.Point(7, 10);
         builderPanel.Name = "builderPanel";
         builderPanel.Size = new System.Drawing.Size(481, 426);
         builderPanel.TabIndex = 1;
         // 
         // clearCommandsButton
         // 
-        clearCommandsButton.Location = new System.Drawing.Point(297, 371);
+        clearCommandsButton.Location = new System.Drawing.Point((478 - 127) / 2, 371); // width is derived from input panel width and button width, left like this as a reminder
         clearCommandsButton.Name = "clearCommandsButton";
         clearCommandsButton.Size = new System.Drawing.Size(127, 23);
         clearCommandsButton.TabIndex = 3;
@@ -315,7 +315,7 @@ partial class CommandBuilderTab {
         Controls.Add(displayPanel);
         
         // non-designer generated code
-        PopulateUserList();
+        PopulateDestUserList();
         ToolTip toolTip = new ToolTip();
         toolTip.SetToolTip(groupCombo, "Sends the command to all in this group.");
         toolTip.SetToolTip(destUsernameCombo, "Sends the command to this user.");
@@ -369,11 +369,11 @@ partial class CommandBuilderTab {
 
     #endregion
 
-    public void PopulateUserList() {
+    public void PopulateDestUserList() {
         string userlist = ConfigurationManager.AppSettings["CommonUsers"];
         if (userlist == null) return;
         destUsernameCombo.Items.Clear();
-        string[] array = Utils.SeparateString(userlist);
+        string[] array = Utils.SeparateArrayString(userlist);
         foreach (string user in array) {
             destUsernameCombo.Items.Add(user);
         }

@@ -131,7 +131,6 @@ public partial class Options : Form { // TODO: Maybe merge "Config" with this as
 		appSettings.Add("WebCnt", disableMouseCheckbox.Checked.ToString());
 		configuration.Save(ConfigurationSaveMode.Full);
 		ConfigurationManager.RefreshSection(configuration.AppSettings.SectionInformation.Name);
-		MainWindow.RefreshCredentialCache();
 		Close();
 	}
 }

@@ -26,91 +26,91 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
-            saveAndCloseButton = new Button();
-            label1 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            label2 = new Label();
-            textBox3 = new TextBox();
-            label3 = new Label();
+        private void InitializeComponent() {
+            saveAndCloseButton = new System.Windows.Forms.Button();
+            label1 = new System.Windows.Forms.Label();
+            commonUsersTextBox = new System.Windows.Forms.TextBox();
+            websiteBlacklistTextBox = new System.Windows.Forms.TextBox();
+            websiteBlacklistLabel = new System.Windows.Forms.Label();
+            userBlacklistTextBox = new System.Windows.Forms.TextBox();
+            label3 = new System.Windows.Forms.Label();
             SuspendLayout();
             // 
             // saveAndCloseButton
             // 
-            saveAndCloseButton.Location = new Point(277, 246);
+            saveAndCloseButton.Location = new System.Drawing.Point(146, 228);
             saveAndCloseButton.Name = "saveAndCloseButton";
-            saveAndCloseButton.Size = new Size(84, 23);
+            saveAndCloseButton.Size = new System.Drawing.Size(123, 23);
             saveAndCloseButton.TabIndex = 0;
-            saveAndCloseButton.Text = "Save & Close";
+            saveAndCloseButton.Text = "Save and Close";
             saveAndCloseButton.UseVisualStyleBackColor = true;
             saveAndCloseButton.Click += SaveAndCloseButton_Click;
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(22, 9);
+            label1.Location = new System.Drawing.Point(12, 9);
             label1.Name = "label1";
-            label1.Size = new Size(89, 15);
+            label1.Size = new System.Drawing.Size(123, 15);
             label1.TabIndex = 1;
             label1.Text = "Common Users";
+            label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox1
+            // commonUsersTextBox
             // 
-            textBox1.Location = new Point(11, 27);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(123, 189);
-            textBox1.TabIndex = 2;
+            commonUsersTextBox.Location = new System.Drawing.Point(12, 27);
+            commonUsersTextBox.Multiline = true;
+            commonUsersTextBox.Name = "commonUsersTextBox";
+            commonUsersTextBox.Size = new System.Drawing.Size(123, 189);
+            commonUsersTextBox.TabIndex = 2;
             // 
-            // textBox2
+            // websiteBlacklistTextBox
             // 
-            textBox2.Location = new Point(154, 27);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(123, 189);
-            textBox2.TabIndex = 4;
+            websiteBlacklistTextBox.Location = new System.Drawing.Point(147, 27);
+            websiteBlacklistTextBox.Multiline = true;
+            websiteBlacklistTextBox.Name = "websiteBlacklistTextBox";
+            websiteBlacklistTextBox.Size = new System.Drawing.Size(123, 189);
+            websiteBlacklistTextBox.TabIndex = 4;
             // 
-            // label2
+            // websiteBlacklistLabel
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(165, 9);
-            label2.Name = "label2";
-            label2.Size = new Size(77, 15);
-            label2.TabIndex = 3;
-            label2.Text = "Web blacklist";
+            websiteBlacklistLabel.Location = new System.Drawing.Point(147, 9);
+            websiteBlacklistLabel.Name = "websiteBlacklistLabel";
+            websiteBlacklistLabel.Size = new System.Drawing.Size(123, 15);
+            websiteBlacklistLabel.TabIndex = 3;
+            websiteBlacklistLabel.Text = "Website Blacklist";
+            websiteBlacklistLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox3
+            // userBlacklistTextBox
             // 
-            textBox3.Location = new Point(296, 27);
-            textBox3.Multiline = true;
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(123, 189);
-            textBox3.TabIndex = 6;
+            userBlacklistTextBox.Location = new System.Drawing.Point(282, 27);
+            userBlacklistTextBox.Multiline = true;
+            userBlacklistTextBox.Name = "userBlacklistTextBox";
+            userBlacklistTextBox.Size = new System.Drawing.Size(123, 189);
+            userBlacklistTextBox.TabIndex = 6;
             // 
             // label3
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(307, 9);
+            label3.Location = new System.Drawing.Point(282, 9);
             label3.Name = "label3";
-            label3.Size = new Size(76, 15);
+            label3.Size = new System.Drawing.Size(123, 15);
             label3.TabIndex = 5;
-            label3.Text = "User blacklist";
+            label3.Text = "User Blacklist";
+            label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Other
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(479, 281);
-            Controls.Add(textBox3);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(417, 263);
+            Controls.Add(userBlacklistTextBox);
             Controls.Add(label3);
-            Controls.Add(textBox2);
-            Controls.Add(label2);
-            Controls.Add(textBox1);
+            Controls.Add(websiteBlacklistTextBox);
+            Controls.Add(websiteBlacklistLabel);
+            Controls.Add(commonUsersTextBox);
             Controls.Add(label1);
             Controls.Add(saveAndCloseButton);
-            Name = "Other";
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Text = "Other";
             Load += Other_Load;
             ResumeLayout(false);
@@ -119,12 +119,12 @@
 
         #endregion
 
-        private Button saveAndCloseButton;
-        private Label label1;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private Label label2;
-        private TextBox textBox3;
-        private Label label3;
+        private System.Windows.Forms.Button saveAndCloseButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox commonUsersTextBox;
+        private System.Windows.Forms.TextBox websiteBlacklistTextBox;
+        private System.Windows.Forms.Label websiteBlacklistLabel;
+        private System.Windows.Forms.TextBox userBlacklistTextBox;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -36,12 +36,13 @@ public partial class MainWindow : Form {
 		UpdateTimerState();
 	}
 
-    public static void RefreshCredentialCache() {
+    public void RefreshCredentialCache() {
         username = ConfigurationManager.AppSettings["UserName"];
         password = ConfigurationManager.AppSettings["Password"];
+        usernameInput.Text = username;
     }
 
-    public void UpdateTimerState() {
+    private void UpdateTimerState() {
 	    if (Utils.CheckEnabled("RunAll")) {
 		    timer.Start();
 	    } else {
@@ -138,7 +139,7 @@ public partial class MainWindow : Form {
 		bool blacklistFound = false;
 		if (!string.IsNullOrWhiteSpace(configBlacklistOutput)) {
 			blacklistFound = true;
-			userBlacklist = Utils.SeparateString(configBlacklistOutput);
+			userBlacklist = Utils.SeparateArrayString(configBlacklistOutput);
 		}
 		foreach (string line in lines) {
 			if (line == "") continue;
@@ -193,7 +194,7 @@ public partial class MainWindow : Form {
 		using (Other ot = new Other()) {
 			ot.ShowDialog();
 		}
-		sendCommandTab.PopulateUserList();
+		sendCommandTab.PopulateDestUserList();
 	}
 
 	private void thumbsUpButton_Click(object sender, EventArgs e) {

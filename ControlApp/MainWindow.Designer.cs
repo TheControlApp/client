@@ -6,7 +6,7 @@ using Timer = System.Windows.Forms.Timer;
 namespace ControlApp;
 
 partial class MainWindow {
-	private readonly Size PANEL_SIZE = new Size(817, 438);
+	private readonly Size PANEL_SIZE = new Size(817, 444);
 	
 	/// <summary>
 	///  Required designer variable.
@@ -141,7 +141,7 @@ partial class MainWindow {
 		tabControl.Location = new Point(10, 66);
 		tabControl.Name = "tabControl";
 		tabControl.SelectedIndex = 0;
-		tabControl.Size = new Size(825, 466);
+		tabControl.Size = new Size(825, 472);
 		tabControl.TabIndex = 32;
 		// 
 		// mainTab
@@ -313,7 +313,8 @@ partial class MainWindow {
 		// 
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(839, 517);
+		ClientSize = new Size(845, 548);
+		FormBorderStyle = FormBorderStyle.FixedSingle;
 		Controls.Add(scoreInput);
 		Controls.Add(scoreLabel);
 		Controls.Add(tabControl);
@@ -370,12 +371,17 @@ partial class MainWindow {
 	}
 
 	private void configToolStripMenuItem_Click(object sender, EventArgs e) {
-		new ConfigSettingsForm(this).ShowDialog();
-		usernameInput.Text = username;
+		using (ConfigSettingsForm configForm = new ConfigSettingsForm()) {
+			configForm.ShowDialog();
+		}
+		RefreshCredentialCache();
+		UpdateTimerState();
 	}
 
 	private void optionsToolStripMenuItem_Click(object sender, EventArgs e) {
-		new Options().ShowDialog();
+		using (Options optionsForm = new Options()) {
+			optionsForm.ShowDialog();
+		}
 	}
 
 	private void clearOutstandingButton_Click(object sender, EventArgs e) {

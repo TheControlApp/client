@@ -4,8 +4,7 @@ namespace ControlApp.Commands;
 
 public class MessageBoxCommand(string content) : Command(Type.MessageBox, content) {
     public override void Execute(string senderId) {
-        foreach (string element in bannedWords) {
-            if (!content.Contains(element)) continue;
+        if (bannedWords.Any(element => content.Contains(element))) {
             new CustomMessage("Message contains blacklisted terms, skipping...", string.Empty, 4, false).Show();
             return;
         }

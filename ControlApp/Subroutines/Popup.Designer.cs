@@ -29,29 +29,28 @@ partial class Popup
     private void InitializeComponent()
     {
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Popup));
-        axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
-        ((System.ComponentModel.ISupportInitialize)axWindowsMediaPlayer1).BeginInit();
+        axWindowsMediaPlayer = new AxWMPLib.AxWindowsMediaPlayer();
+        ((System.ComponentModel.ISupportInitialize)axWindowsMediaPlayer).BeginInit();
         SuspendLayout();
         // 
-        // axWindowsMediaPlayer1
+        // axWindowsMediaPlayer
         // 
-        axWindowsMediaPlayer1.Dock = DockStyle.Fill;
-        axWindowsMediaPlayer1.Enabled = true;
-        axWindowsMediaPlayer1.Location = new Point(0, 0);
-        axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
-        axWindowsMediaPlayer1.OcxState = (AxHost.State)resources.GetObject("axWindowsMediaPlayer1.OcxState");
-        //axWindowsMediaPlayer1.Size = new Size(800, 450);
-        axWindowsMediaPlayer1.TabIndex = 0;
+        axWindowsMediaPlayer.Dock = DockStyle.Fill;
+        axWindowsMediaPlayer.Enabled = true;
+        axWindowsMediaPlayer.Location = new Point(0, 0);
+        axWindowsMediaPlayer.Name = "axWindowsMediaPlayer";
+        axWindowsMediaPlayer.OcxState = (AxHost.State)resources.GetObject("axWindowsMediaPlayer.OcxState");
+        axWindowsMediaPlayer.TabIndex = 0;
+        axWindowsMediaPlayer.PlayStateChange += axWMP_PlayStateChange;
         // 
         // Popup
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.Black;
-        TransparencyKey = Color.Black;
-        ClientSize = new Size(800, 450);
+        ClientSize = new Size(POPUP_WIDTH, POPUP_HEIGHT);
         ControlBox = false;
-        Controls.Add(axWindowsMediaPlayer1);
+        Controls.Add(axWindowsMediaPlayer);
         FormBorderStyle = FormBorderStyle.None;
         Name = "Popup";
         ShowIcon = false;
@@ -59,11 +58,11 @@ partial class Popup
         Text = "Popup";
         TopMost = true;
         Load += PopUp_Load;
-        ((System.ComponentModel.ISupportInitialize)axWindowsMediaPlayer1).EndInit();
+        ((System.ComponentModel.ISupportInitialize)axWindowsMediaPlayer).EndInit();
         ResumeLayout(false);
     }
 
     #endregion
 
-    private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
+    private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer;
 }

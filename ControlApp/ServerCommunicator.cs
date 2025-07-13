@@ -59,7 +59,7 @@ public abstract class ServerCommunicator : HttpClient {
 
 	public static string[]? GetOutstanding() {
 		string? result = GetChildWithId(GetCommand("Outstanding"), "result");
-		return result == null ? null : Utils.SeparateString(result);
+		return result == null ? null : Utils.SeparateArrayString(result);
 	}
 
 	public static bool DeleteOutstanding() {
@@ -104,14 +104,14 @@ public abstract class ServerCommunicator : HttpClient {
 		if (node == null) return null;
 		string? childNode = GetChildWithId(node, "result");
 		if (childNode == null) return null;
-		string[] output = Utils.SeparateString(childNode);
+		string[] output = Utils.SeparateArrayString(childNode);
 		return output;
 	}
 
 	/*	Keeping this piece of code here for archival purposes. Who knows, maybe it'll be useful someday.
 	public static string[] GetRelations() {
 		string result = GetChildWithId(GetCommand("Relations"), "result");
-		return result == null ? null : Utils.SeparateString(result);
+		return result == null ? null : Utils.SeparateArrayString(result);
 	}
 
 	public static bool AcceptInvite(string dom) {
@@ -124,7 +124,7 @@ public abstract class ServerCommunicator : HttpClient {
 
 	public static string[] getInvites() {
 		string result = GetChildWithId(GetCommand("Invite"), "result");
-		return result == null ? null : Utils.SeparateString(result);
+		return result == null ? null : Utils.SeparateArrayString(result);
 	}
 	*/
 

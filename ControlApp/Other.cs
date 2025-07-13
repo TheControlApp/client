@@ -11,31 +11,19 @@ namespace ControlApp
             Configuration myconfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             KeyValueConfigurationCollection apps = myconfig.AppSettings.Settings;
             apps.Remove("CommonUsers");
-            string commonUserList = "";
-            foreach (string line in textBox1.Lines) {
-                commonUserList += $"[{line}],";
-            }
-            if (commonUserList.Length > 0) commonUserList = commonUserList.Remove(commonUserList.Length - 1); // remove last char
+            string commonUserList = Utils.FormArrayString(commonUsersTextBox.Lines);
             apps.Add("CommonUsers", commonUserList);
 
             apps.Remove("BlackList");
-            string blacklist = "";
-            foreach (string line in textBox2.Lines) {
-                blacklist += $"[{line}],";
-            }
-            if (blacklist.Length > 0) blacklist = blacklist.Remove(blacklist.Length - 1); // remove last char
+            string blacklist = Utils.FormArrayString(websiteBlacklistTextBox.Lines);
             apps.Add("BlackList", blacklist);
 
             apps.Remove("UserBList");
-            string userBlacklist = "";
-            foreach (string line in textBox2.Lines) {
-                userBlacklist += $"[{line}],";
-            }
-            if (userBlacklist.Length > 0) userBlacklist = userBlacklist.Remove(userBlacklist.Length - 1); // remove last char
+            string userBlacklist = Utils.FormArrayString(userBlacklistTextBox.Lines);
             apps.Add("UserBList", userBlacklist);
             myconfig.Save(ConfigurationSaveMode.Full);
             ConfigurationManager.RefreshSection(myconfig.AppSettings.SectionInformation.Name);
-            this.Close();
+            Close();
         }
 
         private void Other_Load(object sender, EventArgs e) {
@@ -53,19 +41,19 @@ namespace ControlApp
                 }
             }
             string? commonUserList = ConfigurationManager.AppSettings["CommonUsers"];
-            string? blacklist = ConfigurationManager.AppSettings["BlackList"];
-            string? userBlacklist = ConfigurationManager.AppSettings["UserBList"];
             if (commonUserList != null) {
-                string[] users = Utils.SeparateString(commonUserList);
-                textBox1.Lines = users;
+                string[] users = Utils.SeparateArrayString(commonUserList);
+                commonUsersTextBox.Lines = users;
             }
+            string? blacklist = ConfigurationManager.AppSettings["BlackList"];
             if (blacklist != null) {
-                string[] blists = Utils.SeparateString(blacklist);
-                textBox2.Lines = blists;
+                string[] blacklistedSites = Utils.SeparateArrayString(blacklist);
+                websiteBlacklistTextBox.Lines = blacklistedSites;
             }
+            string? userBlacklist = ConfigurationManager.AppSettings["UserBList"];
             if (userBlacklist != null) {
-                string[] blists = Utils.SeparateString(userBlacklist);
-                textBox3.Lines = blists;
+                string[] blacklistedUsers = Utils.SeparateArrayString(userBlacklist);
+                userBlacklistTextBox.Lines = blacklistedUsers;
             }
         }
     }

@@ -109,8 +109,12 @@ internal static class Utils {
         }
         return false;
     }
+
+    public static string FormArrayString(string[] elements) {
+        return string.Join(',', elements.Select(element => $"[{element}]").ToArray());
+    }
         
-    public static string[] SeparateString(string separate) {
+    public static string[] SeparateArrayString(string separate) {
         List<string> output = new List<string>();
         Match match = splitterRegex.Match(separate);
         while (match.Success) {

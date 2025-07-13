@@ -2,7 +2,7 @@
 
 namespace ControlApp.Commands.Builders;
 
-public class WatchForMeCommandBuilder() : FileCommandBuilder("Popup Command", "Popup File") {
+public class WatchForMeCommandBuilder() : FileCommandBuilder("Watch For Me Command", "File") {
     public override Command? BuildCommand(Panel inputPanel) {
         string content;
         if (((RadioButton) inputPanel.Controls["fileRadioButton"]).Checked) {
@@ -32,6 +32,6 @@ public class WatchForMeCommandBuilder() : FileCommandBuilder("Popup Command", "P
 
     public override void ConfigureInputPanel(Panel inputPanel) {
         base.ConfigureInputPanel(inputPanel);
-        ((OpenFileDialog) inputPanel.Container.Components["openFileDialog"]).Filter = "Video files (*.mpg;*.mpeg;*.mov;*.mp4;*.avi;*.webm)";
+        ((OpenFileDialog) inputPanel.Container.Components["openFileDialog"]).Filter = "Video files (*.mpg;*.mpeg;*.mov;*.mp4;*.avi;*.webm)|*.mpg;*.mpeg;*.mov;*.mp4;*.avi;*.webm";
     }
 }

@@ -139,6 +139,7 @@ public partial class CommandBuilderTab : TabPage {
         }
         if (commandCombo.SelectedIndex == 0) {
             addCommandButton.Hide();
+            clearCommandsButton.Location = clearCommandsButton.Location with { X = (inputPanel.Width - clearCommandsButton.Width) / 2 };
             return;
         }
         upperTextBox.Multiline = false;
@@ -149,6 +150,7 @@ public partial class CommandBuilderTab : TabPage {
             if (!control.Visible && control is TextBox textBox) textBox.Clear();
         }
         addCommandButton.Show();
+        clearCommandsButton.Location = clearCommandsButton.Location with { X = 297 };
     }
 
     private void fileRadioButton_CheckedChanged(object sender, EventArgs e) {

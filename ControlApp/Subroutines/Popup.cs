@@ -1,10 +1,13 @@
 ﻿using System.Configuration;
 using System.Runtime.InteropServices;
+using AxWMPLib;
 using Timer = System.Windows.Forms.Timer;
 
 namespace ControlApp.Subroutines;
 
 public partial class Popup : Form {
+	private const int POPUP_WIDTH = 800;
+	private const int POPUP_HEIGHT = 450;
 	private static readonly Random randGen = Random.Shared;
 	
 	private string runningUrl;
@@ -36,7 +39,7 @@ public partial class Popup : Form {
 			SetWindowLong(Handle, GWL_STYLE, initialStyle | 0x80000 | 0x20);
 		} else if (popupPropertyArray[1] == 'c') {
 			Click += (_, _) => Close();
-			axWindowsMediaPlayer1.ClickEvent += (_, _) => Close();
+			axWindowsMediaPlayer.ClickEvent += (_, _) => Close();
 		}
 		if (popupPropertyArray[2] == 'm' && popupPropertyArray[3] != 'n') {
 			Timer moveTimer = new Timer();
@@ -74,15 +77,15 @@ public partial class Popup : Form {
 	private void ContentFinished(object? sender, EventArgs e) {
 		if (urls.Count > 0) {
 			runningUrl = urls.Dequeue();
-			axWindowsMediaPlayer1.Visible = true;
-			axWindowsMediaPlayer1.URL = runningUrl;
-			axWindowsMediaPlayer1.Ctlenabled = false;
-			axWindowsMediaPlayer1.uiMode = "None";
-			axWindowsMediaPlayer1.stretchToFit = true;
-			axWindowsMediaPlayer1.settings.autoStart = true;
-			axWindowsMediaPlayer1.settings.setMode("loop", varfMode: true);
+			axWindowsMediaPlayer.URL = runningUrl;
 		} else {
 			Close();
+		}
+	}
+
+	private void axWMP_PlayStateChange(object sender, _WMPOCXEvents_PlayStateChangeEvent e) {
+		if (e.newState == 3) { // signals "Playing", there's no enum for this, docs also do it with integers: https://learn.microsoft.com/en-us/previous-versions/windows/desktop/wmp/axwmplib-axwindowsmediaplayer-playstatechange
+			ResizePopup();
 		}
 	}
 
@@ -99,12 +102,22 @@ public partial class Popup : Form {
 			StartPosition = FormStartPosition.Manual;
 			Location = new Point(randomX, randomY);
 		}
-		axWindowsMediaPlayer1.URL = runningUrl;
-		axWindowsMediaPlayer1.Ctlenabled = false;
-		axWindowsMediaPlayer1.uiMode = "None";
-		axWindowsMediaPlayer1.stretchToFit = true;
-		axWindowsMediaPlayer1.settings.autoStart = true;
-		axWindowsMediaPlayer1.settings.setMode("loop", varfMode: true);
+		axWindowsMediaPlayer.URL = runningUrl;
+		axWindowsMediaPlayer.Ctlenabled = false;
+		axWindowsMediaPlayer.uiMode = "None";
+		axWindowsMediaPlayer.stretchToFit = true;
+		axWindowsMediaPlayer.settings.autoStart = true;
+		axWindowsMediaPlayer.settings.setMode("loop", varfMode: true);
 		timer.Start();
+	}
+
+	private void ResizePopup() {
+		int sourceWidth = axWindowsMediaPlayer.currentMedia.imageSourceWidth;
+		int sourceHeight = axWindowsMediaPlayer.currentMedia.imageSourceHeight;
+		double widthRatio = (double) POPUP_WIDTH / sourceWidth;
+		double heightRatio = (double) POPUP_HEIGHT / sourceHeight;
+		ClientSize = widthRatio < heightRatio 
+			? new Size(POPUP_WIDTH, (int) (sourceHeight * widthRatio)) 
+			: new Size((int)(sourceWidth * heightRatio), POPUP_HEIGHT);
 	}
 }
