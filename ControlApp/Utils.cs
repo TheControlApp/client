@@ -72,7 +72,7 @@ internal static class Utils {
     public static bool IsAudioFile(string filePath) {
         if (!IsValidPath(filePath)) return false;
         return Path.GetExtension(filePath) switch {
-            ".mp3" or ".wav" => true,
+            ".mp3" or ".wav" or ".m4a" => true,
             _ => false
         };
     }
