@@ -48,12 +48,12 @@ public partial class WriteForMe : Form
 		}
 		inputBox.Text = "";
 		if (count != 0) return;
-		ServerCommunicator.SendCommand(senderId, Utils.Encrypt($"M={MainWindow.username} completed your command in {seconds} seconds with {mistakes} mistakes.&&&Please Reward"), groupSend: false);
+		ServerCommunicator.SendCommand(senderId, Utils.Encrypt($"M={MainWindow.username} completed your command in {seconds} seconds with {mistakes} mistakes.&&&Please Reward")!, groupSend: false);
 		Close();
 	}
 
 	private void button1_Click(object sender, EventArgs e) {
-		ServerCommunicator.SendCommand(senderId, Utils.Encrypt($"M={MainWindow.username} failed your command after {seconds} seconds with {mistakes} mistakes.&&&Please Punish"), groupSend: false);
+		ServerCommunicator.SendCommand(senderId, Utils.Encrypt($"M={MainWindow.username} failed your command after {seconds} seconds with {mistakes} mistakes.&&&Please Punish")!, groupSend: false);
 		Close();
 	}
 }

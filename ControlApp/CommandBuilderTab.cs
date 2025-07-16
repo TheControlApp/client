@@ -81,10 +81,10 @@ public partial class CommandBuilderTab : TabPage {
         return (groupCombo.SelectedIndex + 1) * -1;
     }
 
-    private void sendCommandButton_Click(object sender, EventArgs e) {
+    private async void sendCommandButton_Click(object sender, EventArgs e) {
         bool groupSelected = groupCombo.SelectedIndex != 0 && groupCombo.SelectedIndex != -1;
         string destination = groupSelected ? GetGroup().ToString() : destUsernameCombo.Text;
-        if (ServerCommunicator.SendCommand(destination, BuildCommandString(commandList, true), groupSelected)) {
+        if (await ServerCommunicator.SendCommand(destination, BuildCommandString(commandList, true), groupSelected)) {
             MessageBox.Show("Command successfully sent!");
         } else {
             MessageBox.Show("Command could not be sent!");
@@ -102,7 +102,7 @@ public partial class CommandBuilderTab : TabPage {
         }
         string command = BuildCommandString(commandList, true);
         if (groupCombo.SelectedIndex == 0) {
-            if (lastSenderId != "-1") { // respond to specific user
+            if (lastSenderId != null && lastSenderId != "-1") { // respond to specific user
                 ServerCommunicator.SendCommand(lastSenderId, command, false);
             }
         } else if (Convert.ToInt16(lastSenderId) >= -1) { // TODO: How are IDs assigned? Can they ever be lower than -1?

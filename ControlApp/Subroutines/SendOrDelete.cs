@@ -27,7 +27,7 @@ public partial class SendOrDelete : Form {
 	private void deleteButton_Click(object sender, EventArgs e) {
 		File.Delete(candidateFile);
 		string command = $"M={MainWindow.username} chose to delete.";
-		ServerCommunicator.SendCommand(senderId, Utils.Encrypt(command), groupSend: false);
+		ServerCommunicator.SendCommand(senderId, Utils.Encrypt(command)!, groupSend: false);
 		Close();
 	}
 

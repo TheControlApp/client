@@ -3,6 +3,11 @@ using FluentFTP;
 using HtmlAgilityPack;
 using ControlApp.Subroutines;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
+using ControlApp.Models;
+using System.Text.Json;
+using System.Text;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace ControlApp;
 
@@ -10,13 +15,46 @@ public abstract class ServerCommunicator : HttpClient {
     private static readonly HttpClient _httpClient = new HttpClient();
 	private static readonly FtpClient _ftpClient = new FtpClient("ftp://home240474283.1and1-data.host/", "acc929431981", Utils.Decrypt("6scM67YJ+Ezzz0RKCeIxbT9TAfSbRE++1T"));
 
-	private static HtmlNode? GetCommand(string command) {
+	public static async Task<string> LoginAndGetTokenAsync(Login loginModel)
+    {
+        try
+        {
+            string loginUrl = "https://www.thecontrolapp.co.uk/api/login"; // Replace with your actual login endpoint
+            string jsonContent = JsonSerializer.Serialize(loginModel);
+            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PostAsync(loginUrl, httpContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Assuming the backend returns the token in the response body
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            Utils.LogError("Error during login: " + ex.Message);
+        }
+        return null;
+    }
+
+	private static async Task<HtmlNode?> GetCommand(string command)
+	{
 		if (_httpClient.Timeout != TimeSpan.FromMilliseconds(1000)) _httpClient.Timeout = TimeSpan.FromMilliseconds(1000);
-		string url = $"https://www.thecontrolapp.co.uk/AppCommand.aspx?UserNm={MainWindow.username}&Pwd={MainWindow.password}&vrs=012&cmd={command}";
+		string url = $"https://www.thecontrolapp.co.uk/AppCommand.aspx?vrs=012&cmd={command}";
 		Utils.LogInfo("Getting response from URL: " + url);
+		var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
+        // Add the token to the request header
+        string token = SecureTokenStorage.ReadToken();
+        if (string.IsNullOrEmpty(token)) {
+            Utils.LogError("No token found for GetCommand.");
+            return null;
+        }
+        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
 		HttpResponseMessage message;
 		try {
-			message = _httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, url)).Result;
+			message = await _httpClient.SendAsync(requestMessage);
 		} catch (Exception ex) {
 			Utils.LogWarning("Error during command: \"" + command + "\"" + ex.Message);
 			return null;
@@ -25,11 +63,12 @@ public abstract class ServerCommunicator : HttpClient {
 			Utils.LogError($"Server returned error code {message.StatusCode} during command {command}");
 			return null;
 		}
-		HtmlDocument document = new HtmlDocument();
+		HtmlDocument document = new();
 		Utils.LogInfo("Server successfully replied");
-		document.LoadHtml(message.Content.ReadAsStringAsync().Result);
+		document.LoadHtml(await message.Content.ReadAsStringAsync());
 		return document.DocumentNode.SelectSingleNode("//body/form/div[not(@class)]");
 	}
+
 
 	private static string? GetChildWithId(HtmlNode? node, string nodeId) {
 		if (node == null) {
@@ -57,50 +96,72 @@ public abstract class ServerCommunicator : HttpClient {
 		return true;
 	}
 
-	public static string[]? GetOutstanding() {
-		string? result = GetChildWithId(GetCommand("Outstanding"), "result");
+	public static async Task<string[]?> GetOutstanding() {
+		string? result = GetChildWithId(await GetCommand("Outstanding"), "result");
 		return result == null ? null : Utils.SeparateArrayString(result);
 	}
 
-	public static bool DeleteOutstanding() {
-		return GetCommand("Delete") != null;
+	public static async Task<bool> DeleteOutstanding() {
+		return await GetCommand("Delete") != null;
 	}
 
-	public static bool SendCommand(string destUser, string command, bool groupSend) {
-		string username = MainWindow.username ?? string.Empty;
-		string password = MainWindow.password ?? string.Empty;
-		byte allint = Convert.ToByte(groupSend);
-		string url = $"https://www.thecontrolapp.co.uk/AppSendContent.aspx?UserNm={destUser}&comm={command}&all={allint}&fromuser={username}&frompword={password}";
-		Utils.LogInfo("Getting response from: " + url);
-		try {
-			_httpClient.Send(new HttpRequestMessage(HttpMethod.Get, url));
-		} catch (HttpRequestException e) {
-			Utils.LogError("Could not get a response from server: " + e.Message);
-			return false;
-		} catch (Exception e) {
-			Utils.LogError("Error while sending command: " + e.Message);
-			return false;
-		}
-		Utils.LogInfo("Server successfully replied");
-		return true;
-	}
+	public static async Task<bool> SendCommand(string destUser, string command, bool groupSend)
+    {
+        // Remove fromuser and frompword from URL, rely on token.
+        // The backend will identify the "from" user via the token.
+        byte allint = Convert.ToByte(groupSend);
+        string url = $"https://www.thecontrolapp.co.uk/AppSendContent.aspx?UserNm={destUser}&comm={command}&all={allint}";
+        Utils.LogInfo("Getting response from: " + url);
+        try
+        {
+            var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
+            string token = SecureTokenStorage.ReadToken();
+            if (string.IsNullOrEmpty(token)) return false;
+            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            await _httpClient.SendAsync(requestMessage);
+        }
+        catch (HttpRequestException e)
+        {
+            Utils.LogError("Could not get a response from server: " + e.Message);
+            return false;
+        }
+        catch (Exception e)
+        {
+            Utils.LogError("Error while sending command: " + e.Message);
+            return false;
+        }
+        Utils.LogInfo("Server successfully replied");
+        return true;
+    }
 
 	public static bool SendBlockReport(string senderid, string command, string report) {
-		string url = $"https://www.thecontrolapp.co.uk/BlockReport.aspx?usernm={MainWindow.username}&pwd={MainWindow.password}&vrs=012&sender={senderid}&report={report}&content={command}";
-		try {
-			_httpClient.Send(new HttpRequestMessage(HttpMethod.Get, url));
-		} catch (HttpRequestException e) {
+		string url = $"https://www.thecontrolapp.co.uk/BlockReport.aspx?vrs=012&sender={senderid}&report={report}&content={command}";
+        Utils.LogInfo("Blocking user : " + url);
+		
+		try
+		{
+            var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
+            string token = SecureTokenStorage.ReadToken();
+            if (string.IsNullOrEmpty(token)) return false;
+            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+			_httpClient.Send(requestMessage);
+		}
+		catch (HttpRequestException e)
+		{
 			Utils.LogError("Could not get a response from server: " + e.Message);
 			return false;
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			Utils.LogError("Error while sending report: " + e.Message);
 			return false;
 		}
 		return true;
 	}
 
-	public static string[]? GetLatestItem() {
-		HtmlNode? node = GetCommand("Content");
+	public static async Task<string[]?> GetLatestItem() {
+		HtmlNode? node = await GetCommand("Content");
 		if (node == null) return null;
 		string? childNode = GetChildWithId(node, "result");
 		if (childNode == null) return null;

@@ -30,7 +30,7 @@ internal class LockMouse {
     private static nint SetMouseHook(LowLevelMouseProc proc)
     {
         using Process curProcess = Process.GetCurrentProcess();
-        using ProcessModule curModule = curProcess.MainModule;
+        using ProcessModule curModule = curProcess.MainModule!;
         return SetWindowsHookEx(WH_MOUSE_LL, proc, GetModuleHandle(curModule.ModuleName), 0u);
     }
 

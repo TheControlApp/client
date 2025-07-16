@@ -30,7 +30,7 @@ internal class LockKeyboard {
     private static nint SetHook(LowLevelKeyboardProc proc)
     {
         using Process curProcess = Process.GetCurrentProcess();
-        using ProcessModule curModule = curProcess.MainModule;
+        using ProcessModule curModule = curProcess.MainModule!;
         return SetWindowsHookEx(WH_KEYBOARD_LL, proc, GetModuleHandle(curModule.ModuleName), 0u);
     }
 
