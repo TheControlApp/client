@@ -62,6 +62,7 @@ namespace ControlApp
                 // This can happen if the file is corrupted or moved to another user/computer.
                 // Treat it as if the token doesn't exist.
                 DeleteToken(); // Clean up the invalid file.
+                Application.Restart();
                 return null;
             }
         }
