@@ -1,41 +1,167 @@
-﻿using System.Configuration;
+﻿using ControlApp.Exceptions;
+using ControlApp.Exceptions.LoginExceptions;
+using ControlApp.Exceptions.RegisterExceptions;
+using ControlApp.Models;
+using ControlApp.Subroutines;
 using FluentFTP;
 using HtmlAgilityPack;
-using ControlApp.Subroutines;
-using HtmlDocument = HtmlAgilityPack.HtmlDocument;
-using ControlApp.Models;
-using System.Text.Json;
-using System.Text;
+using System.CodeDom;
+using System.Configuration;
 using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace ControlApp;
 
 public abstract class ServerCommunicator : HttpClient {
+    private const string URL_AUTH_REGISTER = "auth/register";
+    private const string URL_AUTH_LOGIN = "auth/login";
+    private const string MEDIA_TYPE_APP_JSON = "application/json";
     private static readonly HttpClient _httpClient = new HttpClient();
 	private static readonly FtpClient _ftpClient = new FtpClient("ftp://home240474283.1and1-data.host/", "acc929431981", Utils.Decrypt("6scM67YJ+Ezzz0RKCeIxbT9TAfSbRE++1T"));
 
-	public static async Task<string> LoginAndGetTokenAsync(Login loginModel)
+    /// <summary>
+    /// Asynchronously attempts to log in a user and retrieve an authentication token.
+    /// </summary>
+    /// <remarks>
+    /// This method sends the provided login credentials to the authentication endpoint specified in the application's configuration. It handles several specific HTTP status codes to provide detailed exception information for different failure scenarios.
+    /// </remarks>
+    /// <param name="loginModel">A <c>Login</c> object containing the user's credentials, such as username and password.</param>
+    /// <returns>
+    /// A <c>Task<string></c> that represents the asynchronous operation. Upon successful authentication, the task's result is the authentication token returned by the server.
+    /// </returns>
+    /// <exception cref="Exception">
+    /// Thrown when an error occurs during the HTTP POST request. The error is logged before the exception is re-thrown.
+    /// </exception>
+    /// <exception cref="WrongLoginOrPaswordException">
+    /// Thrown if the server responds with a 400 (Bad Request) or 403 (Forbidden) status code, indicating incorrect login credentials or a banned user.
+    /// </exception>
+    /// <exception cref="UpgradeAppVerionException">
+    /// Thrown if the server responds with a 426 (Upgrade Required) status code, indicating that the client application version is outdated.
+    /// </exception>
+    /// <exception cref="UnknownLoginException">
+    /// Thrown if the server returns an unsuccessful status code that is not one of the specifically handled cases (400, 403, 426).
+    /// </exception>
+    public static async Task<string> LoginAndGetTokenAsync(Login loginModel)
     {
+		HttpResponseMessage response;
+		// fetch token
         try
         {
-            string loginUrl = ConfigurationManager.AppSettings["SiteUrl"] + "api/login"; // Replace with your actual login endpoint
+            string loginUrl = ConfigurationManager.AppSettings["SiteUrl"] + URL_AUTH_LOGIN;
             string jsonContent = JsonSerializer.Serialize(loginModel);
-            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            var httpContent = new StringContent(jsonContent, Encoding.UTF8, MEDIA_TYPE_APP_JSON);
 
-            HttpResponseMessage response = await _httpClient.PostAsync(loginUrl, httpContent);
-
-            if (response.IsSuccessStatusCode)
-            {
-                // Assuming the backend returns the token in the response body
-                return await response.Content.ReadAsStringAsync();
-            }
+            response = await _httpClient.PostAsync(loginUrl, httpContent);
         }
         catch (Exception ex)
         {
             Utils.LogError("Error during login: " + ex.Message);
+			throw;
         }
-        return null;
+		// process answer
+        if (response.IsSuccessStatusCode)
+        {
+            // Assuming the backend returns the token in the response body
+            return await response.Content.ReadAsStringAsync();
+        }
+        else if (response.StatusCode == System.Net.HttpStatusCode.Forbidden) // user is banned
+        {
+            throw new WrongLoginOrPaswordException();
+        }
+        else if (response.StatusCode == System.Net.HttpStatusCode.UpgradeRequired) // user is on an older version of the app
+        {
+            throw new UpgradeAppVerionException();
+        }
+        else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest) // wrong login or password
+        {
+            throw new WrongLoginOrPaswordException();
+        }
+		throw new UnknownLoginException();
+    }
+
+    /// <summary>
+    /// Asynchronously attempts to register a new user.
+    /// </summary>
+    /// <remarks>
+    /// This method sends the new user's details to the registration endpoint specified in the application's configuration. It handles several specific HTTP status codes to provide detailed exception information for different failure scenarios, including validation errors and conflicts.
+    /// </remarks>
+    /// <param name="registerModel">A <c>Register</c> object containing the new user's information, such as username, password, and email.</param>
+    /// <returns>
+    /// A <c>Task<bool></c> that represents the asynchronous operation. Upon successful registration, the task's result is a boolean value deserialized from the server's response.
+    /// </returns>
+    /// <exception cref="Exception">
+    /// Thrown when an error occurs during the HTTP POST request. The error is logged before the exception is re-thrown.
+    /// </exception>
+    /// <exception cref="UserNameOrEmailAlreadyInUseException">
+    /// Thrown if the server responds with a 409 (Conflict) status code, indicating the chosen username or email is already registered.
+    /// </exception>
+    /// <exception cref="UpgradeAppVerionException">
+    /// Thrown if the server responds with a 426 (Upgrade Required) status code, indicating the client application version is outdated.
+    /// </exception>
+    /// <exception cref="BadEmailException">
+    /// Thrown if the server responds with a 400 (Bad Request) status code and the response body is "bad-email", indicating an invalid email format.
+    /// </exception>
+    /// <exception cref="BadPasswordException">
+    /// Thrown if the server responds with a 400 (Bad Request) status code and the response body is "bad-password", indicating the password does not meet security requirements.
+    /// </exception>
+    /// <exception cref="UnauthorizedUserNameException">
+    /// Thrown if the server responds with a 400 (Bad Request) status code and the response body is "bad-username", indicating the username is invalid or disallowed.
+    /// </exception>
+    /// <exception cref="UnauthorizedScreenNameException">
+    /// Thrown if the server responds with a 400 (Bad Request) status code and the response body is "bad-displayname", indicating the screen name is invalid or disallowed.
+    /// </exception>
+    /// <exception cref="UnknownRegisterException">
+    /// Thrown if the server returns an unsuccessful status code that is not one of the specifically handled cases.
+    /// </exception>
+    public static async Task<bool> RegisterAsync(Register registerModel)
+	{
+		HttpResponseMessage response;
+        try
+        {
+            string loginUrl = ConfigurationManager.AppSettings["SiteUrl"] + URL_AUTH_REGISTER;
+            string jsonContent = JsonSerializer.Serialize(registerModel);
+            var httpContent = new StringContent(jsonContent, Encoding.UTF8, MEDIA_TYPE_APP_JSON);
+
+            response = await _httpClient.PostAsync(loginUrl, httpContent);
+
+            
+        }
+        catch (Exception ex)
+        {
+            Utils.LogError("Error during register: " + ex.Message);
+			throw;
+        }
+        if (response.IsSuccessStatusCode)
+        {
+            // Assuming the backend returns a boolean in the response body
+            return JsonSerializer.Deserialize<bool>(await response.Content.ReadAsStringAsync());
+        }
+        else if (response.StatusCode == System.Net.HttpStatusCode.Conflict) // username or email is already used
+        {
+            throw new UserNameOrEmailAlreadyInUseException();
+        }
+        else if (response.StatusCode == System.Net.HttpStatusCode.UpgradeRequired) // user is on an older version of the app
+        {
+            throw new UpgradeAppVerionException();
+        }
+        else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest) // wrong or bad data provided by user
+        {
+			switch(await response.Content.ReadAsStringAsync())
+			{
+				case "bad-email":
+					throw new BadEmailException();
+				case "bad-password":
+                    throw new BadPasswordException();
+				case "bad-username":
+					throw new UnauthorizedUserNameException();
+				case "bad-displayname":
+					throw new UnauthorizedScreenNameException();
+            }
+        }
+        throw new UnknownRegisterException();
     }
 
 	private static async Task<HtmlNode?> GetCommand(string command)

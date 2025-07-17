@@ -28,62 +28,62 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            tabControl1 = new TabControl();
-            tabPage1 = new TabPage();
+            tabControlAuth = new TabControl();
+            tabPageLogin = new TabPage();
             panel1 = new Panel();
             label1 = new Label();
             label2 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            button1 = new Button();
-            tabPage2 = new TabPage();
+            textBoxPasswordLogin = new TextBox();
+            textBoxUsernameLogin = new TextBox();
+            buttonLogin = new Button();
+            tabPageRegister = new TabPage();
             panel2 = new Panel();
-            checkBox1 = new CheckBox();
+            label7 = new Label();
+            textBoxDisplayNameRegister = new TextBox();
+            checkBoxOptinRandomRegister = new CheckBox();
             label6 = new Label();
             label5 = new Label();
-            textBox5 = new TextBox();
+            textBoxPasswordRegister = new TextBox();
             label3 = new Label();
             label4 = new Label();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
-            button2 = new Button();
-            toolTip1 = new ToolTip(components);
-            tabControl1.SuspendLayout();
-            tabPage1.SuspendLayout();
+            textBoxEmailRegister = new TextBox();
+            textBoxUsernameRegister = new TextBox();
+            buttonRegister = new Button();
+            tabControlAuth.SuspendLayout();
+            tabPageLogin.SuspendLayout();
             panel1.SuspendLayout();
-            tabPage2.SuspendLayout();
+            tabPageRegister.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
-            // tabControl1
+            // tabControlAuth
             // 
-            tabControl1.Controls.Add(tabPage1);
-            tabControl1.Controls.Add(tabPage2);
-            tabControl1.Location = new Point(-4, -1);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(805, 452);
-            tabControl1.TabIndex = 0;
+            tabControlAuth.Controls.Add(tabPageLogin);
+            tabControlAuth.Controls.Add(tabPageRegister);
+            tabControlAuth.Location = new Point(-4, -1);
+            tabControlAuth.Name = "tabControlAuth";
+            tabControlAuth.SelectedIndex = 0;
+            tabControlAuth.Size = new Size(805, 452);
+            tabControlAuth.TabIndex = 0;
             // 
-            // tabPage1
+            // tabPageLogin
             // 
-            tabPage1.Controls.Add(panel1);
-            tabPage1.Controls.Add(button1);
-            tabPage1.Location = new Point(4, 24);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(797, 424);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "Login";
-            tabPage1.UseVisualStyleBackColor = true;
+            tabPageLogin.Controls.Add(panel1);
+            tabPageLogin.Controls.Add(buttonLogin);
+            tabPageLogin.Location = new Point(4, 24);
+            tabPageLogin.Name = "tabPageLogin";
+            tabPageLogin.Padding = new Padding(3);
+            tabPageLogin.Size = new Size(797, 424);
+            tabPageLogin.TabIndex = 0;
+            tabPageLogin.Text = "Login";
+            tabPageLogin.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
             panel1.Controls.Add(label1);
             panel1.Controls.Add(label2);
-            panel1.Controls.Add(textBox1);
-            panel1.Controls.Add(textBox2);
+            panel1.Controls.Add(textBoxPasswordLogin);
+            panel1.Controls.Add(textBoxUsernameLogin);
             panel1.Location = new Point(256, 135);
             panel1.Name = "panel1";
             panel1.Size = new Size(280, 100);
@@ -107,66 +107,84 @@
             label2.TabIndex = 9;
             label2.Text = "Password";
             // 
-            // textBox1
+            // textBoxPasswordLogin
             // 
-            textBox1.Location = new Point(66, 53);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(209, 23);
-            textBox1.TabIndex = 6;
+            textBoxPasswordLogin.Location = new Point(66, 53);
+            textBoxPasswordLogin.Name = "textBoxPasswordLogin";
+            textBoxPasswordLogin.Size = new Size(209, 23);
+            textBoxPasswordLogin.TabIndex = 6;
             // 
-            // textBox2
+            // textBoxUsernameLogin
             // 
-            textBox2.Location = new Point(66, 17);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(209, 23);
-            textBox2.TabIndex = 7;
+            textBoxUsernameLogin.Location = new Point(66, 17);
+            textBoxUsernameLogin.Name = "textBoxUsernameLogin";
+            textBoxUsernameLogin.Size = new Size(209, 23);
+            textBoxUsernameLogin.TabIndex = 7;
             // 
-            // button1
+            // buttonLogin
             // 
-            button1.Location = new Point(351, 241);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 5;
-            button1.Text = "Login";
-            button1.UseVisualStyleBackColor = true;
+            buttonLogin.Location = new Point(351, 241);
+            buttonLogin.Name = "buttonLogin";
+            buttonLogin.Size = new Size(75, 23);
+            buttonLogin.TabIndex = 5;
+            buttonLogin.Text = "Login";
+            buttonLogin.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // tabPageRegister
             // 
-            tabPage2.Controls.Add(panel2);
-            tabPage2.Controls.Add(button2);
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(797, 424);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "Register";
-            tabPage2.UseVisualStyleBackColor = true;
+            tabPageRegister.Controls.Add(panel2);
+            tabPageRegister.Controls.Add(buttonRegister);
+            tabPageRegister.Location = new Point(4, 24);
+            tabPageRegister.Name = "tabPageRegister";
+            tabPageRegister.Padding = new Padding(3);
+            tabPageRegister.Size = new Size(797, 424);
+            tabPageRegister.TabIndex = 1;
+            tabPageRegister.Text = "Register";
+            tabPageRegister.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
-            panel2.Controls.Add(checkBox1);
+            panel2.Controls.Add(label7);
+            panel2.Controls.Add(textBoxDisplayNameRegister);
+            panel2.Controls.Add(checkBoxOptinRandomRegister);
             panel2.Controls.Add(label6);
             panel2.Controls.Add(label5);
-            panel2.Controls.Add(textBox5);
+            panel2.Controls.Add(textBoxPasswordRegister);
             panel2.Controls.Add(label3);
             panel2.Controls.Add(label4);
-            panel2.Controls.Add(textBox3);
-            panel2.Controls.Add(textBox4);
-            panel2.Location = new Point(258, 69);
+            panel2.Controls.Add(textBoxEmailRegister);
+            panel2.Controls.Add(textBoxUsernameRegister);
+            panel2.Location = new Point(230, 67);
             panel2.Name = "panel2";
-            panel2.Size = new Size(280, 179);
+            panel2.Size = new Size(345, 203);
             panel2.TabIndex = 12;
             // 
-            // checkBox1
+            // label7
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.CheckAlign = ContentAlignment.MiddleRight;
-            checkBox1.Location = new Point(0, 137);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(140, 19);
-            checkBox1.TabIndex = 14;
-            checkBox1.Text = "Opt-in random mode";
-            checkBox1.UseVisualStyleBackColor = true;
+            label7.AutoSize = true;
+            label7.Location = new Point(0, 94);
+            label7.Name = "label7";
+            label7.Size = new Size(78, 15);
+            label7.TabIndex = 16;
+            label7.Text = "Display name";
+            // 
+            // textBoxDisplayNameRegister
+            // 
+            textBoxDisplayNameRegister.Location = new Point(126, 91);
+            textBoxDisplayNameRegister.Name = "textBoxDisplayNameRegister";
+            textBoxDisplayNameRegister.Size = new Size(209, 23);
+            textBoxDisplayNameRegister.TabIndex = 15;
+            // 
+            // checkBoxOptinRandomRegister
+            // 
+            checkBoxOptinRandomRegister.AutoSize = true;
+            checkBoxOptinRandomRegister.CheckAlign = ContentAlignment.MiddleRight;
+            checkBoxOptinRandomRegister.Location = new Point(0, 176);
+            checkBoxOptinRandomRegister.Name = "checkBoxOptinRandomRegister";
+            checkBoxOptinRandomRegister.Size = new Size(140, 19);
+            checkBoxOptinRandomRegister.TabIndex = 14;
+            checkBoxOptinRandomRegister.Text = "Opt-in random mode";
+            checkBoxOptinRandomRegister.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
@@ -179,18 +197,18 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(0, 97);
+            label5.Location = new Point(0, 136);
             label5.Name = "label5";
             label5.Size = new Size(57, 15);
             label5.TabIndex = 11;
             label5.Text = "Password";
             // 
-            // textBox5
+            // textBoxPasswordRegister
             // 
-            textBox5.Location = new Point(66, 94);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(209, 23);
-            textBox5.TabIndex = 10;
+            textBoxPasswordRegister.Location = new Point(126, 133);
+            textBoxPasswordRegister.Name = "textBoxPasswordRegister";
+            textBoxPasswordRegister.Size = new Size(209, 23);
+            textBoxPasswordRegister.TabIndex = 10;
             // 
             // label3
             // 
@@ -210,47 +228,42 @@
             label4.TabIndex = 9;
             label4.Text = "Email";
             // 
-            // textBox3
+            // textBoxEmailRegister
             // 
-            textBox3.Location = new Point(66, 53);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(209, 23);
-            textBox3.TabIndex = 6;
+            textBoxEmailRegister.Location = new Point(126, 53);
+            textBoxEmailRegister.Name = "textBoxEmailRegister";
+            textBoxEmailRegister.Size = new Size(209, 23);
+            textBoxEmailRegister.TabIndex = 6;
             // 
-            // textBox4
+            // textBoxUsernameRegister
             // 
-            textBox4.Location = new Point(66, 17);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(209, 23);
-            textBox4.TabIndex = 7;
+            textBoxUsernameRegister.Location = new Point(126, 17);
+            textBoxUsernameRegister.Name = "textBoxUsernameRegister";
+            textBoxUsernameRegister.Size = new Size(209, 23);
+            textBoxUsernameRegister.TabIndex = 7;
             // 
-            // button2
+            // buttonRegister
             // 
-            button2.Location = new Point(353, 254);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 11;
-            button2.Text = "Register";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += RegisterUser;
-            // 
-            // toolTip1
-            // 
-            toolTip1.Popup += toolTip1_Popup;
+            buttonRegister.Location = new Point(230, 276);
+            buttonRegister.Name = "buttonRegister";
+            buttonRegister.Size = new Size(345, 52);
+            buttonRegister.TabIndex = 11;
+            buttonRegister.Text = "Register";
+            buttonRegister.UseVisualStyleBackColor = true;
             // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(tabControl1);
+            Controls.Add(tabControlAuth);
             Name = "LoginForm";
             Text = "LoginForm";
-            tabControl1.ResumeLayout(false);
-            tabPage1.ResumeLayout(false);
+            tabControlAuth.ResumeLayout(false);
+            tabPageLogin.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            tabPage2.ResumeLayout(false);
+            tabPageRegister.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ResumeLayout(false);
@@ -258,25 +271,26 @@
 
         #endregion
 
-        private TabControl tabControl1;
-        private TabPage tabPage1;
+        private TabControl tabControlAuth;
+        private TabPage tabPageLogin;
         private Panel panel1;
         private Label label1;
         private Label label2;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private Button button1;
-        private TabPage tabPage2;
+        private TextBox textBoxPasswordLogin;
+        private TextBox textBoxUsernameLogin;
+        private Button buttonLogin;
+        private TabPage tabPageRegister;
         private Panel panel2;
         private Label label3;
         private Label label4;
-        private TextBox textBox3;
-        private TextBox textBox4;
-        private Button button2;
+        private TextBox textBoxEmailRegister;
+        private TextBox textBoxUsernameRegister;
+        private Button buttonRegister;
         private Label label5;
-        private TextBox textBox5;
+        private TextBox textBoxPasswordRegister;
         private Label label6;
-        private CheckBox checkBox1;
-        private ToolTip toolTip1;
+        private CheckBox checkBoxOptinRandomRegister;
+        private Label label7;
+        private TextBox textBoxDisplayNameRegister;
     }
 }
