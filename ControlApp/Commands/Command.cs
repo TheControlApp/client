@@ -1,7 +1,9 @@
+using System.Configuration;
+
 namespace ControlApp.Commands;
 
 public abstract class Command(Command.Type type, string content) {
-	public static readonly string[] bannedSites = ["booru.allthefallen.moe", "mega.nz", "media.mstdn.jp", "thecontrolapp.co.uk/Pages/ControlPC", "paradroid-gamma.vercel", "imagekit.io/tools/asset-public-link", "paradroid-gamma.web.app"];
+	public static readonly string[] bannedSites = ["booru.allthefallen.moe", "mega.nz", "media.mstdn.jp", ConfigurationManager.AppSettings["SiteUrl"] + "Pages/ControlPC", "paradroid-gamma.vercel", "imagekit.io/tools/asset-public-link", "paradroid-gamma.web.app"];
 	protected static readonly string[] bannedWords = ["money", "pay"];
 
     public enum Type : uint {
@@ -37,7 +39,7 @@ public abstract class Command(Command.Type type, string content) {
         ArgumentNullException.ThrowIfNull(parseString);
         char parsedTypeChar = parseString[0];
         string commandContent = parseString.Substring(2);
-        if (commandContent.StartsWith("FTP")) commandContent = string.Concat("https://www.thecontrolapp.co.uk/storage/", commandContent.AsSpan(3));
+        if (commandContent.StartsWith("FTP")) commandContent = string.Concat(ConfigurationManager.AppSettings["SiteUrl"] + "storage/", commandContent.AsSpan(3));
         return  parsedTypeChar switch { // alphabetically ordered
             'A' => new AudioCommand(commandContent),
             'D' => new DownloadCommand(commandContent),

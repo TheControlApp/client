@@ -19,7 +19,7 @@ public abstract class ServerCommunicator : HttpClient {
     {
         try
         {
-            string loginUrl = "https://www.thecontrolapp.co.uk/api/login"; // Replace with your actual login endpoint
+            string loginUrl = ConfigurationManager.AppSettings["SiteUrl"] + "api/login"; // Replace with your actual login endpoint
             string jsonContent = JsonSerializer.Serialize(loginModel);
             var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
@@ -41,7 +41,7 @@ public abstract class ServerCommunicator : HttpClient {
 	private static async Task<HtmlNode?> GetCommand(string command)
 	{
 		if (_httpClient.Timeout != TimeSpan.FromMilliseconds(1000)) _httpClient.Timeout = TimeSpan.FromMilliseconds(1000);
-		string url = $"https://www.thecontrolapp.co.uk/AppCommand.aspx?vrs=012&cmd={command}";
+		string url = ConfigurationManager.AppSettings["SiteUrl"] + $"AppCommand.aspx?vrs=012&cmd={command}";
 		Utils.LogInfo("Getting response from URL: " + url);
 		var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
         // Add the token to the request header
@@ -110,7 +110,7 @@ public abstract class ServerCommunicator : HttpClient {
         // Remove fromuser and frompword from URL, rely on token.
         // The backend will identify the "from" user via the token.
         byte allint = Convert.ToByte(groupSend);
-        string url = $"https://www.thecontrolapp.co.uk/AppSendContent.aspx?UserNm={destUser}&comm={command}&all={allint}";
+        string url = ConfigurationManager.AppSettings["SiteUrl"] + $"AppSendContent.aspx?UserNm={destUser}&comm={command}&all={allint}";
         Utils.LogInfo("Getting response from: " + url);
         try
         {
@@ -136,7 +136,7 @@ public abstract class ServerCommunicator : HttpClient {
     }
 
 	public static bool SendBlockReport(string senderid, string command, string report) {
-		string url = $"https://www.thecontrolapp.co.uk/BlockReport.aspx?vrs=012&sender={senderid}&report={report}&content={command}";
+		string url = ConfigurationManager.AppSettings["SiteUrl"] + $"BlockReport.aspx?vrs=012&sender={senderid}&report={report}&content={command}";
         Utils.LogInfo("Blocking user : " + url);
 		
 		try

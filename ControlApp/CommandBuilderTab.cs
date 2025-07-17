@@ -1,13 +1,14 @@
 ﻿using ControlApp.Commands;
 using ControlApp.Commands.Builders;
 using FluentFTP.Helpers;
+using System.Configuration;
 
 namespace ControlApp;
 
 public partial class CommandBuilderTab : TabPage {
     private readonly string COMMAND_SEPARATOR = "|||";
     
-    private readonly List<CommandBuilder> buildersList = new CommandBuilder[] {
+    private readonly List<CommandBuilder> buildersList = [
         new DummyCommandBuilder("Select Command"),
         new AudioCommandBuilder(),
         new DownloadCommandBuilder(),
@@ -29,9 +30,9 @@ public partial class CommandBuilderTab : TabPage {
         new WebcamCommandBuilder(),
         new WebsiteCommandBuilder(),
         new WriteForMeCommandBuilder()
-    }.ToList();
+    ];
 
-    private List<Command> commandList = new List<Command>();
+    private List<Command> commandList = [];
     
     public CommandBuilderTab() {
         InitializeComponent();
@@ -94,7 +95,7 @@ public partial class CommandBuilderTab : TabPage {
         groupCombo.Enabled = true;
     }
 
-    private void respondButton_Click(object sender, EventArgs e) {
+    private async void respondButton_Click(object sender, EventArgs e) {
         string? lastSenderId = MainWindow.GetLastSenderId();
         if (Strings.IsNullOrWhiteSpace(lastSenderId)) {
             MessageBox.Show("You cannot respond to any user because you have not received a command yet.");
@@ -103,11 +104,11 @@ public partial class CommandBuilderTab : TabPage {
         string command = BuildCommandString(commandList, true);
         if (groupCombo.SelectedIndex == 0) {
             if (lastSenderId != null && lastSenderId != "-1") { // respond to specific user
-                ServerCommunicator.SendCommand(lastSenderId, command, false);
+                await ServerCommunicator.SendCommand(lastSenderId, command, false);
             }
         } else if (Convert.ToInt16(lastSenderId) >= -1) { // TODO: How are IDs assigned? Can they ever be lower than -1?
             string group = GetGroup().ToString();
-            ServerCommunicator.SendCommand(group, command, true);
+            await ServerCommunicator.SendCommand(group, command, true);
         }
     }
 
@@ -124,7 +125,7 @@ public partial class CommandBuilderTab : TabPage {
             if (openFileDialog.ShowDialog() == DialogResult.OK) {
                 string fullPath = openFileDialog.FileName;
                 fileNameTextBox.Text = Path.GetFileName(fullPath);
-                new Webform("https://www.thecontrolapp.co.uk/upload.aspx?file=" + fullPath).Show();
+                new Webform(ConfigurationManager.AppSettings["SiteUrl"] + "upload.aspx?file=" + fullPath).Show();
             } else {
                 fileNameTextBox.Text = "";
             }

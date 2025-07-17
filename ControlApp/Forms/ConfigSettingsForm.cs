@@ -62,7 +62,7 @@ public partial class ConfigSettingsForm : Form {
 		string password = MainWindow.password != null ? MainWindow.password : "";
 		Process.Start(
 			new ProcessStartInfo {
-				FileName = "https://www.thecontrolapp.co.uk/Pages/Sub/SubSettings.aspx?user=" + username + "&password=" + Utils.Decrypt(password), UseShellExecute = true
+				FileName = ConfigurationManager.AppSettings["SiteUrl"] + "Pages/Sub/SubSettings.aspx?user=" + username + "&password=" + Utils.Decrypt(password), UseShellExecute = true
 			}
 		);
 	}
