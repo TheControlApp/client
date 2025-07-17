@@ -4,8 +4,8 @@ namespace ControlApp.Commands.Builders;
 
 public class DownloadCommandBuilder() : FileCommandBuilder("Download Command", "Source File") {
     public override Command? BuildCommand(Panel inputPanel) {
-        if (((RadioButton)inputPanel.Controls["fileRadioButton"]).Checked) {
-            TextBox fileNameTextBox = (TextBox)inputPanel.Controls["fileNameTextBox"];
+        if (((RadioButton)inputPanel.Controls["fileRadioButton"]!).Checked) {
+            TextBox fileNameTextBox = (TextBox)inputPanel.Controls["fileNameTextBox"]!;
             if (fileNameTextBox.Text == string.Empty) {
                 MessageBox.Show("Please upload a file.");
                 return null;
@@ -16,7 +16,7 @@ public class DownloadCommandBuilder() : FileCommandBuilder("Download Command", "
         }
         else // implies URL input
         {
-            TextBox upperTextBox = (TextBox)inputPanel.Controls["upperTextBox"];
+            TextBox upperTextBox = (TextBox)inputPanel.Controls["upperTextBox"]!;
             string content = upperTextBox.Text;
             if (Strings.IsNullOrWhiteSpace(content) || !Utils.IsWebPage(content)) {
                 MessageBox.Show("Please enter a URL.");
@@ -29,6 +29,6 @@ public class DownloadCommandBuilder() : FileCommandBuilder("Download Command", "
 
     public override void ConfigureInputPanel(Panel inputPanel) {
         base.ConfigureInputPanel(inputPanel);
-        ((OpenFileDialog)inputPanel.Container.Components["openFileDialog"]).Filter = "All files(*.*)|*.*";
+        ((OpenFileDialog)inputPanel.Container!.Components["openFileDialog"]!).Filter = "All files(*.*)|*.*";
     }
 }

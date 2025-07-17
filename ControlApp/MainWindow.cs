@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Media;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using ControlApp.Commands;
 using ControlApp.Subroutines;
 
@@ -37,9 +38,7 @@ public partial class MainWindow : Form {
 	}
 
     public void RefreshCredentialCache() {
-        username = ConfigurationManager.AppSettings["UserName"];
-        password = ConfigurationManager.AppSettings["Password"];
-        usernameInput.Text = username;
+        usernameInput.Text = ConfigurationManager.AppSettings["UserName"];
     }
 
     private void UpdateTimerState() {
@@ -61,14 +60,14 @@ public partial class MainWindow : Form {
 		usernameInput.Text = username;
 	}
     
-	private void timer1_Tick(object sender, EventArgs e) {
+	private async void timer1_Tick(object sender, EventArgs e) {
 		Utils.LogInfo("Doing periodic check");
-		CheckNext();
+		await CheckNext();
 		if (Utils.CheckEnabled("RunAll")) {
 			Utils.LogInfo("Running waiting commands");
-			RunNextCommand();
+			await RunNextCommand();
 		}
-		CheckNext();
+		await CheckNext();
 	}
 
 	[DllImport("shell32.dll", CharSet = CharSet.Auto)]
@@ -89,12 +88,12 @@ public partial class MainWindow : Form {
 	}
 
 
-	private void CheckNext() {
+	private async Task CheckNext() {
 		Cursor.Show();
 		Cursor? cursor = Cursor.Current;
 		Cursor.Current = Cursors.WaitCursor;
 		Utils.LogInfo("Checking waiting commands");
-		string[]? result = ServerCommunicator.GetOutstanding();
+		string[]? result = await ServerCommunicator.GetOutstanding();
 		if (result == null || result.Length == 0) return;
 		commandCountTextBox.Text = result[0];
 		nextUserLabel.Text = result[1];
@@ -114,7 +113,7 @@ public partial class MainWindow : Form {
 		Utils.LogInfo("Running next command");
 		timer.Stop();
 		timer.Start();
-		string[]? result = ServerCommunicator.GetLatestItem();
+		string[]? result = await ServerCommunicator.GetLatestItem();
 		if (result != null) {
 			lastSender = result;
 			RunCommands(lastSender[1].Split("|||"), lastSender[0]);

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Configuration;
+using System.Threading.Tasks;
 using ControlApp.Subroutines;
 using Timer = System.Windows.Forms.Timer;
 
@@ -362,16 +363,21 @@ partial class MainWindow {
 	private Button thumbsUpButton;
 	private Label scoreLabel;
 	private TextBox scoreInput;
-
-	private void Form1_Load(object sender, EventArgs e) {
-		CheckNext();
+	private Forms.LoginForm loginForm;
+	
+	private async void Form1_Load(object sender, EventArgs e)
+	{
+		RefreshCredentialCache();
+		await CheckNext();
 		int delay = (ConfigurationManager.AppSettings["Delay"] != null) ? Convert.ToInt32(ConfigurationManager.AppSettings["Delay"]) : 60;
 		timer.Enabled = true;
 		timer.Interval = delay * 1000;
 	}
 
-	private void configToolStripMenuItem_Click(object sender, EventArgs e) {
-		using (ConfigSettingsForm configForm = new ConfigSettingsForm()) {
+	private void configToolStripMenuItem_Click(object sender, EventArgs e)
+	{
+		using (ConfigSettingsForm configForm = new ConfigSettingsForm())
+		{
 			configForm.ShowDialog();
 		}
 		RefreshCredentialCache();
@@ -384,15 +390,15 @@ partial class MainWindow {
 		}
 	}
 
-	private void clearOutstandingButton_Click(object sender, EventArgs e) {
+	private async void clearOutstandingButton_Click(object sender, EventArgs e) {
 		if (MessageBox.Show("Are you sure?", "Clear Outstanding", MessageBoxButtons.YesNo) == DialogResult.Yes){
-			ServerCommunicator.DeleteOutstanding();
-			CheckNext();
+			await ServerCommunicator.DeleteOutstanding();
+			await CheckNext();
 		}
 	}
-	private void runNextButton_Click(object sender, EventArgs e) {
-		RunNextCommand();
-		CheckNext();
+	private async void runNextButton_Click(object sender, EventArgs e) {
+		await RunNextCommand();
+		await CheckNext();
 		thumbsUpButton.Enabled = true;
 	}
 

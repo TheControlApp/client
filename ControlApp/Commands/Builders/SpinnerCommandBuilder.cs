@@ -5,13 +5,13 @@ namespace ControlApp.Commands.Builders;
 public class SpinnerCommandBuilder() : SingleInputCommandBuilder("Spinner Command", "Spinner Options") {
     public override void ConfigureInputPanel(Panel inputPanel) {
         base.ConfigureInputPanel(inputPanel);
-        TextBox upperTextBox = (TextBox) inputPanel.Controls["upperTextBox"];
+        TextBox upperTextBox = (TextBox) inputPanel.Controls["upperTextBox"]!;
         upperTextBox.Multiline = true;
         upperTextBox.Size = new Size(454, 212);
     }
 
     public override Command? BuildCommand(Panel inputPanel) {
-        TextBox upperTextBox = (TextBox) inputPanel.Controls["upperTextBox"];
+        TextBox upperTextBox = (TextBox) inputPanel.Controls["upperTextBox"]!;
         if (upperTextBox.Lines.Length == 0 || upperTextBox.Lines.Length == 1) {
             MessageBox.Show("Please enter some options into the spinner box.");
             return null;

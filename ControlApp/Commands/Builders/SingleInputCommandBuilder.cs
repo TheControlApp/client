@@ -4,9 +4,9 @@ public abstract class SingleInputCommandBuilder(string displayName, string label
     private string labelText = labelText;
     
     public override void ConfigureInputPanel(Panel inputPanel) {
-        Label upperLabel = (Label)inputPanel.Controls["upperLabel"];
+        Label upperLabel = (Label)inputPanel.Controls["upperLabel"]!;
         upperLabel.Text = labelText;
         upperLabel.Show();
-        inputPanel.Controls["upperTextBox"].Show();
+        inputPanel.Controls["upperTextBox"]!.Show();
     }
 }

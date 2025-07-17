@@ -5,8 +5,8 @@ namespace ControlApp.Commands.Builders;
 public class AudioCommandBuilder() : FileCommandBuilder("Audio Command", "Audio File") {
     public override Command? BuildCommand(Panel inputPanel) {
         string content;
-        if (((RadioButton) inputPanel.Controls["fileRadioButton"]).Checked) {
-            TextBox fileNameTextBox = (TextBox) inputPanel.Controls["fileNameTextBox"];
+        if (((RadioButton) inputPanel.Controls["fileRadioButton"]!).Checked) {
+            TextBox fileNameTextBox = (TextBox) inputPanel.Controls["fileNameTextBox"]!;
             if (fileNameTextBox.Text == string.Empty) {
                 MessageBox.Show("Please upload a file.");
                 return null;
@@ -16,7 +16,7 @@ public class AudioCommandBuilder() : FileCommandBuilder("Audio Command", "Audio 
         }
         else // implies URL input
         {
-            TextBox upperTextBox = (TextBox) inputPanel.Controls["upperTextBox"];
+            TextBox upperTextBox = (TextBox) inputPanel.Controls["upperTextBox"]!;
             content = upperTextBox.Text;
             if (Strings.IsNullOrWhiteSpace(content) || !Utils.IsWebPage(content)) {
                 MessageBox.Show("Please enter a valid URL.");
@@ -32,6 +32,6 @@ public class AudioCommandBuilder() : FileCommandBuilder("Audio Command", "Audio 
 
     public override void ConfigureInputPanel(Panel inputPanel) {
         base.ConfigureInputPanel(inputPanel);
-        ((OpenFileDialog) inputPanel.Container.Components["openFileDialog"]).Filter = "Audio files (*.mp3;*.wav)|*.mp3;*.wav";
+        ((OpenFileDialog) inputPanel.Container!.Components["openFileDialog"]!).Filter = "Audio files (*.mp3;*.wav)|*.mp3;*.wav";
     }
 }

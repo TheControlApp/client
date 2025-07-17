@@ -20,7 +20,7 @@ public class WebcamCommand(string content) : Command(Type.Webcam, content) {
             return;
         }
         if (ServerCommunicator.SendFtpFile(filePath)) {
-            ServerCommunicator.SendCommand(senderId, Utils.Encrypt("U=FTP" + filename), false);
+            ServerCommunicator.SendCommand(senderId, Utils.Encrypt("U=FTP" + filename)!, false);
         } else {
             Utils.LogError("Webcam image taken, but not sent due to connectivity error");
         }

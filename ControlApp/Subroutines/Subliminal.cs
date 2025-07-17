@@ -66,7 +66,7 @@ public partial class Subliminal : Form // Maybe we can reformat this to extend P
 			axWindowsMediaPlayer.Enabled = true;
 			axWindowsMediaPlayer.Location = new Point(0, 0);
 			axWindowsMediaPlayer.Name = "axWindowsMediaPlayer";
-			axWindowsMediaPlayer.OcxState = (AxHost.State) resources.GetObject("axWindowsMediaPlayer1.OcxState");
+			axWindowsMediaPlayer.OcxState = (AxHost.State) resources.GetObject("axWindowsMediaPlayer1.OcxState")!;
 			axWindowsMediaPlayer.Size = new Size(800, 450);
 			axWindowsMediaPlayer.TabIndex = 0;
 			axWindowsMediaPlayer.URL = content;
