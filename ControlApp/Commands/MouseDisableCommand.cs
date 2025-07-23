@@ -1,10 +1,13 @@
 using ControlApp.Subroutines;
+using ControlApp.Utils;
+using System.Text.Json;
 
 namespace ControlApp.Commands;
 
-public class MouseDisableCommand(string content) : Command(Type.MouseDisable, content) {
-    public override void Execute(string senderId) {
-        Blank? openBlank = (Blank?) Utils.GetForm(typeof(Blank));
+public class MouseDisableCommand : Command {
+    public MouseDisableCommand(): base(CommandCodes.MouseDisable) { }
+    public override void Execute(string senderId, JsonElement content) {
+        Blank? openBlank = (Blank?) Utilities.GetForm(typeof(Blank));
         if (openBlank == null) {
             new Blank(true, false).Show();
             Cursor.Show();

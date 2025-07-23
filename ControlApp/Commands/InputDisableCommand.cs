@@ -1,10 +1,13 @@
 using ControlApp.Subroutines;
+using ControlApp.Utils;
+using System.Text.Json;
 
 namespace ControlApp.Commands;
 
-public class InputDisableCommand(string content) : Command(Type.InputDisable, content) {
-    public override void Execute(string senderId) {
-        Blank? openBlank = (Blank?) Utils.GetForm(typeof(Blank));
+public class InputDisableCommand : Command {
+    public InputDisableCommand(): base(CommandCodes.InputDisable) { }
+    public override void Execute(string senderId, JsonElement content) {
+        Blank? openBlank = (Blank?) Utilities.GetForm(typeof(Blank));
         if (openBlank == null) {
             new Blank(true, true).Show();
             Cursor.Show();

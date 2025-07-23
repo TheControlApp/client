@@ -1,7 +1,10 @@
-﻿using System.ComponentModel;
+﻿using AxWMPLib;
+using ControlApp.Models;
+using ControlApp.Services;
+using ControlApp.Utils;
+using System.ComponentModel;
 using System.Configuration;
 using System.Runtime.InteropServices;
-using AxWMPLib;
 using Timer = System.Windows.Forms.Timer;
 
 namespace ControlApp.Subroutines;
@@ -33,16 +36,25 @@ public partial class Subliminal : Form // Maybe we can reformat this to extend P
 		timer.Tick += delegate {
 			Close();
 		};
-		if (ConfigurationManager.AppSettings["PopSet"] == "Long") {
-			int timeUntilClose = randGen.Next(9) + 1;
-			timer.Interval = (int)TimeSpan.FromMinutes(timeUntilClose).TotalMilliseconds;
-			Utils.LogInfo($"Popup will close in {timeUntilClose} minutes");
-		} else {
-			int timeUntilClose = randGen.Next(30) + 30;
-			timer.Interval = (int)TimeSpan.FromSeconds(timeUntilClose).TotalMilliseconds;
-			Utils.LogInfo($"Popup will close in {timeUntilClose} seconds");
-		}
-		timer.Start();
+		int timeUntilClose = 30;
+        switch (ConfigurationService.CommandSettings.PopUps.PopupsDisplayLength)
+        {
+            case PopupsDisplayLength.LONG:
+                timeUntilClose = randGen.Next(60, 601); // 2 à 10 minutes
+                Utilities.LogInfo($"Subliminal (Long) will close in {timeUntilClose} seconds.");
+                break;
+            case PopupsDisplayLength.MEDIUM:
+                timeUntilClose = randGen.Next(60, 301); // 60 secondes à 5 minutes
+                Utilities.LogInfo($"Subliminal (Medium) will close in {timeUntilClose} seconds.");
+                break;
+            case PopupsDisplayLength.SHORT:
+            default:
+                timeUntilClose = randGen.Next(10, 61);  // 10 à 60 secondes
+                Utilities.LogInfo($"Subliminal (Short) will close in {timeUntilClose} seconds.");
+                break;
+        }
+        timer.Interval = (int)TimeSpan.FromSeconds(timeUntilClose).TotalMilliseconds;
+        timer.Start();
 	}
 
 	private void InitializeComponent(string content, bool message) {

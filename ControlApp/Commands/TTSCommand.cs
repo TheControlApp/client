@@ -1,10 +1,14 @@
+using ControlApp.Exceptions.Commands;
 using ControlApp.Subroutines;
+using System.Text.Json;
 
 namespace ControlApp.Commands;
 
-public class TTSCommand(string content) : Command(Type.TTS, content) {
-  public override void Execute(string senderId) {
+public class TTSCommand : Command {
+    public TTSCommand(): base(CommandCodes.TTS) { }
+  public override void Execute(string senderId, JsonElement content) {
       if (CustomMessage.IsTtsDisabled()) return;
-	  new CustomMessage(content, "", 3, true).Show();
+        string text = content.GetProperty("text").ToString() ?? throw new WrongCommandFormatException();
+        new CustomMessage(text, "", 3, true).Show();
   }
 }

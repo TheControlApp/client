@@ -1,5 +1,9 @@
-﻿using System.Runtime.InteropServices;
-using AxWMPLib;
+﻿using AxWMPLib;
+using ControlApp.Commands;
+using ControlApp.Services;
+using ControlApp.Utils;
+using System.Runtime.InteropServices;
+using System.Text.Json;
 
 namespace ControlApp.Subroutines;
 
@@ -41,7 +45,7 @@ public partial class WatchForMe : Form {
 				axWindowsMediaPlayer.settings.autoStart = true;
 				axWindowsMediaPlayer.settings.setMode("loop", varfMode: true);
 				FileInfo fileInfo = new FileInfo(url);
-				if (Utils.IsWebPage(url)) {
+				if (Utilities.IsWebPage(url)) {
 					axWindowsMediaPlayer.URL = ServerCommunicator.GetFile(url) != null ? fileInfo.ToString() : url;
 				} else {
 					axWindowsMediaPlayer.URL = fileInfo.ToString();
@@ -106,20 +110,27 @@ public partial class WatchForMe : Form {
 		RefreshTitle();
 	}
 
-	private void Form1_FormClosing(object? sender, FormClosingEventArgs e) {
-		if (e.CloseReason == CloseReason.UserClosing) {
-			string? returnCommand = Utils.Encrypt(
-				$"M=User {MainWindow.username} " +
-				$"watched for: {timeWatched} seconds " +
-				$"and censored for : {timeCensored} seconds. " +
-				$"Form lost focus {lostFocus} times");
-			if (returnCommand == null) {
-				MessageBox.Show("Could not send response to sender!", "Response Failed");
-			} else {	
-				ServerCommunicator.SendCommand(senderId, returnCommand, groupSend: false);
-			}
-		}
-	}
+	private async void Form1_FormClosing(object? sender, FormClosingEventArgs e) {
+        if (e.CloseReason == CloseReason.UserClosing)
+        {
+            // Construit le message de rapport.
+            string reportMessage = $"User {AccountService.CurrentUser.Username} " +
+                                   $"watched for: {timeWatched} seconds " +
+                                   $"and censored for : {timeCensored} seconds. " +
+                                   $"Form lost focus {lostFocus} times";
+
+            // Crée la commande de type "message box".
+            var content = new { body = reportMessage };
+            var command = new CommandStructure
+            {
+                Type = CommandCodes.PopupText,
+                Content = JsonSerializer.SerializeToElement(content)
+            };
+
+            // Envoie la commande et ferme.
+            await WebSocketsCommunicator.SendCommandAsync(senderId, new List<CommandStructure> { command }, false);
+        }
+    }
 
 	private void AxWMP_KeyDown(object? sender, _WMPOCXEvents_KeyDownEvent e) {
 		if (e.nKeyCode != 67) return; // 67 represents key C, with or without any modifiers

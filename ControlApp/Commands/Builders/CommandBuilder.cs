@@ -5,5 +5,5 @@ public abstract class CommandBuilder(string displayName) {
     
     public abstract void ConfigureInputPanel(Panel inputPanel);
 
-    public abstract Command? BuildCommand(Panel inputPanel);
+    public abstract CommandStructure BuildCommand(Panel inputPanel);
 }

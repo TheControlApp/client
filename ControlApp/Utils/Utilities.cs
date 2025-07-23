@@ -1,12 +1,12 @@
-﻿using System.Text;
-using System.Configuration;
-using System.Security.Cryptography;
-using System.Text.RegularExpressions;
+﻿using ControlApp.Models;
 using FluentFTP.Helpers;
+using System.Configuration;
+using System.Text;
+using System.Text.RegularExpressions;
 
-namespace ControlApp;
+namespace ControlApp.Utils;
 
-internal static class Utils {
+public static class Utilities {
 
     private static readonly string LOG_INFO_PREFIX = "[INFO]";
     private static readonly string LOG_WARN_PREFIX = "[WARNING]";
@@ -109,10 +109,6 @@ internal static class Utils {
         }
         return false;
     }
-
-    public static string FormArrayString(string[] elements) {
-        return string.Join(',', elements.Select(element => $"[{element}]").ToArray());
-    }
         
     public static string[] SeparateArrayString(string separate) {
         List<string> output = new List<string>();
@@ -123,82 +119,6 @@ internal static class Utils {
         }
         return output.ToArray();
     }
-    public static string? Encrypt(string line)
-    {
-        string returnString = "";
-        string publickey = "santhosh";
-        string secretkey = "engineer";
-        try 
-        {
-            byte[] secretkeyByte = Encoding.UTF8.GetBytes(secretkey);
-            byte[] publickeybyte = Encoding.UTF8.GetBytes(publickey);
-            byte[] inputbyteArray = Encoding.UTF8.GetBytes(line);
-            using MemoryStream memoryStream = new MemoryStream();
-            using DES des = DES.Create();
-            using ICryptoTransform transform = des.CreateEncryptor(publickeybyte, secretkeyByte);
-            using CryptoStream cryptoStream = new CryptoStream(memoryStream, transform, CryptoStreamMode.Write);
-            cryptoStream.Write(inputbyteArray, 0, inputbyteArray.Length);
-            cryptoStream.FlushFinalBlock();
-            returnString = Convert.ToBase64String(memoryStream.ToArray());
-        } catch (Exception ex) {
-            LogWarning("Error while encrypting \"" + line + "\": " + ex.Message);
-            return null;
-        }
-        returnString = returnString.Replace("\\", "xxx");
-        returnString = returnString.Replace("&", "yyy");
-        returnString = returnString.Replace("/", "zzz");
-        returnString = returnString.Replace("]", "aaa");
-        returnString = returnString.Replace("G0", "ppp");
-        returnString = returnString.Replace("0x", "lll");
-        return returnString;
-    }
-        
-    public static string? Decrypt(string line)
-    {
-        string returnString = "";
-        line = line.Replace("xxx", "\\");
-        line = line.Replace("yyy", "&");
-        line = line.Replace("zzz", "/");
-        line = line.Replace("aaa", "]");
-        line = line.Replace("ppp", "G0");
-        line = line.Replace("lll", "0x");
-        line = line.Replace(" ", "+");
-        string publicKey = "santhosh";
-        string privateKey = "engineer";
-        try 
-        {
-            byte[] privatekeyByte = Encoding.UTF8.GetBytes(privateKey);
-            byte[] publickeybyte = Encoding.UTF8.GetBytes(publicKey);
-            byte[] inputbyteArray = Convert.FromBase64String(line);
-            using MemoryStream memoryStream = new MemoryStream();
-            using DES des = DES.Create();
-            using ICryptoTransform transform = des.CreateDecryptor(publickeybyte, privatekeyByte);
-            using CryptoStream cryptoStream = new CryptoStream(memoryStream, transform, CryptoStreamMode.Write);
-            cryptoStream.Write(inputbyteArray, 0, inputbyteArray.Length);
-            cryptoStream.FlushFinalBlock();
-            returnString = Encoding.UTF8.GetString(memoryStream.ToArray());
-        } 
-        catch (Exception ex) 
-        {
-            LogWarning($"Error while decrypting \"{line}\": {ex.Message}");
-            return null;
-        }
-        return returnString;
-    }
-
-    public static bool CheckEnabled(string option) {
-        string? configOutput = ConfigurationManager.AppSettings[option];
-        if (configOutput == null) {
-            LogError($"Option {option} is not defined in config, returning false");
-            return false;
-        }
-        try {
-            return Convert.ToBoolean(configOutput);
-        } catch (FormatException) { // ignoring value instead of just catching any exception because this is the only exception we expect, anything else is an actual exception and should actually crash the program
-            LogError($"Cannot convert value {configOutput} of {option} to boolean, returning false");
-            return false;
-        }
-    }
 
     public static Form? GetForm(Type type) {
         foreach (Form form in Application.OpenForms) {
@@ -207,5 +127,10 @@ internal static class Utils {
             }
         }
         return null;
+    }
+
+    public static string GetLastItemFromUrl(string content)
+    {
+        return content.Substring(content.LastIndexOf('/') + 1);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using ControlApp.Utils;
+using System.ComponentModel;
 using System.Configuration;
 
 namespace ControlApp;
@@ -373,7 +374,7 @@ partial class CommandBuilderTab {
         string userlist = ConfigurationManager.AppSettings["CommonUsers"];
         if (userlist == null) return;
         destUsernameCombo.Items.Clear();
-        string[] array = Utils.SeparateArrayString(userlist);
+        string[] array = Utilities.SeparateArrayString(userlist);
         foreach (string user in array) {
             destUsernameCombo.Items.Add(user);
         }

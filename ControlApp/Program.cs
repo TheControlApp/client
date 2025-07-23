@@ -1,5 +1,8 @@
 using ControlApp.Forms;
+using ControlApp.Models;
+using ControlApp.Services;
 using ControlApp.Subroutines;
+using ControlApp.Utils;
 
 namespace ControlApp;
 
@@ -10,6 +13,7 @@ internal static class Program {
     [STAThread]
     private static void Main()
     {
+        ConfigurationService.LoadConfiguration();
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
@@ -25,23 +29,50 @@ public class MyCustomApplicationContext : ApplicationContext {
     private NotifyIcon trayIcon;
     private MainWindow mainWindow = new();
     public MyCustomApplicationContext() {
-        // 1. Check for an existing token
-        string storedToken = SecureTokenStorage.ReadToken();
-
-        if (string.IsNullOrEmpty(storedToken))
+        // Asynchronously check the token and then decide what to show.
+        // We use a self-invoking async method to avoid making the constructor async.
+        Task.Run(async () =>
         {
-            // 2. No token found, show the login form
-            using LoginForm loginForm = new();
-            // If login is successful, LoginForm will return DialogResult.OK
-            if (loginForm.ShowDialog() != DialogResult.OK)
+            string storedToken = SecureTokenStorage.ReadToken();
+            UserAccount account = null;
+
+            if (!string.IsNullOrEmpty(storedToken))
             {
-                // If login fails or is cancelled, exit the application
-                Exit(null, EventArgs.Empty);
-                return;
+                // If a token exists, try to validate it and get the account info.
+                account = await ServerCommunicator.ValidateTokenAndGetAccountAsync();
             }
-        }
-        // 3. Token exists or login was successful, proceed to the main application
-        InitializeMainApp();
+
+            if (account != null)
+            {
+                // Token is valid, initialize the session and show the main app
+                AccountService.Initialize(account);
+                // Fetch server configuration *after* the user is authenticated.
+                await ServerConfigService.InitializeAsync();
+                InitializeMainApp();
+            }
+            else
+            {
+                // No token, or token is invalid. Show the login form.
+                if (!string.IsNullOrEmpty(storedToken))
+                {
+                    SecureTokenStorage.DeleteToken(); // Clean up invalid token
+                }
+
+                using (LoginForm loginForm = new LoginForm())
+                {
+                    if (loginForm.ShowDialog() == DialogResult.OK)
+                    {
+                        // Login was successful, AccountService is already initialized.
+                        InitializeMainApp();
+                    }
+                    else
+                    {
+                        // Login failed or was cancelled.
+                        Exit(null, EventArgs.Empty);
+                    }
+                }
+            }
+        }).Wait(); // We wait here to ensure the UI thread starts properly
     }
 
     private void InitializeMainApp()
@@ -104,7 +135,7 @@ public class MyCustomApplicationContext : ApplicationContext {
     }
 
     private void Subliminal(object? sender, EventArgs e) {
-        SubLoop? loop = (SubLoop?) Utils.GetForm(typeof(SubLoop));
+        SubLoop? loop = (SubLoop?) Utilities.GetForm(typeof(SubLoop));
         if (loop != null) {
             loop.Visible = !loop.Visible;
         } else {

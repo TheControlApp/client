@@ -1,7 +1,13 @@
-﻿namespace ControlApp.Commands.Builders;
+﻿using System.Text.Json;
+using static System.Net.Mime.MediaTypeNames;
+
+namespace ControlApp.Commands.Builders;
 
 public class ScreenshotCommandBuilder() : SimpleCommandBuilder("Screenshot Command") {
-    public override Command BuildCommand(Panel inputPanel) {
-        return new ScreenshotCommand(EMPTY_CONTENT_STRING);
+    public override CommandStructure BuildCommand(Panel inputPanel) {
+        return new CommandStructure
+        {
+            Type = CommandCodes.Screenshot
+        };
     }
 }

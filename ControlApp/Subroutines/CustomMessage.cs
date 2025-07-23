@@ -1,4 +1,5 @@
-﻿using System.Speech.Synthesis;
+﻿using ControlApp.Utils;
+using System.Speech.Synthesis;
 using Timer = System.Windows.Forms.Timer;
 
 namespace ControlApp.Subroutines;
@@ -37,7 +38,7 @@ public partial class CustomMessage : Form {
 				speechSynthesizer = new SpeechSynthesizer();
 			} catch (PlatformNotSupportedException) {
 				const string message = "TTS is not supported on this platform, so it will be turned off for this session";
-				Utils.LogError(message);
+				Utilities.LogError(message);
 				MessageBox.Show(message);
 				ttsDisabled = true;
 				return;

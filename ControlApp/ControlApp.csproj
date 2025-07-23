@@ -20,12 +20,18 @@
   </ItemGroup>
   
   <ItemGroup>
+    <PackageReference Include="AspNet.Security.OAuth.Discord" Version="8.3.0" />
     <PackageReference Include="Emgu.CV" Version="4.11.0.5746" />
     <PackageReference Include="Emgu.CV.Bitmap" Version="4.11.0.5746" />
     <PackageReference Include="Emgu.CV.runtime.windows" Version="4.11.0.5746" />
     <PackageReference Include="Emgu.CV.UI" Version="4.11.0.5746" />
-    <PackageReference Include="FluentFTP" Version="52.1.0" />
+    <PackageReference Include="FluentFTP" Version="53.0.1" />
     <PackageReference Include="HtmlAgilityPack" Version="1.12.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.7" />
+    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.2.3" />
+    <PackageReference Include="Microsoft.Owin.Security.Cookies" Version="4.2.3" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3351.48" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.7" />
     <PackageReference Include="System.Speech" Version="9.0.7" />
@@ -65,7 +71,7 @@
     <Compile Update="Subroutines\WriteForMe.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="CommandBuilderTab.cs">
+    <Compile Update="Forms\CommandBuilderTab.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -93,7 +99,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="spinwheels\" />
+    <Folder Include="Resources\spinwheels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

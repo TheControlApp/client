@@ -1,9 +1,14 @@
-﻿using ControlApp.Subroutines;
+﻿using ControlApp.Exceptions.Commands;
+using ControlApp.Subroutines;
+using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace ControlApp.Commands;
 
-public class SpinnerCommand(string content) : Command(Type.Spinner, content) {
-    public override void Execute(string senderId) {
-        new Spinner(content).Show();
+public class SpinnerCommand : Command {
+    public SpinnerCommand()  : base(CommandCodes.Spinner) { }
+    public override void Execute(string senderId, JsonElement content) {
+        string[] spinArgs = JsonSerializer.Deserialize<string[]>(content.GetProperty("options")) ?? throw new WrongCommandFormatException();
+        new Spinner(spinArgs).Show();
     }
 }

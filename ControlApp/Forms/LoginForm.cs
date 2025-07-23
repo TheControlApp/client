@@ -2,6 +2,7 @@
 using ControlApp.Exceptions.LoginExceptions;
 using ControlApp.Exceptions.RegisterExceptions;
 using ControlApp.Models;
+using ControlApp.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -55,10 +56,10 @@ namespace ControlApp.Forms
                 return;
             }
 
-            string receivedToken = null;
+            LoginResponse loginResponse = null;
             try
             {
-                receivedToken = await ServerCommunicator.LoginAndGetTokenAsync(loginModel);
+                loginResponse = await ServerCommunicator.LoginAndGetTokenAsync(loginModel);
             }
             catch (WrongLoginOrPaswordException)
             {
@@ -75,15 +76,16 @@ namespace ControlApp.Forms
             finally
             {
                 // Re-enable the button if login fails for any reason
-                if (string.IsNullOrEmpty(receivedToken))
+                if (loginResponse == null || string.IsNullOrEmpty(loginResponse.Token))
                 {
                     buttonLogin.Enabled = true;
                 }
             }
 
-            if (!string.IsNullOrEmpty(receivedToken))
+            if (loginResponse != null && !string.IsNullOrEmpty(loginResponse.Token))
             {
-                OnSuccessfulAuthentication(receivedToken);
+                MainWindow.verified = loginResponse.Account.IsVerified;
+                OnSuccessfulAuthentication(loginResponse.Token);
             }
         }
         private async Task RegisterUser(object sender, EventArgs e)

@@ -1,4 +1,6 @@
-﻿namespace ControlApp.Subroutines;
+﻿using ControlApp.Utils;
+
+namespace ControlApp.Subroutines;
 
 public partial class Spinner : Form
 {
@@ -53,24 +55,8 @@ public partial class Spinner : Form
 
     private void Spinner_Load(object sender, EventArgs e)
     {
-        bitmapPath = Path.Join(AppDomain.CurrentDomain.BaseDirectory, "spinwheels", $"spinner_{spinArgs.Length}_slices.png");
+        bitmapPath = Path.Join(AppDomain.CurrentDomain.BaseDirectory, "Resources", "spinwheels", $"spinner_{spinArgs.Length}_slices.png");
         bitmapImage = new Bitmap(bitmapPath);
-        pictureBox1.Refresh(); 
-        if (Utils.CheckEnabled("DarkMode"))
-        {
-            BackColor = Color.Black;
-            ForeColor = Color.White;
-            foreach (Control control in Controls)
-            {
-                if (control is Panel) {
-                    control.BackColor = Color.Black;
-                    control.ForeColor = Color.White;
-                } else if (control is Button)
-                {
-                    control.BackColor = Color.DarkGray;
-                    control.ForeColor = Color.White;
-                }
-            }
-        }
+        pictureBox1.Refresh();
     }
 }

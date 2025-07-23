@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using ControlApp.Utils;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using WMPLib;
 using Timer = System.Windows.Forms.Timer;
@@ -18,13 +19,13 @@ public partial class SubLoop : Form {
 		public readonly string content = content;
 
 		public static LoopItem? parseLoopItem(string inputString) {
-			string[] splitInput = Utils.SeparateArrayString(inputString);
+			string[] splitInput = Utilities.SeparateArrayString(inputString);
 			if (splitInput.Length == 2)
 				return new LoopItem(splitInput[0] switch {
 					"m" => Type.Media,
 					_ => Type.Text
 				}, splitInput[1]);
-			Utils.LogError("Invalid subliminal loop element detected, skipping...");
+			Utilities.LogError("Invalid subliminal loop element detected, skipping...");
 			return null;
 		}
 
@@ -88,7 +89,7 @@ public partial class SubLoop : Form {
 
 	public static void AddItem(string item) {
 		LoopItem loopItem;
-		if (!Utils.IsWebPage(item)) {
+		if (!Utilities.IsWebPage(item)) {
 			loopItem = new LoopItem(LoopItem.Type.Text, item);
 		} else {
 			string? filename = ServerCommunicator.GetFile(item);

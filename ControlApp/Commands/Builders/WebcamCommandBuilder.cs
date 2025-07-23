@@ -1,7 +1,13 @@
-﻿namespace ControlApp.Commands.Builders;
+﻿using System.Security.Policy;
+using System.Text.Json;
+
+namespace ControlApp.Commands.Builders;
 
 public class WebcamCommandBuilder() : SimpleCommandBuilder("Webcam Command") {
-    public override Command BuildCommand(Panel inputPanel) {
-        return new WebcamCommand(EMPTY_CONTENT_STRING);
+    public override CommandStructure BuildCommand(Panel inputPanel) {
+        return new CommandStructure
+        {
+            Type = CommandCodes.Webcam
+        };
     }
 }
