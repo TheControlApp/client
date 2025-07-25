@@ -1,4 +1,4 @@
-﻿using ControlApp.Exceptions;
+﻿﻿using ControlApp.Exceptions;
 using ControlApp.Exceptions.LoginExceptions;
 using ControlApp.Exceptions.RegisterExceptions;
 using ControlApp.Models;
@@ -384,7 +384,7 @@ public abstract class ServerCommunicator : HttpClient {
             string jsonContent = JsonSerializer.Serialize(content);
             var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var requestMessage = new HttpRequestMessage(HttpMethod.Post, endpoint);
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, ConfigurationManager.AppSettings["SiteUrl"] + endpoint);
             string token = SecureTokenStorage.ReadToken();
             if (string.IsNullOrEmpty(token))
             {
@@ -436,7 +436,7 @@ public abstract class ServerCommunicator : HttpClient {
             string jsonContent = JsonSerializer.Serialize(content);
             var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var requestMessage = new HttpRequestMessage(HttpMethod.Post, endpoint);
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, ConfigurationManager.AppSettings["SiteUrl"] + endpoint);
             string token = SecureTokenStorage.ReadToken();
             if (string.IsNullOrEmpty(token))
             {
